@@ -1,0 +1,4 @@
+dj-database-url
+Django
+python-decouple
+pytz

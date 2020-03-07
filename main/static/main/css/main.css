@@ -1,0 +1,292 @@
+{% load static %}
+
+.overflows {
+  overflow-x: hidden
+}
+
+.site-header {
+  width: 100%;
+  /*height: 40vh;*/
+  /*background: url('/static/main/images/restaurant.jpg') center no-repeat;*/
+  /*background-size: cover;*/
+  position: relative;
+  /*opacity: 0.85;*/
+  /*z-index: 1000;*/
+}
+
+.navbar_container {
+  position: relative;
+  height: 100%;
+}
+
+.site-header .navbar {
+  padding: 0;
+  background-color: rgba(227, 205, 182, 0.8);
+  /*background-color: rgba(181, 161, 144, 0.67);*/
+  font-size: larger;
+  font-weight: 600;
+  z-index: 1000;
+  font-family: 'Cardo', serif;
+  display: flex;
+}
+
+.navbar-nav li {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  /*margin-left: 0.5em;*/
+  /*margin-right: 0.5em;*/
+  /*align-items: center;*/
+}
+
+.navbar-nav li a {
+  color: rgba(87, 72, 61, 0.93) !important;
+}
+
+.navbar-toggler {
+  background-color: rgba(216, 196, 176, 0.60);
+  /*transform: translate(500%, 0%);*/
+  margin: 10px 10px 10px auto;
+}
+
+.active {
+  background-color: rgba(152, 132, 113, 0.73);
+}
+
+#navbarToggle > ul > li:hover {
+  background-color: rgba(74, 55, 41, 0.28);
+  transition: background-color .6s;
+}
+
+.fa-facebook-f, .fa-twitter, .fa-instagram, .fa-tripadvisor {
+  font-size: 20px;
+  color: rgba(87, 72, 61, 0.93) !important;
+}
+
+.fab:hover {
+  color: #9b876f !important;
+  transition: color .6s;
+}
+
+.restaurant-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  text-align: center;
+  z-index: 900;
+  font-family: 'Cardo', serif;
+}
+
+@media (max-width: 576px) {
+  #navbarToggle {
+    background-color: rgba(227, 205, 182, 0.7);
+  }
+}
+
+.main-welcome-text h3 {
+  font-size: 35px;
+  margin-bottom: 0;
+  font-family: 'Cardo', serif;
+  color: rgba(155,135,111,0.93);
+}
+
+.main-welcome-text {
+  background-color: rgba(253, 240, 217, 0.18);
+}
+
+.main-images {
+  height: 100%;
+  width: 100%;
+}
+
+.main-item-column {
+  position: relative;
+  background-color: rgba(253, 240, 217, 0.18);
+  display: flex;
+}
+
+.main-item-text {
+  padding: 20px 20px;
+  margin: auto;
+}
+
+.main-item-text p {
+  font-size: 30px;
+  font-weight: 400;
+  margin: auto;
+  font-family: 'Cardo', serif;
+  color: rgba(155,135,111,0.93);
+}
+
+.info {
+  background-color: rgba(253, 240, 217, 0.18);
+}
+
+.shop-info-column {
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+@media (max-width: 500px) {
+  .shop-info-column {
+    margin-bottom: 0;
+  }
+}
+
+.shop-info i {
+  color: rgba(155,135,111,0.93);
+  font-size: 50px;
+}
+
+.shop-info h1 {
+  font-family: 'Cardo', serif;
+  font-size: 25px;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: rgba(123, 103, 78, 0.93);
+}
+
+.shop-info p, .shop-info address {
+  font-family: 'Cardo', serif;
+  color: rgba(155,135,111,0.93);
+}
+
+.contact-info {
+  background-color: rgba(253, 240, 217, 0.18);
+  font-family: 'Cardo', serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info h1 {
+  font-size: 35px;
+  font-weight: 300;
+  color: rgba(123, 103, 78, 0.93);
+}
+
+.contact-info p {
+  font-size: 20px;
+  color: rgba(155,135,111,0.93);
+}
+
+#footer_id {
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*footer p {*/
+  /*font-size: 10px;*/
+  /*margin-bottom: 0;*/
+  /*background: rgba(197, 140, 20, 0.11);*/
+  /*padding-right: 10px;*/
+/*}*/
+
+/*footer p a {*/
+  /*color: inherit;*/
+/*}*/
+
+/*.navbar-nav:last-child {*/
+  /*padding-right: 5em;*/
+/*}*/
+
+/*.content-section {*/
+  /*background: #ffffff;*/
+  /*height: 100%;*/
+  /*box-shadow: 10px 0 8px -8px rgba(0, 0, 0, 0.51), -10px 0 8px -8px rgba(0, 0, 0, 0.51);*/
+/*}*/
+
+#news-title {
+  background-color: rgba(253, 240, 217, 0.18);
+  font-family: 'Cardo', serif;
+}
+
+#news-title h1 {
+  font-size: 40px;
+  font-weight: 500;
+  color: rgba(94, 74, 49, 0.93);
+  margin-bottom: 0;
+}
+
+.posts {
+  background-color: rgba(253, 240, 217, 0.18);
+  font-family: 'Cardo', serif;
+  padding: 0 30px;
+  min-height: 60vh;
+}
+
+@media (max-width: 574px) {
+  .posts {
+    padding: 0 15px;
+  }
+}
+
+.post h1 {
+  font-size: 32px;
+  font-weight: 300;
+  color: rgba(123, 103, 78, 0.93);
+}
+
+.post-date {
+  font-size: 15px;
+  color: rgb(141, 141, 141);
+}
+
+.post-content {
+  font-size: 20px;
+  color: rgba(155,135,111,0.93);
+}
+
+.welcome {
+  font-size: 1.2em;
+}
+
+@media (min-width: 992px) {
+  #news-title {
+    display: none;
+  }
+
+  #menu-title {
+    display: none;
+  }
+}
+
+#menu-title {
+  margin-top: 1.0em;
+  color: rgba(94, 74, 49, 0.93);
+  }
+
+.menu {
+  height: 100%;
+  background-color: rgba(253, 240, 217, 0.18);
+  font-family: 'Cardo', serif;
+}
+
+.category-title {
+  font-size: 32px;
+  font-weight: 300;
+  color: rgba(123, 103, 78, 0.93);
+}
+
+.meal-title {
+  font-size: 20px;
+  color: rgba(155,135,111,0.93);
+}
+
+.meal-price {
+  font-size: 18px;
+  color: rgba(155,135,111,0.93);
+}
+
+.meal-alergens {
+  font-size: 15px;
+  color: rgb(141, 141, 141);
+}
+
+#map {
+  min-height: 500px;
+  width: 100%;
+}
+
