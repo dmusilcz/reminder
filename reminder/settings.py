@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'widget_tweaks'
+    'crispy_forms',
+    'widget_tweaks',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [
@@ -137,4 +138,6 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'

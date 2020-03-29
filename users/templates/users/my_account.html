@@ -3,6 +3,16 @@
 
 {% block content %}
 <main>
-
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% include 'users/includes/form.html' %}
+          <button type="submit" class="btn btn-success">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 {% endblock content %}

@@ -14,23 +14,9 @@
   /*z-index: 1000;*/
 }
 
-.user_navbar_container {
+.navbar_container {
   position: relative;
   height: 100%;
-}
-
-.menu_navbar_container {
-  height: 100%;
-}
-
-.user_navbar_container .navbar, .menu_navbar_container .navbar {
-  background-color: rgba(227, 205, 182, 0.8);
-  /*background-color: rgba(181, 161, 144, 0.67);*/
-  font-size: larger;
-  font-weight: 600;
-  z-index: 1000;
-  font-family: 'Cardo', serif;
-  display: flex;
 }
 
 .site-header .navbar {

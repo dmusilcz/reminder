@@ -3,6 +3,28 @@
 
 {% block content %}
 <main>
-
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="text-center">
+          <h1>Documents</h1>
+        </div>
+        <div class="my-2">
+          <a href="{% url 'new_doc' %}" class="btn btn-primary ml-2">Add document</a>
+        </div>
+        {% for doc in docs %}
+          <div class="card">
+            <h3>Name: {{ doc.name }}</h3>
+            <p>Description: {{ doc.desc }}</p>
+            <p>Category: {% if doc.category %}{{ doc.category }} {% else %}None{% endif %}</p>
+            <p>Expiry date: {% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}None{% endif %}</p>
+            <!--{% for reminder in doc.get_reminders %}-->
+            <p> Reminders: {{ doc.get_reminders }}</p>
+            <!--{% endfor %}-->
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </main>
 {% endblock content %}

@@ -22,7 +22,6 @@ urlpatterns = [
     re_path(r'^signup/$', user_views.signup, name='signup'),
     re_path(r'^login/$', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     re_path(r'^logout/$', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-
     re_path(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='users/password_reset.html',
