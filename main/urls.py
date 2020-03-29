@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
-#from .views import MenuListView, PostListView
+#from .views import UserDocsView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,8 +30,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name='home'),
     path('calendar/', views.calendar, name='calendar'),
-    path('docs/', views.docs, name='docs'),
-    path('categories/', views.categories, name='categories')]
+    path('docs/', views.UserDocsView.as_view(template_name='main/docs.html'), name='docs'),
+    path('categories/', views.UserCategoriesView.as_view(template_name='main/categories.html'), name='categories'),
+    path('new_doc/', views.DocCreateView.as_view(), name='new_doc'),
+    path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat')]
 
 
 if settings.DEBUG:
