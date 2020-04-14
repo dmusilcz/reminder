@@ -6,11 +6,18 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10">
-        <form method="post" novalidate>
-          {% csrf_token %}
-          {% include 'users/includes/form.html' %}
-          <button type="submit" class="btn btn-success">Save changes</button>
-        </form>
+        <div class="text-center">
+          <h1>My account</h1>
+        </div>
+        <div class="card p-2">
+          <p>First name: {{ object.first_name }}</p>
+          <p>Last name: {{ object.last_name }}</p>
+          <p>Email address: {{ object.email }}</p>
+          <div id="user-buttons">
+            <a class="btn btn-secondary btn-sm mt-1" href="{% url 'my_account_update'%}">Update info</a>
+            <a class="btn btn-secondary btn-sm mt-1" href="{% url 'password_change'%}">Change password</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -31,23 +31,48 @@ REMINDER_CHOICES = ((1, '1 day'),
 
 
 class ReminderChoices(models.Model):
-    field = models.CharField(max_length=7, choices=REMINDER_CHOICES)
+    author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE, null=True)
+    field = models.CharField(max_length=20)
+
+    def __str__(self):
+        return str(self.field)
+        # return {'1': '1 day',
+        #         '2': '3 days',
+        #         '3': '1 week',
+        #         '4': '2 weeks',
+        #         '5': '1 month',
+        #         '6': '3 months',
+        #         '7': '6 months'}.get(str(self.field))
 
 
 class Document(models.Model):
     name = models.CharField(max_length=60, verbose_name='Name')
     desc = models.TextField(max_length=200, verbose_name='Description', blank=True)
     author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, verbose_name='Category', blank=True, null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name='Category', blank=True, null=True, on_delete=models.SET_NULL)
     expiry_date = models.DateField(verbose_name='Expiry date', blank=True, null=True)
-    #reminder = MultiSelectField(choices=REMINDER_CHOICES, default=REMINDER_CHOICES[0])
-    reminder = models.ManyToManyField(ReminderChoices)
+    reminder = models.ManyToManyField(ReminderChoices, through='ReminderThrough', blank=True)
 
     def get_reminders(self):
-        return ', '.join([rem.field for rem in self.reminder.all()])
+        return [str(rem.field) for rem in self.reminder.all()]
+        # return ', '.join([str(rem.field) for rem in self.reminder.all()])
 
     def get_absolute_url(self):
         return reverse('docs')
 
     def __str__(self):
         return self.name
+
+
+class ReminderThrough(models.Model):
+    reminder_choice = models.ForeignKey(ReminderChoices, on_delete=models.CASCADE)
+    document = models.ForeignKey(Document, on_delete=models.CASCADE)
+
+    # def __str__(self):
+    #     return {'1': '1 day',
+    #             '2': '3 days',
+    #             '3': '1 week',
+    #             '4': '2 weeks',
+    #             '5': '1 month',
+    #             '6': '3 months',
+    #             '7': '6 months'}.get(str(self.reminder_choice.field))

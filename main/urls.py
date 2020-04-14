@@ -19,13 +19,8 @@ from . import views
 #from .views import UserDocsView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
-# urlpatterns = [
-#     path('', views.home, name='home'),
-#     path('news/', PostListView.as_view(), name='news'),
-#     path('menu/', MenuListView.as_view(), name='menu'),
-#     path('contact/', views.contact, name='contact')
-# ]
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -33,7 +28,15 @@ urlpatterns = [
     path('docs/', views.UserDocsView.as_view(template_name='main/docs.html'), name='docs'),
     path('categories/', views.UserCategoriesView.as_view(template_name='main/categories.html'), name='categories'),
     path('new_doc/', views.DocCreateView.as_view(), name='new_doc'),
-    path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat')]
+    path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat'),
+    path('doc/<int:pk>/', views.DocDetailView.as_view(), name='doc_detail'),
+    path('doc/<int:pk>/update/', views.DocUpdateView.as_view(), name='doc_update'),
+    path('doc/<int:pk>/delete/', views.doc_delete, name='doc_delete'),
+    path('cat/<int:pk>/', views.CategoryDetailView.as_view(), name='cat_detail'),
+    path('cat/<int:pk>/update/', views.CategoryUpdateView.as_view(), name='cat_update'),
+    path('cat/<int:pk>/delete/', views.cat_delete, name='cat_delete')
+]
+    # path('doc/<int:pk>/delete/<str:view>/', views.doc_delete, name='doc_delete')]
 
 
 if settings.DEBUG:

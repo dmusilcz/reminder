@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -11,7 +13,7 @@ from django.views.generic import (
     DeleteView
 )
 from users.widgets import FengyuanChenDatePickerInput
-from .models import Category, Document
+from .models import Category, Document, ReminderChoices
 
 # Create your views here.
 
@@ -43,37 +45,130 @@ class UserDocsView(LoginRequiredMixin, ListView):
     #     return super().get_context_data(**kwargs)
 
 
-class UserCategoriesView(LoginRequiredMixin, ListView):
-    model = Category
-    context_object_name = 'categories'
-    paginate_by = 20
-
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.request.user)
-        return Category.objects.filter(author=user).order_by('name')
-
-
 class DocCreateView(LoginRequiredMixin, CreateView):
     model = Document
     fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
 
     def get_form(self, *args, **kwargs):
+        ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
         form = super(DocCreateView, self).get_form(*args, **kwargs)
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
-        #form.fields['expiry_date'].widget = forms.SelectDateWidget()
-        form.fields['expiry_date'] = forms.DateField(input_formats=['%d/%m/%Y'], widget=FengyuanChenDatePickerInput(), required=False)
-        form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((1, '1 day'),
-                    (2, '3 days'),
-                    (3, '1 week'),
-                    (4, '2 weeks'),
-                    (5, '1 month'),
-                    (6, '3 months'),
-                    (7, '6 months')))
+        form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
+        form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
+        # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((1, '1 day'),
+        #             (2, '3 days'),
+        #             (3, '1 week'),
+        #             (4, '2 weeks'),
+        #             (5, '1 month'),
+        #             (6, '3 months'),
+        #             (7, '6 months')))
+        return form
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        # form.save()
+        return super().form_valid(form)
+
+
+class DocDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Document
+    fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
+    template_name = 'main/document_detail.html'
+    context_object_name = 'doc'
+
+    def get(self, request, **kwargs):
+        try:
+            self.model.objects.get(pk=kwargs['pk'])
+            return super(DocDetailView, self).get(request, **kwargs)
+        except self.model.DoesNotExist:
+            return redirect(reverse('docs'))
+
+    def test_func(self):
+        try:
+            document = self.get_object()
+        except:
+            return redirect(reverse('docs'))
+        if self.request.user == document.author:
+            return True
+        return False
+
+
+class DocUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Document
+    fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
+    template_name = 'main/document_update_form.html'
+    context_object_name = 'doc'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(author=self.request.user)
+
+    def get_form(self, *args, **kwargs):
+        ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
+        form = super(DocUpdateView, self).get_form(*args, **kwargs)
+        form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
+        form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
+        # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
+        form.fields['reminder'].widget = forms.CheckboxSelectMultiple()
+        # form.fields['reminder'] = forms.MultipleChoiceField(required=False)
+        # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(attrs={}, ), choices=((1, '1 day'),
+        #             (2, '3 days'),
+        #             (3, '1 week'),
+        #             (4, '2 weeks'),
+        #             (5, '1 month'),
+        #             (6, '3 months'),
+        #             (7, '6 months')),)
+        # form.fields['reminder'] = forms.ModelMultipleChoiceField(required=False, queryset=self.get_object().reminder.all(), )
+        # form.fields['reminder'] = forms.ModelMultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(attrs={}, ), queryset=self.get_object().reminder.all(), )
+        # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple())
         return form
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def test_func(self):
+        document = self.get_object()
+        if self.request.user == document.author:
+            return True
+        return False
+
+    def post(self, request, **kwargs):
+        request.POST = request.POST.copy()
+        if request.POST['expiry_date'] == '' and 'reminder' in request.POST:
+            request.POST.pop('reminder')
+        return super(DocUpdateView, self).post(request, **kwargs)
+
+
+@login_required
+def doc_delete(request, pk):
+    doc = get_object_or_404(Document, pk=pk)
+    data = dict()
+    view = request.GET.get('view', 'D')
+    if request.method == 'POST' and request.user == doc.author:
+        doc_id = str(pk)
+        doc.delete()
+        # user = get_object_or_404(User, username=request.user)
+        # docs = Document.objects.filter(author=user).order_by('name')
+        data['form_is_valid'] = True
+        data['doc_id'] = '#doc_' + doc_id
+        data['view'] = view
+        # redirect('home')
+    else:
+        context = {'doc': doc,
+                   'view': view}
+        data['html_form'] = render_to_string('main/includes/partial_doc_delete.html', context, request=request)
+    return JsonResponse(data)
+
+
+class UserCategoriesView(LoginRequiredMixin, ListView):
+    model = Category
+    context_object_name = 'cats'
+    paginate_by = 20
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.request.user)
+        return Category.objects.filter(author=user).order_by('name')
 
 
 class CategoryCreateView(LoginRequiredMixin, CreateView):
@@ -84,6 +179,67 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+class CategoryDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Category
+    fields = ['name', 'desc']
+    template_name = 'main/category_detail.html'
+    context_object_name = 'cat'
+
+    def get(self, request, **kwargs):
+        try:
+            self.model.objects.get(pk=kwargs['pk'])
+            return super(CategoryDetailView, self).get(request, **kwargs)
+        except self.model.DoesNotExist:
+            return redirect(reverse('categories'))
+
+    def test_func(self):
+        try:
+            cat = self.get_object()
+        except:
+            return redirect(reverse('categories'))
+        if self.request.user == cat.author:
+            return True
+        return False
+
+
+class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Category
+    fields = ['name', 'desc']
+    template_name = 'main/category_update_form.html'
+    context_object_name = 'cat'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(author=self.request.user)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        cat = self.get_object()
+        if self.request.user == cat.author:
+            return True
+        return False
+
+
+@login_required
+def cat_delete(request, pk):
+    cat = get_object_or_404(Category, pk=pk)
+    data = dict()
+    if request.method == 'POST' and request.user == cat.author:
+        cat_id = str(pk)
+        cat.delete()
+        # user = get_object_or_404(User, username=request.user)
+        # docs = Document.objects.filter(author=user).order_by('name')
+        data['form_is_valid'] = True
+        data['cat_id'] = '#cat_' + cat_id
+        # redirect('home')
+    else:
+        context = {'cat': cat}
+        data['html_form'] = render_to_string('main/includes/partial_cat_delete.html', context, request=request)
+    return JsonResponse(data)
 
 # @login_required
 # def new_topic(request, pk):

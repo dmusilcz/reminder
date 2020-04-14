@@ -2,7 +2,7 @@
 
 <script>
   $(function () {
-    $("input[name='{{ widget.name }}']").datepicker({
-      format:'dd/mm/yyyy'});
+    $("input[name='{{ widget.name }}']").attr("placeholder", "mm/dd/yyyy").datepicker({
+      format:'mm/dd/yyyy'});
   });
 </script>

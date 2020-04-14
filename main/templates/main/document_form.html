@@ -2,6 +2,10 @@
 {% load static %}
 {% load crispy_forms_tags form_tags widget_tweaks %}
 
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>
+{% endblock %}
+
 {% block content %}
 <main>
   <div class="container">
