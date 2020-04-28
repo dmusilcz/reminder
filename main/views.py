@@ -14,6 +14,8 @@ from django.views.generic import (
 )
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoices
+from .filters import DocFilter
+from .forms import SearchForm
 
 # Create your views here.
 
@@ -45,6 +47,73 @@ class UserDocsView(LoginRequiredMixin, ListView):
     #     return super().get_context_data(**kwargs)
 
 
+# class UserDocsFilterView(LoginRequiredMixin, ListView):
+#     model = Document
+#     context_object_name = 'docs'
+#     paginate_by = 20
+#
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.request.user)
+#         return Document.objects.filter(author=user).order_by('name')
+
+@login_required
+def search(request):
+    user = get_object_or_404(User, username=request.user)
+    doc_list = Document.objects.filter(author=user).order_by('name')
+    doc_filter = DocFilter(request.GET, queryset=doc_list, request=request)
+    return render(request, 'main/docs_filter.html', {'docs': doc_filter})
+
+
+@login_required
+def search2(request):
+    user = get_object_or_404(User, username=request.user)
+    doc_list = Document.objects.filter(author=user).order_by('name')
+    if request.method == 'POST':
+        form = SearchForm(data=request.POST, request=request)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            desc = form.cleaned_data.get("desc")
+            categories = form.cleaned_data.get("category")
+            reminders = form.cleaned_data.get('reminder')
+            expiry_date_from = form.cleaned_data.get("expiry_date_from")
+            expiry_date_to = form.cleaned_data.get("expiry_date_to")
+
+            doc_list = doc_list.filter(name__icontains=name).filter(desc__icontains=desc)
+            if categories:
+                if '0' in categories:
+                    null_cats = doc_list.filter(category__isnull=True)
+                    categories.remove('0')
+                    if categories:
+                        doc_list = doc_list.filter(category__in=categories) | null_cats
+                    else:
+                        doc_list = null_cats
+                else:
+                    doc_list = doc_list.filter(category__in=categories)
+
+            if reminders:
+                if '0' in reminders:
+                    null_rems = doc_list.filter(reminder__isnull=True)
+                    reminders.remove('0')
+                    if reminders:
+                        doc_list = doc_list.filter(reminder__in=reminders) | null_rems
+                    else:
+                        doc_list = null_rems
+                else:
+                    doc_list = doc_list.filter(reminder__in=reminders)
+
+            if expiry_date_from and expiry_date_to:
+                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from).filter(expiry_date__lte=expiry_date_to)
+            elif expiry_date_from:
+                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from)
+            elif expiry_date_to:
+                doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
+
+            render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
+    else:
+        form = SearchForm(request=request)
+    return render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
+
+
 class DocCreateView(LoginRequiredMixin, CreateView):
     model = Document
     fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
@@ -55,13 +124,7 @@ class DocCreateView(LoginRequiredMixin, CreateView):
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
         form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
         form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
-        # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((1, '1 day'),
-        #             (2, '3 days'),
-        #             (3, '1 week'),
-        #             (4, '2 weeks'),
-        #             (5, '1 month'),
-        #             (6, '3 months'),
-        #             (7, '6 months')))
+
         return form
 
     def form_valid(self, form):

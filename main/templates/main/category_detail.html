@@ -1,0 +1,41 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block javascript %}
+  <script src="{% static 'main/js/cat_delete.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-12" id="cat-col">
+        <div class="text-center">
+          <h1>Documents</h1>
+        </div>
+        <div class="my-2" id="messages">
+        </div>
+        <div class="card" id="cat_{{ cat.id }}">
+          <h3>Name: {{ cat.name }}</h3>
+          <p>Description: {{ cat.desc }}</p>
+          {% if cat.document_set.count > 0 %}
+            <p>Documents in category: {{ cat.document_set.count }}</p>
+          {% else %}
+            <p>No documents in this category</p>
+          {% endif %}
+          <div id="cat-buttons">
+          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'cat_update' cat.id %}">Update</a>
+          <button type="button" class="btn btn-danger btn-sm js-delete-cat" data-url="{% url 'cat_delete' cat.id %}?view=D">Delete</button>
+          </div>
+        </div>
+        <div class="modal fade" id="modal-cat">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

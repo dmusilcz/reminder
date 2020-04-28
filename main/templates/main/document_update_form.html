@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block javascript %}
+  <script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>
+  <!--<script src="{% static 'books/js/books.js' %}"></script>-->
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container">
+    <div class="row justify-content-center">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <fieldset class="form-group">
+          {{ form.name|as_crispy_field }}
+          {{ form.desc|as_crispy_field }}
+          {{ form.category|as_crispy_field }}
+          {{ form.expiry_date|as_crispy_field }}
+          {{ form.reminder.errors}}
+          {{ form.reminder|as_crispy_field }}
+
+        </fieldset>
+        <button type="submit" class="btn btn-primary btn-block">Update</button>
+      </form>
+    </div>
+    <!--<script>-->
+      <!--$(function () {-->
+      <!--var conditional_fields = $("div.div_id_reminder");-->
+      <!--conditional_fields.hide();-->
+
+      <!--$("expiry_date").change(function() {-->
+          <!--if ($(this).value.trim() !== '') {-->
+              <!--conditional_fields.show();-->
+          <!--} else {-->
+              <!--conditional_fields.hide();-->
+          <!--}-->
+      <!--});-->
+      <!--});-->
+      <!--</script>-->
+  </div>
+</main>
+
+<!--<script>-->
+  <!--$(function () {-->
+    <!--document.getElementById("div_id_reminder").hide();-->
+  <!--});-->
+<!--</script>-->
+{% endblock content %}

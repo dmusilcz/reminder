@@ -61,6 +61,12 @@
                     <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'docs' %}">Documents</a>
                     </li>
+                    <li {% if 'search' in request.resolver_match.url_name %}class="active"{% endif %}>
+                      <a class="nav-link" href="{% url 'search' %}">Search docs</a>
+                    </li>
+                    <li {% if 'search2' in request.resolver_match.url_name %}class="active"{% endif %}>
+                      <a class="nav-link" href="{% url 'search2' %}">Search docs 2</a>
+                    </li>
                     <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'categories' %}">Categories</a>
                     </li>
