@@ -1,0 +1,39 @@
+{% for doc in docs %}
+  <div class="card mb-2 p-2" id="doc_{{ doc.id }}">
+    <h3>Name: {{ doc.name }}</h3>
+    <p>Description: {{ doc.desc }}</p>
+    <p>Category: {% if doc.category %}{{ doc.category }} {% else %}None{% endif %}</p>
+    <p>Expiry date: {% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}None{% endif %}</p>
+    {% for reminder in doc.get_reminders %}
+      <p> Reminder: {{ reminder }}</p>
+    {% endfor %}
+    <p> Reminders: {{ doc.get_reminders }}</p>
+    <div id="doc-buttons">
+      <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'doc_detail' doc.id %}">Detail</a>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'doc_update' doc.id %}">Update</a>
+      <button type="button" class="btn btn-danger btn-sm js-delete-doc" data-url="{% url 'doc_delete' pk=doc.id %}?view=L">Delete</button>
+    </div>
+  </div>
+{% endfor %}
+
+{% if docs.has_other_pages %}
+  {% if docs.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ docs.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in docs.paginator.page_range %}
+    {% if docs.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > docs.number|add:'-3' and num < docs.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if docs.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ docs.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ docs.paginator.num_pages }}">Last</a>
+  {% endif %}
+{% endif %}
+
+

@@ -1,8 +1,10 @@
 {% load static %}
 
-.overflows {
-  overflow-x: hidden
-}
+/*.overflows {*/
+  /*overflow-x: hidden*/
+/*}*/
+
+
 
 .site-header {
   width: 100%;

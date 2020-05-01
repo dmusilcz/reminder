@@ -14,6 +14,8 @@ $(function () {
       dataType: 'json',
       beforeSend: function () {
         $("#modal-doc").modal("show");
+        var navbar = document.getElementById("menu_navbar_container");
+        $(navbar).css('margin-right', 'auto')
       },
       success: function (data) {
         $("#modal-doc .modal-content").html(data.html_form);

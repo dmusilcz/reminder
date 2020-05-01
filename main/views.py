@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.generic import (
     ListView,
@@ -14,7 +15,7 @@ from django.views.generic import (
 )
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoices
-from .filters import DocFilter
+# from .filters import DocFilter
 from .forms import SearchForm
 
 # Create your views here.
@@ -36,7 +37,7 @@ def calendar(request):
 class UserDocsView(LoginRequiredMixin, ListView):
     model = Document
     context_object_name = 'docs'
-    paginate_by = 20
+    paginate_by = 2
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
@@ -46,22 +47,84 @@ class UserDocsView(LoginRequiredMixin, ListView):
     #     kwargs['reminders'] = self.get_
     #     return super().get_context_data(**kwargs)
 
+# @login_required
+# def search(request):
+#     user = get_object_or_404(User, username=request.user)
+#     doc_list = Document.objects.filter(author=user).order_by('name')
+#     doc_filter = DocFilter(request.GET, queryset=doc_list, request=request)
+#     return render(request, 'main/docs_filter.html', {'docs': doc_filter})
 
-# class UserDocsFilterView(LoginRequiredMixin, ListView):
-#     model = Document
-#     context_object_name = 'docs'
-#     paginate_by = 20
-#
-#     def get_queryset(self):
-#         user = get_object_or_404(User, username=self.request.user)
-#         return Document.objects.filter(author=user).order_by('name')
 
 @login_required
 def search(request):
     user = get_object_or_404(User, username=request.user)
     doc_list = Document.objects.filter(author=user).order_by('name')
-    doc_filter = DocFilter(request.GET, queryset=doc_list, request=request)
-    return render(request, 'main/docs_filter.html', {'docs': doc_filter})
+    data = dict()
+    if request.method == 'POST':
+        form = SearchForm(data=request.POST, request=request)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            desc = form.cleaned_data.get("desc")
+            categories = form.cleaned_data.get("category")
+            reminders = form.cleaned_data.get('reminder')
+            expiry_date_from = form.cleaned_data.get("expiry_date_from")
+            expiry_date_to = form.cleaned_data.get("expiry_date_to")
+
+            doc_list = doc_list.filter(name__icontains=name).filter(desc__icontains=desc)
+            if categories:
+                if '0' in categories:
+                    null_cats = doc_list.filter(category__isnull=True)
+                    categories.remove('0')
+                    if categories:
+                        doc_list = doc_list.filter(category__in=categories) | null_cats
+                    else:
+                        doc_list = null_cats
+                else:
+                    doc_list = doc_list.filter(category__in=categories)
+
+            if reminders:
+                if '0' in reminders:
+                    null_rems = doc_list.filter(reminder__isnull=True)
+                    reminders.remove('0')
+                    if reminders:
+                        doc_list = doc_list.filter(reminder__in=reminders) | null_rems
+                    else:
+                        doc_list = null_rems
+                else:
+                    doc_list = doc_list.filter(reminder__in=reminders)
+
+            if expiry_date_from and expiry_date_to:
+                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from).filter(expiry_date__lte=expiry_date_to)
+            elif expiry_date_from:
+                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from)
+            elif expiry_date_to:
+                doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
+
+            page = request.GET.get('page', 1)
+            paginator = Paginator(doc_list, 2)
+            try:
+                doc_list = paginator.page(page)
+                print(page)
+                print(paginator)
+            except PageNotAnInteger:
+                print('3')
+                doc_list = paginator.page(1)
+            except EmptyPage:
+                print('4')
+                doc_list = paginator.page(paginator.num_pages)
+
+            context = {'docs': doc_list}
+            data['form_is_valid'] = True
+            data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+
+        else:
+            context = {'form': form}
+            data['html_form'] = render_to_string('main/includes/search_form.html', context, request=request)
+    else:
+        form = SearchForm(request=request)
+        context = {'form': form}
+        data['html_form'] = render_to_string('main/includes/search_form.html', context, request=request)
+    return JsonResponse(data)
 
 
 @login_required

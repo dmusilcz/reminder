@@ -1,7 +1,3 @@
-var close_messages = function (element) {
-    $(element).hide()
-};
-
 $(function () {
 
   /* Functions */
@@ -13,12 +9,12 @@ $(function () {
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
-        $("#modal-cat").modal("show");
+        $("#modal-doc").modal("show");
         var navbar = document.getElementById("menu_navbar_container");
         $(navbar).css('margin-right', 'auto')
       },
       success: function (data) {
-        $("#modal-cat .modal-content").html(data.html_form);
+        $("#modal-doc .modal-content").html(data.html_form);
       }
     });
   };
@@ -32,17 +28,11 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#modal-cat").modal("hide");
-          // location.href= "";
-          $(data.cat_id).remove();
-          var messages = document.getElementById("messages");
-          $(messages).html("<p>Category deleted successfully</p>");
-          setTimeout(function () {
-              $(close_messages(messages));
-          }, 3000);
+          $("#docs-list").html(data.html_docs_list);
+          $("#modal-doc").modal("hide");
         }
         else {
-          $("#modal-cat .modal-content").html(data.html_form);
+          $("#modal-doc .modal-content").html(data.html_form);
         }
       }
     });
@@ -61,7 +51,7 @@ $(function () {
   // $("#modal-book").on("submit", ".js-book-update-form", saveForm);
 
   // Delete book
-  $("#cats-col").on("click", ".js-delete-cat", loadForm);
-  $("#modal-cat").on("submit", ".js-cat-delete-form", saveForm);
+  $("#doc-function-buttons").on("click", ".js-search", loadForm);
+  $("#modal-doc").on("submit", ".js-search-form", saveForm);
 
 });
