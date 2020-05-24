@@ -54,8 +54,24 @@ class Document(models.Model):
     reminder = models.ManyToManyField(ReminderChoices, through='ReminderThrough', blank=True)
 
     def get_reminders(self):
-        return [str(rem.field) for rem in self.reminder.all()]
+        reminders = [str(rem.field) for rem in self.reminder.all().order_by('id')]
+        if len(reminders) is 0:
+            reminders.append("No reminders set")
+        return reminders
         # return ', '.join([str(rem.field) for rem in self.reminder.all()])
+
+    def get_parsed_reminders(self):
+        reminders = [str(rem.field) for rem in self.reminder.all()]
+
+        if reminders:
+            if len(reminders) == 1:
+                reminders_string = reminders[0]
+            else:
+                reminders_string = ", ".join(reminders)
+        else:
+            reminders_string = "No reminder set"
+
+        return reminders_string
 
     def get_absolute_url(self):
         return reverse('docs')

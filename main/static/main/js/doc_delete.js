@@ -33,7 +33,6 @@ $(function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#modal-doc").modal("hide");
-          // location.href= "";
           if (data.view === 'L') {
               $(data.doc_id).remove();
               var messages = document.getElementById("messages");
@@ -65,8 +64,10 @@ $(function () {
   // $("#modal-book").on("submit", ".js-book-update-form", saveForm);
 
   // Delete book
-  $("#docs-col").on("click", ".js-delete-doc", loadForm);
-  $("#doc-col").on("click", ".js-delete-doc", loadForm);
+  // $("#docs-col").on("click", ".js-delete-doc", loadForm);
+  $(".js-delete-doc").on("click", loadForm);
+  // $("#doc-col").on("click", ".js-delete-doc", loadForm);
   $("#modal-doc").on("submit", ".js-doc-delete-form", saveForm);
+  // $(".js-doc-delete-form").on("submit", saveForm);
 
 });

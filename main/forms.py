@@ -13,11 +13,11 @@ class DocumentUpdateForm(forms.Form):
 
 
 class SearchForm(forms.Form):
-    name = forms.CharField(required=False)
-    desc = forms.CharField(required=False)
+    name = forms.CharField(required=False, label='<b>Name</b> contains:')
+    desc = forms.CharField(required=False, label='<b> Description</b> contains:')
     category = forms.MultipleChoiceField()
-    expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, initial=timezone.localdate(timezone.now()))
-    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False)
+    expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> from:', initial=timezone.localdate(timezone.now()))
+    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:', help_text="Tip: you can search for expired documents by only setting the <i><b>Expiry date</b> to</i>.")
     reminder = forms.MultipleChoiceField()
 
     def __init__(self, *args, **kwargs):
@@ -35,7 +35,7 @@ class SearchForm(forms.Form):
         category_names.insert(0, 'No category set')
         category_ids.insert(0, '0')
         self.fields['category'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
-                                                            choices=((id, category) for id, category in zip(category_ids, category_names)))
+                                                            choices=((id, category) for id, category in zip(category_ids, category_names)), label='<b>Category</b>:')
 
     def clean(self):
         cd = self.cleaned_data

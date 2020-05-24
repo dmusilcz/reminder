@@ -17,10 +17,10 @@
     {{ form.expiry_date_from|as_crispy_field }}
     {{ form.expiry_date_to.errors }}
     {{ form.expiry_date_to|as_crispy_field }}
-    {{ form.reminder.label }}
+    <div class="mb-2"><b>{{ form.reminder.label }}</b></div>
     {% for checkbox in form.reminder %}
       <div class="checkbox">
-        <label>
+        <label class="mb-0">
           {{ checkbox.tag }} {{ checkbox.choice_label }}
         </label>
       </div>

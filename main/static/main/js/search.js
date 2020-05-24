@@ -51,7 +51,8 @@ $(function () {
   // $("#modal-book").on("submit", ".js-book-update-form", saveForm);
 
   // Delete book
-  $("#doc-function-buttons").on("click", ".js-search", loadForm);
+  // $("#doc-function-buttons").on("click", ".js-search", loadForm);
+  $(".js-search").on("click", loadForm);
   $("#modal-doc").on("submit", ".js-search-form", saveForm);
 
 });

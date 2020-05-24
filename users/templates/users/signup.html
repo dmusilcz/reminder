@@ -1,6 +1,14 @@
 {% extends "main/base.html" %}
 {% load static %}
 
+{% block javascript %}
+<script>
+$('.tap-link').click(function(){
+    $("#tap-modal .modal-content").html($(this).data('content'));
+});
+</script>
+{% endblock %}
+
 {% block content %}
 <main class="container px-0">
 <div class="row justify-content-center">
@@ -11,6 +19,16 @@
           <form method="post" novalidate>
             {% csrf_token %}
             {% include 'users/includes/form.html' %}
+            <p>By clicking the Submit button you agree to our <a href="#"
+                                                                 class="tap-link"
+                                                                 data-toggle="modal"
+                                                                 data-target="#tap-modal"
+                                                                 data-content='{{ terms|safe }}'>Terms of Use</a> and
+                                                              <a href="#"
+                                                                 class="tap-link"
+                                                                 data-toggle="modal"
+                                                                 data-target="#tap-modal"
+                                                                 data-content='{{ policy }}'>Privacy Policy</a>.</p>
             <button type="submit" class="btn btn-primary btn-block">Create an account</button>
           </form>
         </div>
@@ -20,5 +38,11 @@
       </div>
     </div>
   </div>
+<div class="modal fade" id="tap-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
 </main>
 {% endblock content %}

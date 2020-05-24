@@ -10,8 +10,12 @@
 
 {% for field in form %}
   <div class="form-group">
-    {{ field.label_tag }}
-    {% render_field field class=field|input_class %}
+    {% if field.name == 'remember_me' %}
+      <label><input name="remember_me" type="checkbox"> Keep me logged in</label>
+    {% else %}
+      {{ field.label_tag }}
+      {% render_field field class=field|input_class %}
+    {% endif %}
     {% for error in field.errors %}
       <div class="invalid-feedback">
         {{ error }}

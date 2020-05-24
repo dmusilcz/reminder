@@ -1,6 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+
+
+class LoginForm(AuthenticationForm):
+    remember_me = forms.BooleanField(required=False, label='Keep me logged in', widget=forms.CheckboxInput())
 
 
 class SignUpForm(UserCreationForm):

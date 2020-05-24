@@ -27,7 +27,6 @@ urlpatterns = [
     path('calendar/', views.calendar, name='calendar'),
     path('docs/', views.UserDocsView.as_view(template_name='main/docs.html'), name='docs'),
     path('search/', views.search, name='search'),
-    path('search2/', views.search2, name='search2'),
     path('categories/', views.UserCategoriesView.as_view(template_name='main/categories.html'), name='categories'),
     path('new_doc/', views.DocCreateView.as_view(), name='new_doc'),
     path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat'),

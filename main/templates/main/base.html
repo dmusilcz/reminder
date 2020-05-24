@@ -21,7 +21,7 @@
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
         <title>Reminder</title>
 </head>
-<body>
+<body class="d-flex flex-column">
     <!--<header class="site-header">-->
         <div class="container user_navbar_container px-0">
           <nav class="navbar navbar-light navbar-static-top">
@@ -55,17 +55,11 @@
                     <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
-                    <li {% if 'calendar' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'calendar' %}">Calendar</a>
-                    </li>
+                    <!--<li {% if 'calendar' in request.resolver_match.url_name %}class="active"{% endif %}>-->
+                      <!--<a class="nav-link" href="{% url 'calendar' %}">Calendar</a>-->
+                    <!--</li>-->
                     <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'docs' %}">Documents</a>
-                    </li>
-                    <li {% if 'search' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'search' %}">Search docs</a>
-                    </li>
-                    <li {% if 'search2' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'search2' %}">Search docs 2</a>
                     </li>
                     <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'categories' %}">Categories</a>
@@ -84,10 +78,22 @@
     {% block content %}
     {% endblock %}
 
-    <footer id="footer_id" class="container pull-right mt-auto" style="visibility: hidden">
-
-        <p class="text-muted">Created by: <a href="https://www.facebook.com/davajz">David Musil</a></p>
-
+    <footer class="footer mt-auto">
+      <div class="container footer-container pt-3">
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <h5 class="mb-4">About NeverExpire</h5>
+            <p class="mb-2"><a href="#">Purpose</a></p>
+            <p class="mb-2"><a href="#">Terms of Use</a></p>
+            <p class="mb-2"><a href="#">Privacy Policy</a></p>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 footer-2nd-col">
+            <h5 class="mb-4">Get in touch</h5>
+            <p class="mb-2"><a href="#">Contact us</a></p>
+            <p class="mb-2"><a href="#">FAQ</a></p>
+          </div>
+        </div>
+      </div>
     </footer>
 
 

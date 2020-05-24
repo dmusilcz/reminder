@@ -37,7 +37,7 @@ def calendar(request):
 class UserDocsView(LoginRequiredMixin, ListView):
     model = Document
     context_object_name = 'docs'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
@@ -101,16 +101,12 @@ def search(request):
                 doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
 
             page = request.GET.get('page', 1)
-            paginator = Paginator(doc_list, 2)
+            paginator = Paginator(doc_list, 10)
             try:
                 doc_list = paginator.page(page)
-                print(page)
-                print(paginator)
             except PageNotAnInteger:
-                print('3')
                 doc_list = paginator.page(1)
             except EmptyPage:
-                print('4')
                 doc_list = paginator.page(paginator.num_pages)
 
             context = {'docs': doc_list}
