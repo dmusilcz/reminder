@@ -11,19 +11,21 @@
   <!--<div class="container">-->
     <div class="row mx-0">
       <div class="col-12 px-0">
-        <div class="text-center">
+        <div class="text-center menu-heading mt-2">
           <h1>Categories</h1>
         </div>
-          <div class="my-2" id="messages">
+        <div class="my-2" id="messages">
+          <p id='message' class="message-hidden">Category deleted successfully</p>
         </div>
-        <div class="my-2 mx-2" id="cat-function-buttons">
-          <a href="{% url 'new_cat' %}" class="btn btn-primary">Add category</a>
+        <div class="mt-3 mb-2 mx-2" id="cat-function-buttons">
+          <a href="{% url 'new_cat' %}" class="btn btn-detail">Add category</a>
         </div>
       </div>
     </div>
   <!--</div>-->
   <!--<div class="container">-->
     <div class="row mx-0" id="cats-col">
+    {% if cats.count > 0 %}
       <div class="d-flex" id="cats-list">
         {% for cat in cats %}
           <div class="col-lg-4 col-md-6 col-sm-12 doc" id="cat_{{ cat.id }}">
@@ -35,19 +37,25 @@
               <div class="cat-doc-count-content text-center"><h5>{{ cat.document_set.count }}</h5></div>
               <div id="cat-buttons" class="d-flex justify-content-center">
                 <a class="btn btn-secondary btn-sm mx-1 my-1" href="{% url 'cat_update' cat.id %}">Update</a>
-                <button type="button" class="btn btn-danger btn-sm mx-1 my-1 js-delete-cat" data-url="{% url 'cat_delete' cat.id %}">Delete</button>
+                <button type="button" class="btn btn-delete btn-sm mx-1 my-1 js-delete-cat" data-url="{% url 'cat_delete' cat.id %}">Delete</button>
               </div>
             </div>
           </div>
         {% endfor %}
-        <div class="modal fade" id="modal-cat">
-          <div class="modal-dialog">
-            <div class="modal-content">
-            </div>
-          </div>
+      </div>
+    {% else %}
+      <div class="d-flex text-center w-100 no-docs">
+        <h4 class="my-2">You have no categories created.</h4>
+        <h3>Add some and group up your documents!</h3>
+      </div>
+    {% endif %}
+  <!--</div>-->
+    </div>
+    <div class="modal fade" id="modal-cat">
+      <div class="modal-dialog">
+        <div class="modal-content">
         </div>
       </div>
-  <!--</div>-->
     </div>
   </div>
 </main>

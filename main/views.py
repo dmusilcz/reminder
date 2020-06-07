@@ -37,15 +37,24 @@ def calendar(request):
 class UserDocsView(LoginRequiredMixin, ListView):
     model = Document
     context_object_name = 'docs'
-    paginate_by = 10
+    paginate_by = 3
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
+        searched = self.request.GET.get('searched', None)
+        if searched:
+            doc_pk_list = self.request.session.get('searched_docs_pks', None)
+            return Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by('name')
+
+        self.request.session['searched_docs_pks'] = None
         return Document.objects.filter(author=user).order_by('name')
 
-    # def get_context_data(self, **kwargs):
-    #     kwargs['reminders'] = self.get_
-    #     return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        searched = self.request.GET.get('searched', None)
+        if searched:
+            data['searched'] = True
+        return data
 
 # @login_required
 # def search(request):
@@ -100,8 +109,10 @@ def search(request):
             elif expiry_date_to:
                 doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
 
+            request.session['searched_docs_pks'] = [doc.pk for doc in doc_list]
+
             page = request.GET.get('page', 1)
-            paginator = Paginator(doc_list, 10)
+            paginator = Paginator(doc_list, 3)
             try:
                 doc_list = paginator.page(page)
             except PageNotAnInteger:
@@ -109,7 +120,9 @@ def search(request):
             except EmptyPage:
                 doc_list = paginator.page(paginator.num_pages)
 
-            context = {'docs': doc_list}
+            searched = True
+            context = {'docs': doc_list,
+                       'searched': searched}
             data['form_is_valid'] = True
             data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
 
@@ -232,6 +245,7 @@ class DocUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
         form.fields['reminder'].widget = forms.CheckboxSelectMultiple()
+        form.fields['reminder'].queryset = ReminderChoices.objects.filter(author=self.request.user).order_by('id')
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False)
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(attrs={}, ), choices=((1, '1 day'),
         #             (2, '3 days'),
@@ -275,7 +289,30 @@ def doc_delete(request, pk):
         data['form_is_valid'] = True
         data['doc_id'] = '#doc_' + doc_id
         data['view'] = view
-        # redirect('home')
+
+        doc_pk_list = request.session.get('searched_docs_pks', None)
+        if doc_pk_list:
+            if pk in doc_pk_list:
+                doc_pk_list.pop(doc_pk_list.index(pk))
+                request.session['searched_docs_pks'] = doc_pk_list
+            doc_list = Document.objects.filter(author=request.user).filter(pk__in=doc_pk_list).order_by('name')
+            searched = True
+        else:
+            doc_list = Document.objects.filter(author=request.user).order_by('name')
+            searched = False
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(doc_list, 3)
+        try:
+            doc_list = paginator.page(page)
+        except PageNotAnInteger:
+            doc_list = paginator.page(1)
+        except EmptyPage:
+            doc_list = paginator.page(paginator.num_pages)
+
+        context = {'docs': doc_list,
+                   'searched': searched}
+        data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
     else:
         context = {'doc': doc,
                    'view': view}
@@ -357,7 +394,9 @@ def cat_delete(request, pk):
         # docs = Document.objects.filter(author=user).order_by('name')
         data['form_is_valid'] = True
         data['cat_id'] = '#cat_' + cat_id
-        # redirect('home')
+        cat_list = Category.objects.filter(author=request.user).order_by('name')
+        context = {'cats': cat_list}
+        data['html_cats_list'] = render_to_string('main/includes/partial_cats_list.html', context, request=request)
     else:
         context = {'cat': cat}
         data['html_form'] = render_to_string('main/includes/partial_cat_delete.html', context, request=request)

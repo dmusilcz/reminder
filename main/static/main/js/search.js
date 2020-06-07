@@ -28,7 +28,7 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#docs-list").html(data.html_docs_list);
+          $("#docs-col").html(data.html_docs_list);
           $("#modal-doc").modal("hide");
         }
         else {

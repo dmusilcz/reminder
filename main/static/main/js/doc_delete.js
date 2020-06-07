@@ -1,5 +1,6 @@
 var close_messages = function (element) {
-    $(element).hide()
+    // $(element).children("p").hide()
+    element.classList.remove('message-shown');
 };
 
 $(function () {
@@ -34,9 +35,12 @@ $(function () {
         if (data.form_is_valid) {
           $("#modal-doc").modal("hide");
           if (data.view === 'L') {
-              $(data.doc_id).remove();
-              var messages = document.getElementById("messages");
-              $(messages).html("<p>Document deleted successfully</p>");
+              // $(data.doc_id).remove();
+              // var messages = document.getElementById("messages");
+              // $(messages).html("<p id='message'>Document deleted successfully</p>");
+              $("#docs-col").html(data.html_docs_list);
+              var messages = document.getElementById("message");
+              messages.classList.add('message-shown');
               setTimeout(function () {
                   $(close_messages(messages));
               }, 3000);
@@ -65,7 +69,7 @@ $(function () {
 
   // Delete book
   // $("#docs-col").on("click", ".js-delete-doc", loadForm);
-  $(".js-delete-doc").on("click", loadForm);
+  $(document).on("click", ".js-delete-doc", loadForm);
   // $("#doc-col").on("click", ".js-delete-doc", loadForm);
   $("#modal-doc").on("submit", ".js-doc-delete-form", saveForm);
   // $(".js-doc-delete-form").on("submit", saveForm);

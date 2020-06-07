@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView
 
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import LoginForm, SignUpForm, UserInformationUpdateForm
+from .forms import LoginForm, SignUpForm, UserInformationUpdateForm, ProfileUpdateForm
 
 # Create your views here.
 
@@ -35,11 +35,11 @@ class UpdatedLoginView(LoginView):
     form_class = LoginForm
 
     def form_valid(self, form):
-        remember_me = form.cleaned_data['remember_me']  # get remember me data from cleaned_data of form
-        if not remember_me:
-            self.request.session.set_expiry(0)  # if remember me is
+        remember_me = form.cleaned_data['remember_me']
+        if remember_me:
+            self.request.session.set_expiry(30)
             self.request.session.modified = True
-            print('Remember me unchecked')
+            print('Remember me checked')
         return super(UpdatedLoginView, self).form_valid(form)
 
 
@@ -59,17 +59,40 @@ class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         return False
 
 
-@method_decorator(login_required, name='dispatch')
-class UserUpdateView(UpdateView, UserPassesTestMixin):
-    form_class = UserInformationUpdateForm
-    template_name = 'users/my_account_update.html'
-    success_url = reverse_lazy('my_account')
+# @method_decorator(login_required, name='dispatch')
+# class UserUpdateView(UpdateView, UserPassesTestMixin):
+#     form_class = UserInformationUpdateForm
+#     template_name = 'users/my_account_update.html'
+#     success_url = reverse_lazy('my_account')
+#
+#     def get_object(self, queryset=None):
+#         return self.request.user
+#
+#     def test_func(self):
+#         user = self.get_object()
+#         if self.request.user == user:
+#             return True
+#         return False
 
-    def get_object(self, queryset=None):
-        return self.request.user
+@login_required
+def user_update_view(request):
+    if request.method == 'POST':
+        u_form = UserInformationUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect('my_account')
 
-    def test_func(self):
-        user = self.get_object()
-        if self.request.user == user:
-            return True
-        return False
+    else:
+        u_form = UserInformationUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+        'checked': request.user.profile.news_consent
+    }
+
+    return render(request, 'users/my_account_update.html', context)

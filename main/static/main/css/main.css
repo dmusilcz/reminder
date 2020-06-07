@@ -12,6 +12,7 @@ html, body, #fullheight {
   min-height: 100%!important;
   height: 100%;
   /*overflow: auto;*/
+  overflow-x: hidden;
 }
 
 .main {
@@ -46,6 +47,34 @@ html, body, #fullheight {
   background-color: rgb(252, 252, 252);
 }
 
+.signup-card, .login-card, .account-card, .doc-update-card {
+  margin: 1em;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 9px 0 rgba(0, 0, 0, 0.19);
+  }
+
+@media (max-width: 844px) {
+  .signup-card, .login-card, .account-card, .doc-update-card {
+    margin: 1em 0.25em 0.25em 0.25em;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-heading {
+    display: none;
+  }
+}
+
+/*.account-card {*/
+  /*margin: 1em;*/
+  /*box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 9px 0 rgba(0, 0, 0, 0.19);*/
+/*}*/
+
+/*@media (max-width: 844px) {*/
+  /*.account-card {*/
+    /*margin: 1em 0.25em 0.25em 0.25em;*/
+  /*}*/
+/*}*/
+
 .datepicker-container {
   z-index: 1050!important;
 }
@@ -74,6 +103,36 @@ html, body, #fullheight {
 .doc-desc-title p, .doc-cat-title p, .doc-expiry-date-title p, .doc-reminder-title p, .cat-desc-title p, .cat-doc-count-title p {
   font-weight: bold;
   margin-bottom: 0;
+}
+
+.btn-detail {
+  color: white;
+  background-color: rgb(54, 99, 159);
+}
+
+.btn-detail:hover {
+  color: white;
+  background-color: rgb(55, 121, 182);
+}
+
+.btn-delete {
+  color: white;
+  background-color: rgb(161, 47, 54);
+}
+
+.btn-delete:hover {
+  color: white;
+  background-color: rgb(189, 47, 54);
+}
+
+.btn-logout {
+  color: white;
+  border-color: white;
+}
+
+.btn-logout:hover {
+  background-color: white;
+  color: black;
 }
 
 @media (min-width: 992px) {
@@ -231,15 +290,64 @@ html, body, #fullheight {
   display: none;
 }
 
-.restaurant-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -45%);
-  text-align: center;
-  z-index: 900;
-  font-family: 'Cardo', serif;
+.no-docs {
+  flex-direction: column;
+  background-color: rgba(209, 236, 255, 0.6);
 }
+
+.message-hidden {
+  display: none;
+  opacity: 0;
+  background-color: inherit;
+  visibility: hidden;
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 3px;
+  transition: opacity 1000ms, visibility 1000ms, height 1000ms;
+}
+
+.message-shown {
+  display: block;
+  visibility: visible;
+  background-color: rgba(195, 255, 215, 0.51);
+  opacity: 1;
+  padding: 5px;
+  animation: fade 1s;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+      visibility: hidden;
+    }
+
+    100% {
+        opacity: 1;
+      visibility: visible;
+    }
+}
+
+/*#message {*/
+    /*overflow: hidden;*/
+    /*margin: 0;*/
+    /*height: 0; opacity: 0;*/
+    /*transition: height 0ms 400ms, opacity 400ms 0ms;*/
+/*}*/
+/*#message.visible {*/
+    /*height: auto; opacity: 1;*/
+    /*transition: height 0ms 0ms, opacity 600ms 0ms;*/
+/*}*/
+
+/*.restaurant-text {*/
+  /*position: absolute;*/
+  /*top: 50%;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%, -45%);*/
+  /*text-align: center;*/
+  /*z-index: 900;*/
+  /*font-family: 'Cardo', serif;*/
+/*}*/
 
 /*.footer {*/
   /*position: absolute;*/

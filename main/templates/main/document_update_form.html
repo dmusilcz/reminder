@@ -8,38 +8,32 @@
 {% endblock %}
 
 {% block content %}
-<main>
-  <div class="container">
+<main class="main">
+  <div class="container px-0 h-100 main-container">
     <div class="row justify-content-center">
-      <form method="post" novalidate>
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}">
-        <fieldset class="form-group">
-          {{ form.name|as_crispy_field }}
-          {{ form.desc|as_crispy_field }}
-          {{ form.category|as_crispy_field }}
-          {{ form.expiry_date|as_crispy_field }}
-          {{ form.reminder.errors}}
-          {{ form.reminder|as_crispy_field }}
-
-        </fieldset>
-        <button type="submit" class="btn btn-primary btn-block">Update</button>
-      </form>
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="text-center mt-2">
+          <h1>Update document</h1>
+      </div>
+      <div class="card doc-update-card">
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            <fieldset class="form-group">
+              {{ form.name|as_crispy_field }}
+              {{ form.desc|as_crispy_field }}
+              {{ form.category|as_crispy_field }}
+              {{ form.expiry_date|as_crispy_field }}
+              {{ form.reminder.errors}}
+              {{ form.reminder|as_crispy_field }}
+            </fieldset>
+            <button type="submit" class="btn btn-primary btn-block">Update</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <!--<script>-->
-      <!--$(function () {-->
-      <!--var conditional_fields = $("div.div_id_reminder");-->
-      <!--conditional_fields.hide();-->
-
-      <!--$("expiry_date").change(function() {-->
-          <!--if ($(this).value.trim() !== '') {-->
-              <!--conditional_fields.show();-->
-          <!--} else {-->
-              <!--conditional_fields.hide();-->
-          <!--}-->
-      <!--});-->
-      <!--});-->
-      <!--</script>-->
+    </div>
   </div>
 </main>
 

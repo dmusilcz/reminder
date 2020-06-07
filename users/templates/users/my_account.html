@@ -6,14 +6,21 @@
   <div class="container p-0 h-100 main-container">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10">
-        <div class="text-center">
+        <div class="text-center menu-heading mt-2">
           <h1>My account</h1>
         </div>
-        <div class="card p-2">
-          <p>First name: {{ object.first_name }}</p>
-          <p>Last name: {{ object.last_name }}</p>
-          <p>Email address: {{ object.email }}</p>
-          <div id="user-buttons">
+        <div class="card account-card">
+          <div class="card-body">
+            <h5>First name</h5>
+            <p class="mb-0">{{ object.first_name }}</p><hr>
+            <h5>Last name</h5>
+            <p class="mb-0">{{ object.last_name }}</p><hr>
+            <h5>Email address</h5>
+            <p class="mb-0">{{ object.email }}</p><hr>
+            <h5>Newsletter consent</h5>
+            <label><input type="checkbox" disabled="disabled"{% if object.profile.news_consent %} checked="checked"{% endif %}> I agree to receive news about NeverExpire (new updates, features, etc.) to my email address</label>
+          </div>
+          <div id="user-buttons" class="card-footer text-center">
             <a class="btn btn-secondary btn-sm mt-1" href="{% url 'my_account_update'%}">Update info</a>
             <a class="btn btn-secondary btn-sm mt-1" href="{% url 'password_change'%}">Change password</a>
           </div>

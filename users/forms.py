@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 class LoginForm(AuthenticationForm):
@@ -21,3 +22,11 @@ class UserInformationUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', )
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    news_consent = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Profile
+        fields = ('news_consent', )

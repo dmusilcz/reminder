@@ -1,5 +1,6 @@
 var close_messages = function (element) {
-    $(element).hide()
+    // $(element).hide()
+    element.classList.remove('message-shown');
 };
 
 $(function () {
@@ -34,9 +35,10 @@ $(function () {
         if (data.form_is_valid) {
           $("#modal-cat").modal("hide");
           // location.href= "";
-          $(data.cat_id).remove();
-          var messages = document.getElementById("messages");
-          $(messages).html("<p>Category deleted successfully</p>");
+          // $(data.cat_id).remove();
+          $("#cats-col").html(data.html_cats_list);
+              var messages = document.getElementById("message");
+              messages.classList.add('message-shown');
           setTimeout(function () {
               $(close_messages(messages));
           }, 3000);
