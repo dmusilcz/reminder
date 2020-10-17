@@ -17,10 +17,15 @@ html, body, #fullheight {
 
 .main {
   flex-grow: 1;
+  background-color: rgb(252, 252, 252);
+}
+
+.footer {
+  background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));
 }
 
 .footer-container {
-  background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));
+  /*background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));*/
   /*opacity: 0.95;*/
   font-family: 'Cardo', serif;
 }
@@ -44,7 +49,7 @@ html, body, #fullheight {
   }}
 
 .main-container {
-  background-color: rgb(252, 252, 252);
+  /*background-color: rgb(252, 252, 252);*/
 }
 
 .signup-card, .login-card, .account-card, .doc-update-card {
@@ -166,36 +171,51 @@ html, body, #fullheight {
 }}
 
 .site-header {
-  width: 100%;
+  /*width: 100%;*/
   /*height: 40vh;*/
   /*background: url('/static/main/images/restaurant.jpg') center no-repeat;*/
   /*background-size: cover;*/
-  position: relative;
+  /*position: relative;*/
   /*opacity: 0.85;*/
   /*z-index: 1000;*/
 }
 
+.user_navbar_container_wrapper, .menu_navbar_container_wrapper {
+  background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));
+  opacity: 0.95;
+  color: white;
+}
+
+.user_navbar_container_wrapper {
+  font-size: 16px;
+}
+
+.menu_navbar_container_wrapper {
+  font-size: 18px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.19);
+}
+
 .user_navbar_container {
-  position: relative;
+  /*position: relative;*/
   /*height: 100%;*/
 }
 
 .menu_navbar_container {
   /*height: 100%;*/
   /*background-image: linear-gradient(to right, rgb(71, 69, 255), rgb(99, 114, 255));*/
-  background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));
-  opacity: 0.95;
-  color: white;
-  font-size: 18px;
-  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.19);
+  /*background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));*/
+  /*opacity: 0.95;*/
+  /*color: white;*/
+  /*font-size: 18px;*/
+  /*box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.19);*/
 }
 
 .user_navbar_container {
   /*background-image: linear-gradient(to right, rgb(71, 69, 255), rgb(99, 114, 255));*/
-  background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));
-  opacity: 0.95;
-  color: white;
-  font-size: 16px;
+  /*background-image: linear-gradient(to right, rgb(54, 99, 159), rgb(52, 133, 191));*/
+  /*opacity: 0.95;*/
+  /*color: white;*/
+  /*font-size: 16px;*/
 }
 
 .user_navbar_container .navbar, .menu_navbar_container .navbar {
@@ -293,7 +313,14 @@ html, body, #fullheight {
 .no-docs {
   flex-direction: column;
   background-color: rgba(209, 236, 255, 0.6);
+  border-radius: 10px;
 }
+
+@media (max-width: 576px) {
+  .no-docs {
+  margin-right: 5px;
+  margin-left: 5px;
+}}
 
 .message-hidden {
   display: none;
