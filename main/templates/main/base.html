@@ -23,6 +23,7 @@
 </head>
 <body class="d-flex flex-column">
     <!--<header class="site-header">-->
+      <div class="user_navbar_container_wrapper">
         <div class="container user_navbar_container px-0">
           <nav class="navbar navbar-light navbar-static-top">
             <div class="logo">NeverExpire</div>
@@ -43,8 +44,10 @@
             {% endif %}
           </nav>
         </div>
+      </div>
           {% if user.is_authenticated %}
-            <div class="container menu_navbar_container sticky-top px-0" id="menu_navbar_container">
+          <div class="menu_navbar_container_wrapper sticky-top">
+            <div class="container menu_navbar_container  px-0" id="menu_navbar_container">
               <nav class="navbar navbar-expand-md navbar-light">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -71,6 +74,7 @@
                 </div>
               </nav>
             </div>
+          </div>
           {% else %}
           {% endif %}
 
