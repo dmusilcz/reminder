@@ -1,4 +1,30 @@
 {% if docs %}
+  {% if docs.has_other_pages %}
+    <div class="pagination w-100 d-flex flex-column">
+      <div class="text-center">
+        <p class="small mb-1">Showing documents {{ docs.start_index }}-{{ docs.end_index }} of {{ docs.paginator.count }}</p>
+      </div>
+      <div class="d-flex justify-content-center">
+        {% if docs.has_previous %}
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page=1{% if searched %}&searched=True{% endif %}">First</a>
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.previous_page_number }}{% if searched %}&searched=True{% endif %}">Previous</a>
+        {% endif %}
+
+        {% for num in docs.paginator.page_range %}
+          {% if docs.number == num %}
+            <a class="btn btn-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+          {% elif num > docs.number|add:'-3' and num < docs.number|add:'3' %}
+            <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if docs.has_next %}
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.next_page_number }}{% if searched %}&searched=True{% endif %}">Next</a>
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.paginator.num_pages }}{% if searched %}&searched=True{% endif %}">Last</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
   <div class="d-flex h-auto" id="docs-list">
     {% for doc in docs %}
       <div class="col-lg-4 col-md-6 col-sm-12 doc" id="doc_{{ doc.id }}">
@@ -26,25 +52,31 @@
       </div>
     {% endfor %}
   </div>
-
   {% if docs.has_other_pages %}
-    {% if docs.has_previous %}
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page=1{% if searched %}&searched=True{% endif %}">First</a>
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.previous_page_number }}{% if searched %}&searched=True{% endif %}">Previous</a>
-    {% endif %}
+    <div class="pagination w-100 d-flex flex-column">
+      <div class="text-center">
+        <p class="small mb-1">Showing documents {{ docs.start_index }}-{{ docs.end_index }} of {{ docs.paginator.count }} ({{ user.document_set.count }} documents saved)</p>
+      </div>
+      <div class="d-flex justify-content-center">
+        {% if docs.has_previous %}
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page=1{% if searched %}&searched=True{% endif %}">First</a>
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.previous_page_number }}{% if searched %}&searched=True{% endif %}">Previous</a>
+        {% endif %}
 
-    {% for num in docs.paginator.page_range %}
-      {% if docs.number == num %}
-        <a class="btn btn-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
-      {% elif num > docs.number|add:'-3' and num < docs.number|add:'3' %}
-        <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
-      {% endif %}
-    {% endfor %}
+        {% for num in docs.paginator.page_range %}
+          {% if docs.number == num %}
+            <a class="btn btn-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+          {% elif num > docs.number|add:'-3' and num < docs.number|add:'3' %}
+            <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
 
-    {% if docs.has_next %}
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.next_page_number }}{% if searched %}&searched=True{% endif %}">Next</a>
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.paginator.num_pages }}{% if searched %}&searched=True{% endif %}">Last</a>
-    {% endif %}
+        {% if docs.has_next %}
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.next_page_number }}{% if searched %}&searched=True{% endif %}">Next</a>
+          <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.paginator.num_pages }}{% if searched %}&searched=True{% endif %}">Last</a>
+        {% endif %}
+      </div>
+    </div>
   {% endif %}
 
 {% else %}
