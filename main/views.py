@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.generic import (
@@ -27,11 +29,6 @@ def home(request):
         return render(request, 'main/home.html', {'doc_num': len(documents)})
     else:
         return render(request, 'main/home.html')
-    # return render(request, 'main/home.html')
-
-
-def calendar(request):
-    return render(request, 'main/calendar.html')
 
 
 class UserDocsView(LoginRequiredMixin, ListView):
@@ -55,6 +52,37 @@ class UserDocsView(LoginRequiredMixin, ListView):
         if searched:
             data['searched'] = True
         return data
+
+
+@login_required
+def user_docs(request):
+    user = get_object_or_404(User, username=request.user)
+    searched = request.GET.get('searched', None)
+    print(searched)
+
+    if searched:
+        doc_pk_list = request.session.get('searched_docs_pks', None)
+        searched = True
+        doc_list = Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by('name')
+    else:
+        doc_list = Document.objects.filter(author=user).order_by('name')
+        searched = False
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(doc_list, 3)
+    try:
+        doc_list = paginator.page(page)
+    except PageNotAnInteger:
+        doc_list = paginator.page(1)
+    except EmptyPage:
+        doc_list = paginator.page(paginator.num_pages)
+
+    context = {'docs': doc_list,
+               'searched': searched}
+
+    return render(request, 'main/docs.html', context)
+
+
 
 # @login_required
 # def search(request):
@@ -226,6 +254,18 @@ class DocDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         if self.request.user == document.author:
             return True
         return False
+
+
+@login_required()
+def doc_detail(request, pk):
+    doc = get_object_or_404(Document, pk=pk)
+    data = dict()
+
+    if request.user == doc.author:
+        context = {'doc': doc}
+        data['modal_content'] = render_to_string('main/includes/partial_doc_detail.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 class DocUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

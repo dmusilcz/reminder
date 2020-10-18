@@ -58,9 +58,6 @@
                     <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
-                    <!--<li {% if 'calendar' in request.resolver_match.url_name %}class="active"{% endif %}>-->
-                      <!--<a class="nav-link" href="{% url 'calendar' %}">Calendar</a>-->
-                    <!--</li>-->
                     <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'docs' %}">Documents</a>
                     </li>

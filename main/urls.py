@@ -24,13 +24,12 @@ from django.conf.urls import url
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('calendar/', views.calendar, name='calendar'),
-    path('docs/', views.UserDocsView.as_view(template_name='main/docs.html'), name='docs'),
+    path('docs/', views.user_docs, name='docs'),
     path('search/', views.search, name='search'),
     path('categories/', views.UserCategoriesView.as_view(template_name='main/categories.html'), name='categories'),
     path('new_doc/', views.DocCreateView.as_view(), name='new_doc'),
     path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat'),
-    path('doc/<int:pk>/', views.DocDetailView.as_view(), name='doc_detail'),
+    path('doc/<int:pk>/', views.doc_detail, name='doc_detail'),
     path('doc/<int:pk>/update/', views.DocUpdateView.as_view(), name='doc_update'),
     path('doc/<int:pk>/delete/', views.doc_delete, name='doc_delete'),
     path('cat/<int:pk>/', views.CategoryDetailView.as_view(), name='cat_detail'),

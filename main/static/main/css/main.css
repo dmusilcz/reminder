@@ -355,6 +355,10 @@ html, body, #fullheight {
     }
 }
 
+.modal-open {
+  overflow: auto;
+}
+
 /*#message {*/
     /*overflow: hidden;*/
     /*margin: 0;*/
