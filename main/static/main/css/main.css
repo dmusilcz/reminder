@@ -110,12 +110,12 @@ html, body, #fullheight {
   margin-bottom: 0;
 }
 
-.btn-detail {
+.btn-update {
   color: white;
   background-color: rgb(54, 99, 159);
 }
 
-.btn-detail:hover {
+.btn-update:hover {
   color: white;
   background-color: rgb(55, 121, 182);
 }
@@ -358,6 +358,7 @@ html, body, #fullheight {
 .modal-open {
   overflow: auto;
 }
+
 
 /*#message {*/
     /*overflow: hidden;*/

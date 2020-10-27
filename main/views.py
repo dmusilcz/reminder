@@ -18,7 +18,7 @@ from django.views.generic import (
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoices
 # from .filters import DocFilter
-from .forms import SearchForm
+from .forms import SearchForm, DocumentUpdateForm
 
 # Create your views here.
 
@@ -58,16 +58,19 @@ class UserDocsView(LoginRequiredMixin, ListView):
 def user_docs(request):
     user = get_object_or_404(User, username=request.user)
     searched = request.GET.get('searched', None)
-    print(searched)
+    order, label_sort_by = get_order(request)
+    print(order)
 
     if searched:
         doc_pk_list = request.session.get('searched_docs_pks', None)
-        searched = True
-        doc_list = Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by('name')
+        doc_list = Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by(order)
     else:
-        doc_list = Document.objects.filter(author=user).order_by('name')
-        searched = False
+        if request.session.get('searched_docs_pks', None):
+            request.session.pop('searched_docs_pks')
+        doc_list = Document.objects.filter(author=user).order_by(order)
 
+    print(f'Searched: {searched}')
+    print(request.session.get('searched_docs_pks', None))
     page = request.GET.get('page', 1)
     paginator = Paginator(doc_list, 3)
     try:
@@ -78,7 +81,9 @@ def user_docs(request):
         doc_list = paginator.page(paginator.num_pages)
 
     context = {'docs': doc_list,
-               'searched': searched}
+               'searched': searched,
+               'order': order,
+               'label_sort_by': label_sort_by}
 
     return render(request, 'main/docs.html', context)
 
@@ -95,8 +100,10 @@ def user_docs(request):
 @login_required
 def search(request):
     user = get_object_or_404(User, username=request.user)
-    doc_list = Document.objects.filter(author=user).order_by('name')
+    order, label_sort_by = get_order(request)
+    doc_list = Document.objects.filter(author=user).order_by(order)
     data = dict()
+    print(order)
     if request.method == 'POST':
         form = SearchForm(data=request.POST, request=request)
         if form.is_valid():
@@ -150,17 +157,26 @@ def search(request):
 
             searched = True
             context = {'docs': doc_list,
-                       'searched': searched}
+                       'searched': searched,
+                       'order': order,
+                       'label_sort_by': label_sort_by}
             data['form_is_valid'] = True
-            data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+            data['action'] = 'search'
+            # data['order_button'] = render_to_string('main/includes/order_button.html', context)
+            # data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+            data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context, request=request)
 
         else:
-            context = {'form': form}
-            data['html_form'] = render_to_string('main/includes/search_form.html', context, request=request)
+            context = {'form': form,
+                       'order': order,
+                       'label_sort_by': label_sort_by}
+            data['modal_content'] = render_to_string('main/includes/search_form.html', context, request=request)
     else:
         form = SearchForm(request=request)
-        context = {'form': form}
-        data['html_form'] = render_to_string('main/includes/search_form.html', context, request=request)
+        context = {'form': form,
+                   'order': order,
+                   'label_sort_by': label_sort_by}
+        data['modal_content'] = render_to_string('main/includes/search_form.html', context, request=request)
     return JsonResponse(data)
 
 
@@ -222,7 +238,11 @@ class DocCreateView(LoginRequiredMixin, CreateView):
         ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
         form = super(DocCreateView, self).get_form(*args, **kwargs)
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
-        form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
+        form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'],
+                                                     widget=FengyuanChenDatePickerInput(attrs={'oninput': "verifyDate()",
+                                                                                        'autocomplete': 'off'}),
+                                                     required=False,
+                                                     help_text='Reminders can be chosen once this field is not empty')
         form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
 
         return form
@@ -263,6 +283,7 @@ def doc_detail(request, pk):
 
     if request.user == doc.author:
         context = {'doc': doc}
+        data['action'] = 'detail'
         data['modal_content'] = render_to_string('main/includes/partial_doc_detail.html', context, request=request)
 
     return JsonResponse(data)
@@ -316,31 +337,94 @@ class DocUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super(DocUpdateView, self).post(request, **kwargs)
 
 
+@login_required()
+def doc_update(request, pk):
+    doc = get_object_or_404(Document, pk=pk)
+    order, label_sort_by = get_order(request)
+    data = dict()
+    print('HERE')
+
+    if request.user == doc.author:
+        if request.method == 'POST':
+            form = DocumentUpdateForm(request.POST, instance=doc, request=request)
+            if form.is_valid():
+                print('VALID')
+                print(request.POST)
+                request.POST = request.POST.copy()
+                if request.POST['expiry_date'] == '' and 'reminder' in request.POST:
+                    request.POST.pop('reminder')
+
+                print(request.POST)
+                form.save()
+                data['form_is_valid'] = True
+
+                doc_pk_list = request.session.get('searched_docs_pks', None)
+                if doc_pk_list:
+                    doc_list = Document.objects.filter(author=request.user).filter(pk__in=doc_pk_list).order_by(order)
+                    searched = True
+                else:
+                    doc_list = Document.objects.filter(author=request.user).order_by(order)
+                    searched = False
+
+                print(f'Searched: {searched}')
+                print(len(doc_list))
+                print(doc_list)
+
+                page = request.GET.get('page', 1)
+                paginator = Paginator(doc_list, 3)
+                try:
+                    doc_list = paginator.page(page)
+                except PageNotAnInteger:
+                    doc_list = paginator.page(1)
+                except EmptyPage:
+                    doc_list = paginator.page(paginator.num_pages)
+
+                context = {'docs': doc_list,
+                           'searched': searched,
+                           'order': order,
+                           'label_sort_by': label_sort_by}
+                # data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+                data['action'] = 'update'
+                data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context,
+                                                          request=request)
+            else:
+                print('NOT VALID')
+                data['form_is_valid'] = False
+        else:
+            form = DocumentUpdateForm(instance=doc, request=request)
+        context = {'doc': doc,
+                   'form': form,
+                   'order': order,
+                   'label_sort_by': label_sort_by}
+        data['action_update'] = True
+        data['modal_content'] = render_to_string('main/includes/partial_doc_update.html', context, request=request)
+
+    return JsonResponse(data)
+
 @login_required
 def doc_delete(request, pk):
     doc = get_object_or_404(Document, pk=pk)
+    order, label_sort_by = get_order(request)
     data = dict()
-    view = request.GET.get('view', 'D')
     if request.method == 'POST' and request.user == doc.author:
-        doc_id = str(pk)
         doc.delete()
         # user = get_object_or_404(User, username=request.user)
         # docs = Document.objects.filter(author=user).order_by('name')
         data['form_is_valid'] = True
-        data['doc_id'] = '#doc_' + doc_id
-        data['view'] = view
 
         doc_pk_list = request.session.get('searched_docs_pks', None)
         if doc_pk_list:
             if pk in doc_pk_list:
                 doc_pk_list.pop(doc_pk_list.index(pk))
                 request.session['searched_docs_pks'] = doc_pk_list
-            doc_list = Document.objects.filter(author=request.user).filter(pk__in=doc_pk_list).order_by('name')
+            doc_list = Document.objects.filter(author=request.user).filter(pk__in=doc_pk_list).order_by(order)
             searched = True
         else:
-            doc_list = Document.objects.filter(author=request.user).order_by('name')
+            doc_list = Document.objects.filter(author=request.user).order_by(order)
             searched = False
-
+        print(f'Searched: {searched}')
+        print(len(doc_list))
+        print(doc_list)
         page = request.GET.get('page', 1)
         paginator = Paginator(doc_list, 3)
         try:
@@ -351,12 +435,16 @@ def doc_delete(request, pk):
             doc_list = paginator.page(paginator.num_pages)
 
         context = {'docs': doc_list,
-                   'searched': searched}
-        data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+                   'searched': searched,
+                   'order': order,
+                   'label_sort_by': label_sort_by}
+        data['action'] = 'delete'
+        data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context, request=request)
     else:
         context = {'doc': doc,
-                   'view': view}
-        data['html_form'] = render_to_string('main/includes/partial_doc_delete.html', context, request=request)
+                   'order': order,
+                   'label_sort_by': label_sort_by}
+        data['modal_content'] = render_to_string('main/includes/partial_doc_delete.html', context, request=request)
     return JsonResponse(data)
 
 
@@ -441,6 +529,28 @@ def cat_delete(request, pk):
         context = {'cat': cat}
         data['html_form'] = render_to_string('main/includes/partial_cat_delete.html', context, request=request)
     return JsonResponse(data)
+
+
+def get_order(request):
+    default_order = 'name'
+    order = request.GET.get('o', default_order)
+    if order not in ['expiry_date', '-expiry_date',
+                     'name', '-name',
+                     'category', '-category', ]:
+        order = default_order
+
+    sorting_labels = {
+        'expiry_date': 'Expiry date increases',
+        '-expiry_date': 'Expiry date decreases',
+        'name': 'Name (a - z)',
+        '-name': 'Name (z - a)',
+        'category': 'Category name (a - z)',
+        '-category': 'Category name (z - a)',
+    }
+
+    label_sort_by = sorting_labels[order]
+
+    return order, label_sort_by
 
 # @login_required
 # def new_topic(request, pk):

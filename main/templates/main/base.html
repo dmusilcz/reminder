@@ -59,7 +59,7 @@
                       <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
                     <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'docs' %}">Documents</a>
+                      <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">Documents</a>
                     </li>
                     <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
                       <a class="nav-link" href="{% url 'categories' %}">Categories</a>
@@ -110,12 +110,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!--<script type="text/javascript" src="{% static 'main/js/lightbox-plus-jquery.js' %}"></script>-->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>
+    <!--<script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
     <!--<script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>-->
     <!-- <script type="text/javascript" src="{% static 'gallery/js/active.js' %}"></script> -->
     {% block javascript %}
     {% endblock %}
-
 </body>
 </html>

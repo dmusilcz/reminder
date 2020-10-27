@@ -1,16 +1,25 @@
-<form method="post" action="{% url 'doc_delete' doc.id %}?view={{ view }}" class="js-doc-delete-form">
+{% load crispy_forms_tags %}
+
+<form method="post" action="{% url 'doc_update' form.instance.pk %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}" class="js-doc-update-form">
   {% csrf_token %}
   <div class="modal-header">
-    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-      <!--<span aria-hidden="true">&times;</span>-->
-    <!--</button>-->
-    <h4 class="modal-title">Confirm document deletion</h4>
+    <div class="doc-name text-center w-100">
+      <h3>Update <strong>{{ doc.name }}</strong></h3>
+    </div>
   </div>
   <div class="modal-body">
-    <p class="lead">Are you sure you want to delete the document <strong>{{ doc.name }}</strong>?</p>
+    <input type="hidden" name="next" value="{{ next }}">
+      <fieldset class="form-group">
+        {{ form.name|as_crispy_field }}
+        {{ form.desc|as_crispy_field }}
+        {{ form.category|as_crispy_field }}
+        {{ form.expiry_date|as_crispy_field }}
+        {{ form.reminder.errors}}
+        {{ form.reminder|as_crispy_field }}
+      </fieldset>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-danger">Delete document</button>
+    <button type="submit" class="btn btn-update">Save</button>
   </div>
 </form>

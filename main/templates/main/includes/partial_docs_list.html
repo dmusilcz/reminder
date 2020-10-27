@@ -4,11 +4,11 @@
   {% endif %}
   <div class="d-flex h-auto" id="docs-list">
     {% for doc in docs %}
-      <div class="col-lg-4 col-md-6 col-sm-12 doc" id="doc_{{ doc.id }}">
+      <div class="col-lg-4 col-md-6 col-sm-12 doc">
         <div class="card p-2 doc-card">
           <div class="doc-name text-center"><h4>{{ doc.name }}</h4></div>
           <div class="doc-desc-title text-center"><p>Description</p></div>
-          <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc }} {% else %}No description provided{% endif %}</p></div>
+          <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc|truncatechars:100 }} {% else %}No description provided{% endif %}</p></div>
           <div class="doc-cat-title text-center"><p>Category</p></div>
           <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}No category set{% endif %}</p></div>
           <div class="doc-expiry-date-title text-center"><p>Expiry date</p></div>
@@ -21,9 +21,9 @@
           </div>
           <!--<p> Reminder: {{ doc.get_parsed_reminders }}-->
           <div id="doc-buttons" class="d-flex justify-content-center">
-            <button class="btn btn-detail btn-sm mx-1 my-1 js-doc-detail" data-url="{% url 'doc_detail' doc.id %}">Detail</button>
-            <a class="btn btn-secondary btn-sm mx-1 my-1" href="{% url 'doc_update' doc.id %}">Update</a>
-            <button type="button" class="btn btn-delete btn-sm mx-1 my-1 js-delete-doc" data-url="{% url 'doc_delete' pk=doc.id %}?view=L">Delete</button>
+            <button type="button" class="btn btn-secondary btn-sm mx-1 my-1 js-doc-detail" data-url="{% url 'doc_detail' doc.id %}">Detail</button>
+            <button type="button" class="btn btn-update btn-sm mx-1 my-1 js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>
+            <button type="button" class="btn btn-delete btn-sm mx-1 my-1 js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Delete</button>
           </div>
         </div>
       </div>

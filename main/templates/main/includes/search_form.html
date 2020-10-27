@@ -1,7 +1,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<form method="post" action="{% url 'search' %}" class="js-search-form">
+<form method="post" action="{% url 'search' %}{% if order %}?o={{order}}{% endif %}" class="js-search-form">
   {% csrf_token %}
   <div class="modal-header">
     <h4 class="modal-title">Search documents</h4>

@@ -34,19 +34,15 @@ $(function () {
       success: function (data) {
         if (data.form_is_valid) {
           $("#modal-doc").modal("hide");
-          if (data.view === 'L') {
-              // $(data.doc_id).remove();
-              // var messages = document.getElementById("messages");
-              // $(messages).html("<p id='message'>Document deleted successfully</p>");
-              $("#docs-col").html(data.html_docs_list);
-              var messages = document.getElementById("message");
-              messages.classList.add('message-shown');
-              setTimeout(function () {
-                  $(close_messages(messages));
-              }, 3000);
-          } else {
-              location.href = "";
-          }
+            // var messages = document.getElementById("messages");
+            // $(messages).html("<p id='message'>Document deleted successfully</p>");
+            // $("#docs-col").html(data.html_docs_list);
+            $("#main").html(data.html_docs_list);
+            var messages = document.getElementById("message");
+            messages.classList.add('message-shown');
+            setTimeout(function () {
+                $(close_messages(messages));
+            }, 3000);
         }
         else {
           $("#modal-doc .modal-content").html(data.html_form);

@@ -5,18 +5,32 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 
 
-class DocumentUpdateForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+class DocumentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(DocumentUpdateForm, self).__init__(*args, **kwargs)
+        # ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
+        self.fields['category'].queryset = Category.objects.filter(author=self.request.user)
+        self.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(
+                                                     attrs={'oninput': "verifyDate()",
+                                                            'onshow': "verifyDate()",
+                                                            'autocomplete': 'off'}
+        ),
+                                                     required=False,
+                                                     help_text='Reminders can be chosen once this field is not empty')
+        self.fields['reminder'].widget = forms.CheckboxSelectMultiple()
+        self.fields['reminder'].queryset = ReminderChoices.objects.filter(author=self.request.user).order_by('id')
 
 
 class SearchForm(forms.Form):
     name = forms.CharField(required=False, label='<b>Name</b> contains:')
     desc = forms.CharField(required=False, label='<b> Description</b> contains:')
     category = forms.MultipleChoiceField()
-    expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> from:', initial=timezone.localdate(timezone.now()))
+    expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> from:')
     expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:', help_text="Tip: you can search for expired documents by only setting the <i><b>Expiry date</b> to</i>.")
     reminder = forms.MultipleChoiceField()
 

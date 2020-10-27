@@ -4,21 +4,21 @@
   </div>
   <div class="d-flex justify-content-center">
     {% if docs.has_previous %}
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page=1{% if searched %}&searched=True{% endif %}"><<</a>
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.previous_page_number }}{% if searched %}&searched=True{% endif %}"><</a>
+      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page=1{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}"><<</a>
+      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.previous_page_number }}{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}"><</a>
     {% endif %}
 
     {% for num in docs.paginator.page_range %}
       {% if docs.number == num %}
-        <a class="btn btn-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+        <a class="btn btn-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}">{{ num }}</a>
       {% elif num > docs.number|add:'-3' and num < docs.number|add:'3' %}
-        <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}">{{ num }}</a>
+        <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ num }}{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}">{{ num }}</a>
       {% endif %}
     {% endfor %}
 
     {% if docs.has_next %}
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.next_page_number }}{% if searched %}&searched=True{% endif %}">></a>
-      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.paginator.num_pages }}{% if searched %}&searched=True{% endif %}">>></a>
+      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.next_page_number }}{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}">></a>
+      <a class="btn btn-outline-secondary mb-4 mx-1" href="?page={{ docs.paginator.num_pages }}{% if searched %}&searched=True{% endif %}{% if order %}&o={{order}}{% endif %}">>></a>
     {% endif %}
   </div>
 </div>
