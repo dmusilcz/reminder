@@ -51,6 +51,7 @@ class Document(models.Model):
     author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name='Category', blank=True, null=True, on_delete=models.SET_NULL)
     expiry_date = models.DateField(verbose_name='Expiry date', blank=True, null=True)
+    last_reminder_sent = models.DateTimeField(verbose_name='Last reminder sent', null=True, default=None)
     reminder = models.ManyToManyField(ReminderChoices, through='ReminderThrough', blank=True)
 
     def get_reminders(self):
@@ -58,20 +59,10 @@ class Document(models.Model):
         if len(reminders) is 0:
             reminders.append("No reminders set")
         return reminders
-        # return ', '.join([str(rem.field) for rem in self.reminder.all()])
 
-    def get_parsed_reminders(self):
-        reminders = [str(rem.field) for rem in self.reminder.all()]
-
-        if reminders:
-            if len(reminders) == 1:
-                reminders_string = reminders[0]
-            else:
-                reminders_string = ", ".join(reminders)
-        else:
-            reminders_string = "No reminder set"
-
-        return reminders_string
+    def get_last_reminder_sent(self):
+        last_reminder_sent = str(self.last_reminder_sent) if self.last_reminder_sent else 'No reminder sent'
+        return last_reminder_sent
 
     def get_absolute_url(self):
         return reverse('docs')

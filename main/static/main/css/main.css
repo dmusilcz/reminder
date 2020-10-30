@@ -100,12 +100,12 @@ html, body, #fullheight {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
 }
 
-.doc-desc-title, .doc-cat-title, .doc-expiry-date-title, .doc-reminder-title, .cat-desc-title, .cat-doc-count-title {
+.doc-desc-title, .doc-cat-title, .doc-expiry-date-title, .doc-reminder-title, .cat-desc-title, .cat-doc-count-title, .doc-last-reminder-sent-title {
   /*border-top: 1px solid grey;*/
   background-color: rgba(173,173,173,0.28);
 }
 
-.doc-desc-title p, .doc-cat-title p, .doc-expiry-date-title p, .doc-reminder-title p, .cat-desc-title p, .cat-doc-count-title p {
+.doc-desc-title p, .doc-cat-title p, .doc-expiry-date-title p, .doc-reminder-title p, .cat-desc-title p, .cat-doc-count-title p, .doc-last-reminder-sent-title p {
   font-weight: bold;
   margin-bottom: 0;
 }

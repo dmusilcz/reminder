@@ -13,9 +13,11 @@
     <div class="doc-reminder-title text-center"><p>Reminder</p></div>
     <div class="doc-reminder-content">
       {% for reminder in doc.get_reminders %}
-        <p class="mb-0">{{ reminder }}</p>
+        <p {% if not forloop.last %}class="mb-0"{% endif %}>{{ reminder }}</p>
       {% endfor %}
     </div>
+    <div class="doc-last-reminder-sent-title text-center"><p>Last reminder sent on</p></div>
+    <div class="doc-last-reminder-sent-content"><p>{{ doc.get_last_reminder_sent }}</p></div>
 </div>
 <div class="modal-footer">
   <div id="doc-detail-buttons">
