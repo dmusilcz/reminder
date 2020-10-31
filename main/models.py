@@ -30,8 +30,7 @@ REMINDER_CHOICES = ((1, '1 day'),
                     (7, '6 months'))
 
 
-class ReminderChoices(models.Model):
-    author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE, null=True)
+class ReminderChoice(models.Model):
     field = models.CharField(max_length=20)
 
     def __str__(self):
@@ -52,7 +51,7 @@ class Document(models.Model):
     category = models.ForeignKey(Category, verbose_name='Category', blank=True, null=True, on_delete=models.SET_NULL)
     expiry_date = models.DateField(verbose_name='Expiry date', blank=True, null=True)
     last_reminder_sent = models.DateTimeField(verbose_name='Last reminder sent', null=True, default=None)
-    reminder = models.ManyToManyField(ReminderChoices, through='ReminderThrough', blank=True)
+    reminder = models.ManyToManyField(ReminderChoice, through='ReminderThrough', blank=True)
 
     def get_reminders(self):
         reminders = [str(rem.field) for rem in self.reminder.all().order_by('id')]
@@ -72,7 +71,7 @@ class Document(models.Model):
 
 
 class ReminderThrough(models.Model):
-    reminder_choice = models.ForeignKey(ReminderChoices, on_delete=models.CASCADE)
+    reminder_choice = models.ForeignKey(ReminderChoice, on_delete=models.CASCADE)
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
 
     # def __str__(self):

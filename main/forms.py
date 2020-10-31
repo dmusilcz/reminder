@@ -1,6 +1,6 @@
 from django import forms
 from users.widgets import FengyuanChenDatePickerInput
-from .models import Category, Document, ReminderChoices
+from .models import Category, Document, ReminderChoice
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
@@ -23,7 +23,7 @@ class DocumentUpdateForm(forms.ModelForm):
                                                      required=False,
                                                      help_text='Reminders can be chosen once this field is not empty')
         self.fields['reminder'].widget = forms.CheckboxSelectMultiple()
-        self.fields['reminder'].queryset = ReminderChoices.objects.filter(author=self.request.user).order_by('id')
+        self.fields['reminder'].queryset = ReminderChoice.objects.all().order_by('id')
 
 
 class SearchForm(forms.Form):
@@ -37,8 +37,8 @@ class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(SearchForm, self).__init__(*args, **kwargs)
-        reminders = ReminderChoices.objects.filter(author=self.request.user).order_by('id')
-        reminder_names = ['1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months']
+        reminders = ReminderChoice.objects.all().order_by('id')
+        reminder_names = [choice.field for choice in reminders]
         reminder_ids = [choice.id for choice in reminders]
         reminder_names.insert(0, 'No reminder set')
         reminder_ids.insert(0, '0')

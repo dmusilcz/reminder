@@ -16,7 +16,7 @@ from django.views.generic import (
     DeleteView
 )
 from users.widgets import FengyuanChenDatePickerInput
-from .models import Category, Document, ReminderChoices
+from .models import Category, Document, ReminderChoice
 # from .filters import DocFilter
 from .forms import SearchForm, DocumentUpdateForm
 
@@ -235,7 +235,7 @@ class DocCreateView(LoginRequiredMixin, CreateView):
     fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
 
     def get_form(self, *args, **kwargs):
-        ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
+        ids = [choice.id for choice in ReminderChoice.objects.all().order_by('id')]
         form = super(DocCreateView, self).get_form(*args, **kwargs)
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
         form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'],
@@ -300,13 +300,13 @@ class DocUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return queryset.filter(author=self.request.user)
 
     def get_form(self, *args, **kwargs):
-        ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
+        ids = [choice.id for choice in ReminderChoice.objects.all().order_by('id')]
         form = super(DocUpdateView, self).get_form(*args, **kwargs)
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
         form.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, help_text='Reminders can be chosen once this field is not empty')
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple, choices=((id, time) for id, time in zip(ids, ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'))))
         form.fields['reminder'].widget = forms.CheckboxSelectMultiple()
-        form.fields['reminder'].queryset = ReminderChoices.objects.filter(author=self.request.user).order_by('id')
+        form.fields['reminder'].queryset = ReminderChoice.objects.all().order_by('id')
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False)
         # form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple(attrs={}, ), choices=((1, '1 day'),
         #             (2, '3 days'),
