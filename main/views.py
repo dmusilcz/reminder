@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.template.loader import render_to_string
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -249,6 +250,7 @@ class DocCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, 'Document added')
         # form.save()
         return super().form_valid(form)
 
@@ -383,8 +385,10 @@ def doc_update(request, pk):
                            'searched': searched,
                            'order': order,
                            'label_sort_by': label_sort_by}
-                # data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
+                messages.success(request, 'Document updated')
                 data['action'] = 'update'
+                data['messages'] = render_to_string('main/includes/messages.html', context,
+                                                          request=request)
                 data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context,
                                                           request=request)
             else:
@@ -438,7 +442,10 @@ def doc_delete(request, pk):
                    'searched': searched,
                    'order': order,
                    'label_sort_by': label_sort_by}
+        messages.success(request, 'Document deleted')
         data['action'] = 'delete'
+        data['messages'] = render_to_string('main/includes/messages.html', context,
+                                            request=request)
         data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context, request=request)
     else:
         context = {'doc': doc,

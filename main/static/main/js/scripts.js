@@ -1,7 +1,3 @@
-var close_messages = function (element) {
-    // $(element).children("p").hide()
-    element.classList.remove('message-shown');
-};
 
 var verifyDate = function () {
       var expiry_date = $("#id_expiry_date");
@@ -16,20 +12,14 @@ var verifyDate = function () {
   };
 
 $(function () {
-
-  /* Functions */
-  // var reminder = function () {
-  //     var expiry_date = $("#id_expiry_date");
-  //     var reminder_div = $("#div_id_reminder");
-  //     const value = expiry_date.val();
-  //     const trimmed = value.trim();
-  //     if (trimmed) {
-  //         reminder_div.show();
-  //       } else {
-  //         reminder_div.hide();
-  //       }
-  // };
-
+  var showMessages = function(){
+    setTimeout(function(){
+          var m = document.getElementsByClassName("alert");
+          if (m && m.length) {
+              m[0].classList.add('hide');
+          }
+      }, 3000);
+  };
 
   var loadForm = function () {
     var btn = $(this);
@@ -62,11 +52,7 @@ $(function () {
         if (data.form_is_valid) {
           $("#modal-doc").modal("hide");
           $("#main").html(data.html_docs_list);
-          var messages = document.getElementById("message");
-          messages.classList.add('message-shown');
-          setTimeout(function () {
-              $(close_messages(messages));
-          }, 3000);
+          $(".messages-container").html(data.messages);
         }
         else {
           $("#modal-doc .modal-content").html(data.modal_content);
@@ -94,5 +80,7 @@ $(function () {
   // Search
   $(document).on("click", ".js-search", loadForm);
   modal_doc.on("submit", ".js-search-form", saveForm);
+
+  showMessages()
 
 });

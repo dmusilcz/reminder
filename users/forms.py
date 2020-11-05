@@ -1,11 +1,37 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from .models import Profile
 
 
+def ForbiddenUsernamesValidator(value):
+    forbidden_usernames = ['admin', 'settings', 'news', 'about', 'help', 'signin', 'signup',
+        'signout', 'terms', 'privacy', 'cookie', 'new', 'login', 'logout', 'administrator',
+        'join', 'account', 'username', 'root', 'blog', 'user', 'users', 'billing', 'subscribe',
+        'reviews', 'review', 'blog', 'blogs', 'edit', 'mail', 'email', 'home', 'job', 'jobs',
+        'contribute', 'newsletter', 'shop', 'profile', 'register', 'auth', 'authentication',
+        'campaign', 'config', 'delete', 'remove', 'forum', 'forums', 'download', 'downloads',
+        'contact', 'blogs', 'feed', 'faq', 'intranet', 'log', 'registration', 'search',
+        'explore', 'rss', 'support', 'status', 'static', 'media', 'setting', 'css', 'js',
+        'follow', 'activity', 'library']
+    if value.lower() in forbidden_usernames:
+        raise ValidationError(_('Username contains a reserved word.'))
+
+
+def UniqueEmailValidator(value):
+    if User.objects.filter(email__iexact=value).exists():
+        raise ValidationError(_('User with this Email already exists.'))
+
+
+def UniqueUsernameIgnoreCaseValidator(value):
+    if User.objects.filter(username__iexact=value).exists():
+        raise ValidationError(_('User with this Username already exists.'))
+
+
 class LoginForm(AuthenticationForm):
-    remember_me = forms.BooleanField(required=False, label='Keep me logged in', widget=forms.CheckboxInput())
+    remember_me = forms.BooleanField(required=False, label=_('Keep me logged in'), widget=forms.CheckboxInput())
 
 
 class SignUpForm(UserCreationForm):
@@ -14,6 +40,12 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        self.fields['username'].validators.append(ForbiddenUsernamesValidator)
+        self.fields['username'].validators.append(UniqueUsernameIgnoreCaseValidator)
+        self.fields['email'].validators.append(UniqueEmailValidator)
 
 
 class UserInformationUpdateForm(forms.ModelForm):
@@ -25,8 +57,9 @@ class UserInformationUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    news_consent = forms.BooleanField(required=False)
+    # news_consent = forms.BooleanField(required=False)
+    language = forms.ChoiceField(required=True, choices=Profile.choices)
 
     class Meta:
         model = Profile
-        fields = ('news_consent', )
+        fields = ('language', 'news_consent', )

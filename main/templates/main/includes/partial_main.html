@@ -6,14 +6,14 @@
       </div>
       {% if docs %}
         <div class="w-100 text-center">
-          <p class="lead">You have <b>{{ user.document_set.count }} {{docs_pocet}}</b> document{{ user.document_set.count|pluralize }} saved</p>
+          <p class="lead">You have <b>{{ user.document_set.count }}</b> document{{ user.document_set.count|pluralize }} saved</p>
         </div>
       {% endif %}
-      <div class="my-2" id="messages">
-        <p id='message' class="message-hidden">Action performed successfully</p>
-      </div>
+      <!--<div class="my-2" id="messages">-->
+        <!--<p id='message' class="message-hidden">Action performed successfully</p>-->
+      <!--</div>-->
       <div class="mt-3 mb-2 mx-2" id="doc-function-buttons">
-        <a href="{% url 'new_doc' %}" class="btn btn-update mb-1">Add document</a>
+        <a href="{% url 'new_doc' %}" class="btn btn-add mb-1">Add document</a>
         <button type="button" class="btn btn-info mb-1 js-search" data-url="{% url 'search' %}{% if order %}?o={{order}}{% endif %}">Search</button>
         <div class="btn-group" id="order-button">
           {% include 'main/includes/order_button.html' %}

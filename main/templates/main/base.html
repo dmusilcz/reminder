@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +33,21 @@
             <!--<a href=""><i class="fab fa-twitter ml-3"></i></a>-->
             <!--<a href=""><i class="fab fa-instagram ml-3"></i></a>-->
             <!--<a href=""><i class="fab fa-tripadvisor ml-3"></i></a>-->
+            <div class="btn-group">
+              {% get_current_language as LANGUAGE_CODE %}
+              {% get_language_info for LANGUAGE_CODE as language %}
+              <button type="button" class="btn btn-light dropdown-toggle mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ language.name_local }} ({{ LANGUAGE_CODE }})
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu language-menu">
+              {% get_available_languages as LANGUAGES %}
+              {% for lang in LANGUAGES %}
+                <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% url "set_language_from_url" user_language=lang.0 %}" class="dropdown-item">{{ lang.1|capfirst }} ({{ lang.0 }})</a></li>
+              {% endfor %}
+              </ul>
+            </div>
             {% if user.is_authenticated %}
               <div class="user-buttons d-flex">
-                <p>{{ user.username }}</p>
                 <a href="{% url 'logout' %}" class="btn btn-logout ml-2">Log out</a>
               </div>
             {% else %}
@@ -45,37 +59,41 @@
           </nav>
         </div>
       </div>
-          {% if user.is_authenticated %}
-          <div class="menu_navbar_container_wrapper sticky-top">
-            <div class="container menu_navbar_container  px-0" id="menu_navbar_container">
-              <nav class="navbar navbar-expand-md navbar-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                <!--<ul class="navbar-nav ml-auto">-->
-                  <ul class="navbar-nav text-center ml-auto">
-                    <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">Documents</a>
-                    </li>
-                    <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'categories' %}">Categories</a>
-                    </li>
-                    <li {% if 'my_account' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'my_account' %}">My account</a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
+      {% if user.is_authenticated %}
+      <div class="menu_navbar_container_wrapper sticky-top">
+        <div class="container menu_navbar_container  px-0" id="menu_navbar_container">
+          <nav class="navbar navbar-expand-md navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+            <!--<ul class="navbar-nav ml-auto">-->
+              <ul class="navbar-nav text-center ml-auto">
+                <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
+                  <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
+                  <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">Documents</a>
+                </li>
+                <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
+                  <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                </li>
+                <li {% if 'my_account' in request.resolver_match.url_name %}class="active"{% endif %}>
+                  <a class="nav-link" href="{% url 'my_account' %}">My account</a>
+                </li>
+              </ul>
             </div>
-          </div>
-          {% else %}
-          {% endif %}
+          </nav>
+        </div>
+      </div>
+      {% else %}
+      {% endif %}
+      <div class="messages_wrapper">
+        <div class="container messages-container d-flex justify-content-center">
+          {% include 'main/includes/messages.html' %}
+        </div>
+      </div>
 
-    <!--</header>-->
     {% block content %}
     {% endblock %}
 

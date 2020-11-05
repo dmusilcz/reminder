@@ -6,9 +6,9 @@
     {% for doc in docs %}
       <div class="col-lg-4 col-md-6 col-sm-12 doc">
         <div class="card p-2 doc-card">
-          <div class="doc-name text-center"><h4>{{ doc.name }}</h4></div>
+          <div class="doc-name text-center"><h4>{{ doc.name|truncatechars:60 }}</h4></div>
           <div class="doc-desc-title text-center"><p>Description</p></div>
-          <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc|truncatechars:100 }} {% else %}No description provided{% endif %}</p></div>
+          <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc|truncatechars:200}} {% else %}No description provided{% endif %}</p></div>
           <div class="doc-cat-title text-center"><p>Category</p></div>
           <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}No category set{% endif %}</p></div>
           <div class="doc-expiry-date-title text-center"><p>Expiry date</p></div>

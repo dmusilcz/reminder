@@ -20,13 +20,12 @@ def create_default_categories(sender, instance, created, **kwargs):
 #         for rem in ('1 day', '3 days', '1 week', '2 weeks', '1 month', '3 months', '6 months'):
 #             ReminderChoice.objects.create(author=instance, field=rem)
 
-
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance, news_consent=True)
-
-
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=User)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance, news_consent=True)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_profile(sender, instance, **kwargs):
+#     instance.profile.save()

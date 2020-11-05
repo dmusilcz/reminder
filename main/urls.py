@@ -34,7 +34,8 @@ urlpatterns = [
     path('doc/<int:pk>/delete/', views.doc_delete, name='doc_delete'),
     path('cat/<int:pk>/', views.CategoryDetailView.as_view(), name='cat_detail'),
     path('cat/<int:pk>/update/', views.CategoryUpdateView.as_view(), name='cat_update'),
-    path('cat/<int:pk>/delete/', views.cat_delete, name='cat_delete')
+    path('cat/<int:pk>/delete/', views.cat_delete, name='cat_delete'),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
     # path('doc/<int:pk>/delete/<str:view>/', views.doc_delete, name='doc_delete')]
 

@@ -3,9 +3,9 @@
     {% for cat in cats %}
       <div class="col-lg-4 col-md-6 col-sm-12 doc" id="cat_{{ cat.id }}">
         <div class="card p-2 cat-card">
-          <div class="cat-name text-center"><h4>{{ cat.name }}</h4></div>
+          <div class="cat-name text-center"><h4>{{ cat.name|truncatechars:60 }}</h4></div>
           <div class="cat-desc-title text-center"><p>Description</p></div>
-          <div class="cat-desc-content"><p>{% if cat.desc %}{{ cat.desc }} {% else %}No description provided{% endif %}</p></div>
+          <div class="cat-desc-content"><p>{% if cat.desc %}{{ cat.desc|truncatechars:200 }} {% else %}No description provided{% endif %}</p></div>
           <div class="cat-doc-count-title text-center"><p>Documents in category</p></div>
           <div class="cat-doc-count-content text-center"><h5>{{ cat.document_set.count }}</h5></div>
           <div id="cat-buttons" class="d-flex justify-content-center">

@@ -1,5 +1,6 @@
 {% extends "main/base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <main class="main">
@@ -7,7 +8,7 @@
     {% if user.is_authenticated %}
     <div class="row">
       <div class="col-12 text-center">
-        <p>You have {{ doc_num }} documents.</p>
+        <p>{% blocktrans count num=doc_num %}You have {{ num }} document.{% plural %}You have {{ num }} documents.{% endblocktrans %}</p>
       </div>
     </div>
     {% else %}

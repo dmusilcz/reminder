@@ -12,8 +12,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 from decouple import config, Csv
 import dj_database_url
+from django.utils.translation import gettext_lazy as _
+from django.contrib.messages import constants as messages
 
 import os
+
+import django.conf.locale
+from django.conf import global_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,6 +80,16 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_CONTEXT_PROCESSORS = ['django.core.context_processors.i18n']
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 WSGI_APPLICATION = 'reminder.wsgi.application'
 
@@ -122,20 +138,41 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
+LANGUAGE_CODE = 'cs'
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
-USE_L10N = False
-
+USE_L10N = True
 USE_TZ = True
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+    # os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale', 'users'),
+)
+
+LANGUAGES = [
+    ('cs', _('Czech')),
+    ('en', _('English')),
+]
+
+EXTRA_LANG_INFO = {
+    'cs': {
+        'bidi': False, # right-to-left
+        'code': 'cs',
+        'name': 'Czech',
+        'name_local': u'Čeština', #unicode codepoints here
+    },
+}
+
+LANG_INFO = dict({**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO})
+django.conf.locale.LANG_INFO = LANG_INFO
+#
+# global_settings.LANGUAGES = global_settings.LANGUAGES + [("cz",'Čeština'),]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/

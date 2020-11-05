@@ -69,6 +69,39 @@ html, body, #fullheight {
   }
 }
 
+.messages_wrapper, .messages-container {
+  height: 10px;
+  position: relative;
+}
+
+.messages-container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/*.messages_wrapper {*/
+  /*padding-right: 15px;*/
+/*}*/
+
+.alert {
+    z-index: 1050;
+    width: 95%;
+    position: absolute;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0px);
+    transition: visibility 0s, opacity 250ms, transform 250ms;
+}
+.alert.hide {
+    z-index: 1050;
+    width: 95%;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: visibility 0s 250ms, opacity 250ms, transform 250ms;
+}
+
 /*.account-card {*/
   /*margin: 1em;*/
   /*box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 9px 0 rgba(0, 0, 0, 0.19);*/
@@ -79,6 +112,15 @@ html, body, #fullheight {
     /*margin: 1em 0.25em 0.25em 0.25em;*/
   /*}*/
 /*}*/
+
+/*.language-menu, .language-menu li, .language-menu li a {*/
+.language-menu {
+  /*z-index: 1050!important;*/
+}
+
+.language-menu.show {
+  /*position: relative;*/
+}
 
 .datepicker-container {
   z-index: 1050!important;
@@ -110,12 +152,12 @@ html, body, #fullheight {
   margin-bottom: 0;
 }
 
-.btn-update {
+.btn-add, .btn-update, .btn-save {
   color: white;
   background-color: rgb(54, 99, 159);
 }
 
-.btn-update:hover {
+.btn-add:hover, .btn-update:hover, .btn-save:hover {
   color: white;
   background-color: rgb(55, 121, 182);
 }
@@ -188,6 +230,8 @@ html, body, #fullheight {
 
 .user_navbar_container_wrapper {
   font-size: 16px;
+  /*position: relative;*/
+  z-index: 1030
 }
 
 .menu_navbar_container_wrapper {
