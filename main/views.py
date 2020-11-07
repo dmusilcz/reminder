@@ -19,7 +19,7 @@ from django.views.generic import (
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoice
 # from .filters import DocFilter
-from .forms import SearchForm, DocumentUpdateForm
+from .forms import SearchForm, DocumentUpdateForm, CategoryUpdateForm
 
 # Create your views here.
 
@@ -32,27 +32,27 @@ def home(request):
         return render(request, 'main/home.html')
 
 
-class UserDocsView(LoginRequiredMixin, ListView):
-    model = Document
-    context_object_name = 'docs'
-    paginate_by = 3
-
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.request.user)
-        searched = self.request.GET.get('searched', None)
-        if searched:
-            doc_pk_list = self.request.session.get('searched_docs_pks', None)
-            return Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by('name')
-
-        self.request.session['searched_docs_pks'] = None
-        return Document.objects.filter(author=user).order_by('name')
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        searched = self.request.GET.get('searched', None)
-        if searched:
-            data['searched'] = True
-        return data
+# class UserDocsView(LoginRequiredMixin, ListView):
+#     model = Document
+#     context_object_name = 'docs'
+#     paginate_by = 3
+#
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.request.user)
+#         searched = self.request.GET.get('searched', None)
+#         if searched:
+#             doc_pk_list = self.request.session.get('searched_docs_pks', None)
+#             return Document.objects.filter(author=user).filter(pk__in=doc_pk_list).order_by('name')
+#
+#         self.request.session['searched_docs_pks'] = None
+#         return Document.objects.filter(author=user).order_by('name')
+#
+#     def get_context_data(self, **kwargs):
+#         data = super().get_context_data(**kwargs)
+#         searched = self.request.GET.get('searched', None)
+#         if searched:
+#             data['searched'] = True
+#         return data
 
 
 @login_required
@@ -165,7 +165,7 @@ def search(request):
             data['action'] = 'search'
             # data['order_button'] = render_to_string('main/includes/order_button.html', context)
             # data['html_docs_list'] = render_to_string('main/includes/partial_docs_list.html', context, request=request)
-            data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context, request=request)
+            data['html_items_list'] = render_to_string('main/includes/partial_docs.html', context, request=request)
 
         else:
             context = {'form': form,
@@ -181,57 +181,57 @@ def search(request):
     return JsonResponse(data)
 
 
-@login_required
-def search2(request):
-    user = get_object_or_404(User, username=request.user)
-    doc_list = Document.objects.filter(author=user).order_by('name')
-    if request.method == 'POST':
-        form = SearchForm(data=request.POST, request=request)
-        if form.is_valid():
-            name = form.cleaned_data.get("name")
-            desc = form.cleaned_data.get("desc")
-            categories = form.cleaned_data.get("category")
-            reminders = form.cleaned_data.get('reminder')
-            expiry_date_from = form.cleaned_data.get("expiry_date_from")
-            expiry_date_to = form.cleaned_data.get("expiry_date_to")
+# @login_required
+# def search2(request):
+#     user = get_object_or_404(User, username=request.user)
+#     doc_list = Document.objects.filter(author=user).order_by('name')
+#     if request.method == 'POST':
+#         form = SearchForm(data=request.POST, request=request)
+#         if form.is_valid():
+#             name = form.cleaned_data.get("name")
+#             desc = form.cleaned_data.get("desc")
+#             categories = form.cleaned_data.get("category")
+#             reminders = form.cleaned_data.get('reminder')
+#             expiry_date_from = form.cleaned_data.get("expiry_date_from")
+#             expiry_date_to = form.cleaned_data.get("expiry_date_to")
+#
+#             doc_list = doc_list.filter(name__icontains=name).filter(desc__icontains=desc)
+#             if categories:
+#                 if '0' in categories:
+#                     null_cats = doc_list.filter(category__isnull=True)
+#                     categories.remove('0')
+#                     if categories:
+#                         doc_list = doc_list.filter(category__in=categories) | null_cats
+#                     else:
+#                         doc_list = null_cats
+#                 else:
+#                     doc_list = doc_list.filter(category__in=categories)
+#
+#             if reminders:
+#                 if '0' in reminders:
+#                     null_rems = doc_list.filter(reminder__isnull=True)
+#                     reminders.remove('0')
+#                     if reminders:
+#                         doc_list = doc_list.filter(reminder__in=reminders) | null_rems
+#                     else:
+#                         doc_list = null_rems
+#                 else:
+#                     doc_list = doc_list.filter(reminder__in=reminders)
+#
+#             if expiry_date_from and expiry_date_to:
+#                 doc_list = doc_list.filter(expiry_date__gte=expiry_date_from).filter(expiry_date__lte=expiry_date_to)
+#             elif expiry_date_from:
+#                 doc_list = doc_list.filter(expiry_date__gte=expiry_date_from)
+#             elif expiry_date_to:
+#                 doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
+#
+#             render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
+#     else:
+#         form = SearchForm(request=request)
+#     return render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
 
-            doc_list = doc_list.filter(name__icontains=name).filter(desc__icontains=desc)
-            if categories:
-                if '0' in categories:
-                    null_cats = doc_list.filter(category__isnull=True)
-                    categories.remove('0')
-                    if categories:
-                        doc_list = doc_list.filter(category__in=categories) | null_cats
-                    else:
-                        doc_list = null_cats
-                else:
-                    doc_list = doc_list.filter(category__in=categories)
 
-            if reminders:
-                if '0' in reminders:
-                    null_rems = doc_list.filter(reminder__isnull=True)
-                    reminders.remove('0')
-                    if reminders:
-                        doc_list = doc_list.filter(reminder__in=reminders) | null_rems
-                    else:
-                        doc_list = null_rems
-                else:
-                    doc_list = doc_list.filter(reminder__in=reminders)
-
-            if expiry_date_from and expiry_date_to:
-                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from).filter(expiry_date__lte=expiry_date_to)
-            elif expiry_date_from:
-                doc_list = doc_list.filter(expiry_date__gte=expiry_date_from)
-            elif expiry_date_to:
-                doc_list = doc_list.filter(expiry_date__lte=expiry_date_to)
-
-            render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
-    else:
-        form = SearchForm(request=request)
-    return render(request, 'main/docs_filter2.html', {'form': form, 'docs': doc_list})
-
-
-class DocCreateView(LoginRequiredMixin, CreateView):
+class DocCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Document
     fields = ['name', 'desc', 'category', 'expiry_date', 'reminder']
 
@@ -253,6 +253,9 @@ class DocCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, 'Document added')
         # form.save()
         return super().form_valid(form)
+
+    def test_func(self):
+        return Document.objects.filter(author=self.request.user).count() < 100
 
 
 class DocDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
@@ -389,7 +392,7 @@ def doc_update(request, pk):
                 data['action'] = 'update'
                 data['messages'] = render_to_string('main/includes/messages.html', context,
                                                           request=request)
-                data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context,
+                data['html_items_list'] = render_to_string('main/includes/partial_docs.html', context,
                                                           request=request)
             else:
                 print('NOT VALID')
@@ -446,7 +449,7 @@ def doc_delete(request, pk):
         data['action'] = 'delete'
         data['messages'] = render_to_string('main/includes/messages.html', context,
                                             request=request)
-        data['html_docs_list'] = render_to_string('main/includes/partial_main.html', context, request=request)
+        data['html_items_list'] = render_to_string('main/includes/partial_docs.html', context, request=request)
     else:
         context = {'doc': doc,
                    'order': order,
@@ -458,83 +461,117 @@ def doc_delete(request, pk):
 class UserCategoriesView(LoginRequiredMixin, ListView):
     model = Category
     context_object_name = 'cats'
-    paginate_by = 20
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.request.user)
         return Category.objects.filter(author=user).order_by('name')
 
 
-class CategoryCreateView(LoginRequiredMixin, CreateView):
+class CategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Category
     fields = ['name', 'desc']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        return super().form_valid(form)
-
-
-class CategoryDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Category
-    fields = ['name', 'desc']
-    template_name = 'main/category_detail.html'
-    context_object_name = 'cat'
-
-    def get(self, request, **kwargs):
-        try:
-            self.model.objects.get(pk=kwargs['pk'])
-            return super(CategoryDetailView, self).get(request, **kwargs)
-        except self.model.DoesNotExist:
-            return redirect(reverse('categories'))
-
-    def test_func(self):
-        try:
-            cat = self.get_object()
-        except:
-            return redirect(reverse('categories'))
-        if self.request.user == cat.author:
-            return True
-        return False
-
-
-class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Category
-    fields = ['name', 'desc']
-    template_name = 'main/category_update_form.html'
-    context_object_name = 'cat'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(author=self.request.user)
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
+        messages.success(self.request, 'Category added')
         return super().form_valid(form)
 
     def test_func(self):
-        cat = self.get_object()
-        if self.request.user == cat.author:
-            return True
-        return False
+        return Category.objects.filter(author=self.request.user).count() < 30
+
+
+# class CategoryDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+#     model = Category
+#     fields = ['name', 'desc']
+#     template_name = 'main/category_detail.html'
+#     context_object_name = 'cat'
+#
+#     def get(self, request, **kwargs):
+#         try:
+#             self.model.objects.get(pk=kwargs['pk'])
+#             return super(CategoryDetailView, self).get(request, **kwargs)
+#         except self.model.DoesNotExist:
+#             return redirect(reverse('categories'))
+#
+#     def test_func(self):
+#         try:
+#             cat = self.get_object()
+#         except:
+#             return redirect(reverse('categories'))
+#         if self.request.user == cat.author:
+#             return True
+#         return False
+
+
+# class CategoryUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+#     model = Category
+#     fields = ['name', 'desc']
+#     template_name = 'main/category_update_form.html'
+#     context_object_name = 'cat'
+#
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         return queryset.filter(author=self.request.user)
+#
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
+#
+#     def test_func(self):
+#         cat = self.get_object()
+#         if self.request.user == cat.author:
+#             return True
+#         return False
+
+
+@login_required()
+def cat_update(request, pk):
+    cat = get_object_or_404(Category, pk=pk)
+    data = dict()
+
+    if request.user == cat.author:
+        if request.method == 'POST':
+            form = CategoryUpdateForm(request.POST, instance=cat)
+            if form.is_valid():
+                form.save()
+                data['form_is_valid'] = True
+                cat_list = Category.objects.filter(author=request.user).order_by('name')
+                context = {'cats': cat_list}
+                messages.success(request, 'Category updated')
+                data['action'] = 'update'
+                data['messages'] = render_to_string('main/includes/messages.html', context, request=request)
+                data['html_items_list'] = render_to_string('main/includes/partial_cats.html', context, request=request)
+            else:
+                data['form_is_valid'] = False
+        else:
+            form = CategoryUpdateForm(instance=cat)
+        context = {'cat': cat,
+                   'form': form}
+        data['modal_content'] = render_to_string('main/includes/partial_cat_update.html', context, request=request)
+
+    return JsonResponse(data)
 
 
 @login_required
 def cat_delete(request, pk):
     cat = get_object_or_404(Category, pk=pk)
     data = dict()
+
+    print('HERE')
     if request.method == 'POST' and request.user == cat.author:
-        cat_id = str(pk)
+
+        print('HERE')
         cat.delete()
-        # user = get_object_or_404(User, username=request.user)
-        # docs = Document.objects.filter(author=user).order_by('name')
         data['form_is_valid'] = True
-        data['cat_id'] = '#cat_' + cat_id
         cat_list = Category.objects.filter(author=request.user).order_by('name')
         context = {'cats': cat_list}
-        data['html_cats_list'] = render_to_string('main/includes/partial_cats_list.html', context, request=request)
+        messages.success(request, 'Category deleted')
+        data['action'] = 'delete'
+        data['messages'] = render_to_string('main/includes/messages.html', context, request=request)
+        data['html_items_list'] = render_to_string('main/includes/partial_cats.html', context, request=request)
     else:
         context = {'cat': cat}
-        data['html_form'] = render_to_string('main/includes/partial_cat_delete.html', context, request=request)
+        data['modal_content'] = render_to_string('main/includes/partial_cat_delete.html', context, request=request)
     return JsonResponse(data)
 
 

@@ -1,3 +1,5 @@
+var modal_window = $("#modal");
+var modal_content = $(".modal-content");
 
 var verifyDate = function () {
       var expiry_date = $("#id_expiry_date");
@@ -12,11 +14,11 @@ var verifyDate = function () {
   };
 
 $(function () {
-  var showMessages = function(){
+  var hideMessages = function(){
     setTimeout(function(){
           var m = document.getElementsByClassName("alert");
           if (m && m.length) {
-              m[0].classList.add('hide');
+            m[0].classList.add('hide');
           }
       }, 3000);
   };
@@ -28,12 +30,12 @@ $(function () {
       type: 'get',
       dataType: 'json',
       beforeSend: function () {
-        $("#modal-doc").modal("show");
+        modal_window.modal("show");
         var body = document.getElementsByTagName("body");
         $(body).css('padding-right', '0px');
       },
       success: function (data) {
-        $("#modal-doc .modal-content").html(data.modal_content);
+        modal_content.html(data.modal_content);
         if (data.action_update){
             verifyDate();
         }
@@ -50,12 +52,13 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#modal-doc").modal("hide");
-          $("#main").html(data.html_docs_list);
+          modal_window.modal("hide");
+          $("#main").html(data.html_items_list);
           $(".messages-container").html(data.messages);
+          hideMessages();
         }
         else {
-          $("#modal-doc .modal-content").html(data.modal_content);
+          modal_content.html(data.modal_content);
         }
       }
     });
@@ -64,23 +67,30 @@ $(function () {
 
 
   /* Binding */
-  var modal_doc = $("#modal-doc");
 
-  // Detail
+  // Detail doc
   $(document).on("click", ".js-doc-detail", loadForm);
 
-  // Update
+  // Update doc
   $(document).on("click", ".js-update-doc", loadForm);
-  modal_doc.on("submit", ".js-doc-update-form", saveForm);
+  modal_window.on("submit", ".js-doc-update-form", saveForm);
 
-  // Delete
+  // Delete doc
   $(document).on("click", ".js-delete-doc", loadForm);
-  modal_doc.on("submit", ".js-doc-delete-form", saveForm);
+  modal_window.on("submit", ".js-doc-delete-form", saveForm);
+
+  // Update cat
+  $(document).on("click", ".js-update-cat", loadForm);
+  modal_window.on("submit", ".js-cat-update-form", saveForm);
+
+  // Delete cat
+  $(document).on("click", ".js-delete-cat", loadForm);
+  modal_window.on("submit", ".js-cat-delete-form", saveForm);
 
   // Search
   $(document).on("click", ".js-search", loadForm);
-  modal_doc.on("submit", ".js-search-form", saveForm);
+  modal_window.on("submit", ".js-search-form", saveForm);
 
-  showMessages()
+  hideMessages();
 
 });

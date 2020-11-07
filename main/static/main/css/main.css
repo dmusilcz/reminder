@@ -70,7 +70,6 @@ html, body, #fullheight {
 }
 
 .messages_wrapper, .messages-container {
-  height: 10px;
   position: relative;
 }
 
@@ -84,7 +83,7 @@ html, body, #fullheight {
 /*}*/
 
 .alert {
-    z-index: 1050;
+    z-index: 1040;
     width: 95%;
     position: absolute;
     opacity: 1;
@@ -93,7 +92,7 @@ html, body, #fullheight {
     transition: visibility 0s, opacity 250ms, transform 250ms;
 }
 .alert.hide {
-    z-index: 1050;
+    z-index: 1040;
     width: 95%;
     position: absolute;
     opacity: 0;
@@ -126,18 +125,18 @@ html, body, #fullheight {
   z-index: 1050!important;
 }
 
-#docs-list {
+#docs-list, #cats-list {
   flex-wrap: wrap;
   width: 100%;
 }
 
-.doc {
+.doc, .cat {
   padding-right: 5px;
   padding-left: 5px;
   margin-bottom: 10px;
 }
 
-.doc-card {
+.doc-card, .cat-card {
   /*box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(0, 0, 0, 0.2);*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
 }
@@ -183,30 +182,7 @@ html, body, #fullheight {
 }
 
 @media (min-width: 992px) {
-  .doc {
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-bottom: 20px;
-}}
-
-#cats-list {
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.cat {
-  padding-right: 5px;
-  padding-left: 5px;
-  margin-bottom: 10px;
-}
-
-.cat-card {
-  /*box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(0, 0, 0, 0.2);*/
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
-}
-
-@media (min-width: 992px) {
-  .cat {
+  .doc, .cat {
   padding-right: 10px;
   padding-left: 10px;
   margin-bottom: 20px;

@@ -26,6 +26,12 @@ class DocumentUpdateForm(forms.ModelForm):
         self.fields['reminder'].queryset = ReminderChoice.objects.all().order_by('id')
 
 
+class CategoryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'desc']
+
+
 class SearchForm(forms.Form):
     name = forms.CharField(required=False, label='<b>Name</b> contains:')
     desc = forms.CharField(required=False, label='<b> Description</b> contains:')
