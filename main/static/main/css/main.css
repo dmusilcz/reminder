@@ -52,6 +52,47 @@ html, body, #fullheight {
   /*background-color: rgb(252, 252, 252);*/
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 1rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-gap: 0.7rem 1rem;
+  }
+}
+
+.home-item {
+  min-height: 150px;
+}
+
+.home-item-card {
+  min-height: 150px;
+  padding-right: 5px;
+  padding-left: 5px;
+  /*align-items: center;*/
+}
+
+.home-item-title {
+  border-bottom: rgba(168, 168, 168, 0.68) 2px solid;
+  min-height: 80px;
+}
+
+.home-item-title, .home-item-content {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /*padding-top: auto;*/
+  /*padding-bottom: auto;*/
+}
+
 .signup-card, .login-card, .account-card, .doc-update-card {
   margin: 1em;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 9px 0 rgba(0, 0, 0, 0.19);
@@ -89,7 +130,7 @@ html, body, #fullheight {
     opacity: 1;
     visibility: visible;
     transform: translateY(0px);
-    transition: visibility 0s, opacity 250ms, transform 250ms;
+    transition: visibility 250s, opacity 250ms, transform 250ms;
 }
 .alert.hide {
     z-index: 1040;
@@ -98,7 +139,7 @@ html, body, #fullheight {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: visibility 0s 250ms, opacity 250ms, transform 250ms;
+    transition: visibility 250s, opacity 250ms, transform 250ms;
 }
 
 /*.account-card {*/
@@ -136,7 +177,7 @@ html, body, #fullheight {
   margin-bottom: 10px;
 }
 
-.doc-card, .cat-card {
+.doc-card, .cat-card, .home-item-card {
   /*box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(0, 0, 0, 0.2);*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
 }
@@ -330,6 +371,10 @@ html, body, #fullheight {
   display: none;
 }
 
+.announcement {
+  border-radius: 10px;
+}
+
 .no-docs {
   flex-direction: column;
   background-color: rgba(209, 236, 255, 0.6);
@@ -379,6 +424,28 @@ html, body, #fullheight {
   overflow: auto;
 }
 
+.modal-header, .modal-body {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+#CookielawBanner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+    background: #fff;
+    padding: 15px;
+}
+
+.cookie-content {
+    position: relative;
+}
+
+#CookielawBanner #CookielawCross {
+    display: block;
+    padding: 15px;
+}
 
 /*#message {*/
     /*overflow: hidden;*/

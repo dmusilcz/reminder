@@ -3,8 +3,15 @@
 {% load crispy_forms_tags form_tags widget_tweaks %}
 
 {% block javascript %}
-  <!--<script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>-->
-  <script src="{% static 'main/js/scripts.js' %}"></script>
+  <script src="{% static 'main/js/datepicker.cs.js' %}"></script>
+  <script>
+    $(function () {
+      $("#id_expiry_date").attr("placeholder", '{{placeholder}}').datepicker({
+      language: '{{lang}}',
+      autoHide: true
+    });
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -32,3 +39,5 @@
   </div>
 </main>
 {% endblock content %}
+
+

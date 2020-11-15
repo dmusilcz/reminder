@@ -2,14 +2,6 @@
 {% load static %}
 {% load i18n %}
 
-{% block javascript %}
-<script>
-$('.tap-link').click(function(){
-    $("#tap-modal .modal-content").html($(this).data('content'));
-});
-</script>
-{% endblock %}
-
 {% block content %}
 <main class="main">
   <div class="container px-0 h-100 main-container">
@@ -21,29 +13,19 @@ $('.tap-link').click(function(){
             <form method="post" novalidate>
               {% csrf_token %}
               {% include 'users/includes/form.html' %}
-              <p>By clicking the Submit button you agree to our <a href="#"
-                                                                   class="tap-link"
-                                                                   data-toggle="modal"
-                                                                   data-target="#tap-modal"
-                                                                   data-content='{{ terms|safe }}'>Terms of Use</a> and
-                                                                <a href="#"
-                                                                   class="tap-link"
-                                                                   data-toggle="modal"
-                                                                   data-target="#tap-modal"
-                                                                   data-content='{{ policy }}'>Privacy Policy</a>.</p>
-              <button type="submit" class="btn btn-primary btn-block">Create an account</button>
+              <p>By clicking the Submit button you agree to our <a href="javascript:void(0)"
+                                                                   class="js-terms"
+                                                                   data-url="{% url 'terms' %}">Terms of Use</a> and
+                                                                <a href="javascript:void(0)"
+                                                                   class="js-privacy"
+                                                                   data-url="{% url 'privacy' %}">Privacy Policy</a>.</p>
+              <button type="submit" class="btn btn-save btn-block">Create an account</button>
             </form>
           </div>
           <div class="card-footer text-muted text-center">
             Already have an account? <a href="{% url 'login' %}">Log in</a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="tap-modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
       </div>
     </div>
   </div>

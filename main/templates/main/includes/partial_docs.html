@@ -44,7 +44,6 @@
                   <p class="mb-0">{{ reminder }}</p>
                 {% endfor %}
               </div>
-              <!--<p> Reminder: {{ doc.get_parsed_reminders }}-->
               <div id="doc-buttons" class="d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary btn-sm mx-1 my-1 js-doc-detail" data-url="{% url 'doc_detail' doc.id %}">Detail</button>
                 <button type="button" class="btn btn-update btn-sm mx-1 my-1 js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>

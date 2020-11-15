@@ -18,6 +18,7 @@ $(function () {
     setTimeout(function(){
           var m = document.getElementsByClassName("alert");
           if (m && m.length) {
+            // console.log(m[0]);
             m[0].classList.add('hide');
           }
       }, 3000);
@@ -91,6 +92,16 @@ $(function () {
   $(document).on("click", ".js-search", loadForm);
   modal_window.on("submit", ".js-search-form", saveForm);
 
+  // Terms
+  $(document).on("click", ".js-terms", loadForm);
+
+  // Privacy policy
+  $(document).on("click", ".js-privacy", loadForm);
+
   hideMessages();
+  // verifyDate();
+  // $("#id_expiry_date").onload(verifyDate());
+  $("#id_expiry_date").on('textInput input', verifyDate);
+  // document.getElementById('id_expiry_date').addEventListener('change', verifyDate);
 
 });

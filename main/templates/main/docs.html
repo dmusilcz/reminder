@@ -1,23 +1,8 @@
 {% extends "main/base.html" %}
-{% load static %}
-
-{% block javascript %}
-  <!--<script src="{% static 'main/js/doc_detail.js' %}"></script>-->
-  <!--<script src="{% static 'main/js/doc_update.js' %}"></script>-->
-  <!--<script src="{% static 'main/js/doc_delete.js' %}"></script>-->
-  <!--<script src="{% static 'main/js/search.js' %}"></script>-->
-  <!--<script src="{% static 'main/js/reminder.js' %}"></script>-->
-  <script src="{% static 'main/js/scripts.js' %}"></script>
-{% endblock %}
+<!--{% load static %}-->
 
 {% block content %}
 <main class="main" id="main">
   {% include 'main/includes/partial_docs.html' %}
 </main>
-<div class="modal fade" id="modal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      </div>
-    </div>
-  </div>
 {% endblock content %}

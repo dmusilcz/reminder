@@ -1,4 +1,7 @@
 {% load crispy_forms_tags %}
+{% load static %}
+{% load i18n %}
+{% load l10n %}
 
 <form method="post" action="{% url 'doc_update' form.instance.pk %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}" class="js-doc-update-form">
   {% csrf_token %}
@@ -19,7 +22,18 @@
       </fieldset>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
     <button type="submit" class="btn btn-update">Save</button>
   </div>
 </form>
+
+<script src="{% static 'main/js/datepicker.cs.js' %}"></script>
+
+<script>
+  $(function () {
+    $("#id_expiry_date").attr("placeholder", '{{placeholder}}').datepicker({
+    language: '{{lang}}',
+    autoHide: true
+  });
+  });
+</script>

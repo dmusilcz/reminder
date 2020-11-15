@@ -26,7 +26,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('docs/', views.user_docs, name='docs'),
     path('search/', views.search, name='search'),
-    path('categories/', views.UserCategoriesView.as_view(template_name='main/categories.html'), name='categories'),
+    path('categories/', views.UserCategoriesView.as_view(), name='categories'),
     path('new_doc/', views.DocCreateView.as_view(), name='new_doc'),
     path('new_cat/', views.CategoryCreateView.as_view(), name='new_cat'),
     path('doc/<int:pk>/', views.doc_detail, name='doc_detail'),
@@ -35,12 +35,11 @@ urlpatterns = [
     # path('cat/<int:pk>/', views.CategoryDetailView.as_view(), name='cat_detail'),
     path('cat/<int:pk>/update/', views.cat_update, name='cat_update'),
     path('cat/<int:pk>/delete/', views.cat_delete, name='cat_delete'),
+    path('terms/', views.terms, name='terms'),
+    path('privacy/', views.privacy, name='privacy'),
     path('i18n/', include('django.conf.urls.i18n')),
 ]
-    # path('doc/<int:pk>/delete/<str:view>/', views.doc_delete, name='doc_delete')]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#
-# admin.site.site_header = 'Správa webu'
+

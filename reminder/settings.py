@@ -35,6 +35,10 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+ADMINS = (
+    ('David Musil', 'dmusilcz@gmail.com'),
+)
+
 
 # Application definition
 
@@ -49,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'widget_tweaks',
-    'multiselectfield',
+    'cookielaw',
+    'vinaigrette',
 ]
 
 MIDDLEWARE = [
@@ -138,9 +143,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -171,8 +173,26 @@ EXTRA_LANG_INFO = {
 
 LANG_INFO = dict({**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO})
 django.conf.locale.LANG_INFO = LANG_INFO
-#
+
+FORMAT_MODULE_PATH = [
+    'reminder.formats',
+]
+
 # global_settings.LANGUAGES = global_settings.LANGUAGES + [("cz",'Čeština'),]
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# DEFAULT_FROM_EMAIL = 'Parsifal Team <noreply@parsif.al>'
+# EMAIL_SUBJECT_PREFIX = '[NeverExpire] '
+# SERVER_EMAIL = 'application@parsif.al'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -188,5 +208,52 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-DATE_INPUT_FORMATS = ['%m/%d/%Y']
+# DATE_INPUT_FORMATS = ['%m/%d/%Y']
 # SESSION_COOKIE_AGE = 360
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'filters': {
+#          'require_debug_false': {
+#              '()': 'django.utils.log.RequireDebugFalse'
+#          }
+#      },
+#     'formatters': {
+#             'verbose': {
+#                 'format': '[contactor] %(levelname)s %(asctime)s %(message)s'
+#             },
+#         },
+#     'handlers': {
+#         # Send all messages to console
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#         # Log to a text file that can be rotated by logrotate
+#         'logfile': {
+#             'class': 'logging.handlers.WatchedFileHandler',
+#             'level': 'WARNING',
+#             'filename': '/home/reminder/logs/log.log'
+#         },
+#         'mail_admins': {
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'level': 'WARNING',
+#             'filters': ['require_debug_false'],
+#             # 'include_html': True,
+#         # critical errors are logged to sentry
+#         'sentry': {
+#             'level': 'WARNING',
+#             'filters': ['require_debug_false'],
+#             'class': 'raven.contrib.django.handlers.SentryHandler',
+#         },
+#     },
+#     'loggers': {
+#         # The "catch all" logger
+#         '': {
+#             'handlers': ['console', 'logfile', 'mail_admins', 'sentry'],
+#             'level': 'DEBUG',
+#             'propagate': False,
+#         },
+#     },
+# }

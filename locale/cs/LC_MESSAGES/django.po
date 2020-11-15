@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-04 19:47+0100\n"
+"POT-Creation-Date: 2020-11-15 22:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,67 +18,145 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+#: .\main\templates\main\base.html:136
+msgid "This website uses cookies to make your experience better."
+msgstr ""
+
+#: .\main\templates\main\base.html:139
+msgid "More info"
+msgstr ""
+
+#: .\main\templates\main\base.html:140
+msgid "Ok, understood"
+msgstr ""
+
 #: .\main\templates\main\home.html:11
 #, python-format
 msgid "You have %(num)s document."
 msgid_plural "You have %(num)s documents."
-msgstr[0] "Máte %(num)s uložený dokument."
-msgstr[1] "Máte %(num)s uložený dokument."
-msgstr[2] "Máte %(num)s uložených dokumentů."
-msgstr[3] "Máte %(num)s uložených dokumentů."
+msgstr[0] ""
+msgstr[1] ""
 
-#: .\reminder\settings.py:150
+#: .\reminder\settings.py:161
 msgid "Czech"
-msgstr "Čeština"
+msgstr ""
 
-#: .\reminder\settings.py:151
+#: .\reminder\settings.py:162
 msgid "English"
-msgstr "Angličtina"
+msgstr ""
 
 #: .\users\forms.py:20
 msgid "Username contains a reserved word."
-msgstr "Uživatelské heslo obsahuje rezervovaný řetězec znaků."
+msgstr ""
 
 #: .\users\forms.py:25
 msgid "User with this Email already exists."
-msgstr "Uživatel s touto emailovou adresou již existuje."
+msgstr ""
 
 #: .\users\forms.py:30
 msgid "User with this Username already exists."
-msgstr "Uživatel s tímto uživatelským jménem již existuje."
+msgstr ""
 
 #: .\users\forms.py:34
 msgid "Keep me logged in"
-msgstr "Zapamatuj si mě"
+msgstr ""
 
-#: .\users\templates\users\password_reset.html:12
-msgid "Password reset"
-msgstr "Obnovení hesla"
+#: .\users\signals.py:11
+msgid "IDs"
+msgstr "Osobní doklady"
 
+#: .\users\signals.py:11
+msgid "Car"
+msgstr "Auto"
+
+#: .\users\signals.py:11
+msgid "Insurance"
+msgstr "Pojistění"
+
+#: .\users\templates\users\my_account.html:11
+msgid "My account"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:15
+msgid "Username"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:17
+msgid "First name"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:18
+#: .\users\templates\users\my_account.html:20
+msgid "Not saved"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:19
+msgid "Last name"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:21
+msgid "Email address"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:23
+msgid "Preferred language"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:25
+msgid "Newsletter consent"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:26
+msgid ""
+" I agree to receive news about NeverExpire (new updates, features, etc.) to "
+"my email address"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:29
+msgid "Update info"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:30
+msgid "Change password"
+msgstr ""
+
+#: .\users\templates\users\my_account.html:31
+msgid "Delete account"
+msgstr ""
+
+#: .\users\templates\users\password_change.html:12
+msgid "Password change"
+msgstr ""
+
+#: .\users\templates\users\password_change.html:16
 #: .\users\templates\users\password_reset.html:22
 #: .\users\templates\users\password_reset_confirm.html:30
 msgid "Submit"
-msgstr "Odeslat"
+msgstr ""
+
+#: .\users\templates\users\password_reset.html:12
+msgid "Password reset"
+msgstr ""
 
 #: .\users\templates\users\password_reset_complete.html:12
 msgid "Password Reset Complete"
-msgstr "Obnovení hesla dokončeno"
+msgstr ""
 
 #: .\users\templates\users\password_reset_complete.html:13
 msgid "Your password has been changed. You may go ahead and "
-msgstr "Vaše heslo bylo změněno. Nyní se již můžete "
+msgstr ""
 
 #: .\users\templates\users\password_reset_complete.html:13
 msgid "log in"
-msgstr "přihlásit"
+msgstr ""
 
 #: .\users\templates\users\password_reset_complete.html:13
 msgid " now."
-msgstr "."
+msgstr ""
 
 #: .\users\templates\users\password_reset_confirm.html:12
 msgid "Confirm Password Reset"
-msgstr "Potvrzení obnovení hesla"
+msgstr ""
 
 #: .\users\templates\users\password_reset_confirm.html:33
 msgid ""
@@ -86,12 +164,10 @@ msgid ""
 "used.\n"
 "                Please request a new password reset."
 msgstr ""
-"Odkaz pro obnovení hesla je neplatný, pravděpodobně byl již použit nebo vypršela jeho platnost.\n"
-"Prosím opakujte proces pro obnovení hesla."
 
 #: .\users\templates\users\password_reset_done.html:12
 msgid "Password reset instructions sent"
-msgstr "Instrukce pro obnovení hesla odeslány"
+msgstr ""
 
 #: .\users\templates\users\password_reset_done.html:13
 msgid ""
@@ -99,7 +175,6 @@ msgid ""
 "exists with the email you entered.\n"
 "            You should receive them shortly."
 msgstr ""
-"Instrukce pro obnovení hesla jsme Vám zaslali na email, pokud uživatel se zadanou emailovou adresou existuje."
 
 #: .\users\templates\users\password_reset_done.html:15
 msgid ""
@@ -107,7 +182,6 @@ msgid ""
 "you registered with,\n"
 "            and check your spam folder."
 msgstr ""
-"Pokud email neobdržíte, zkontrolujte, že zadaná emailová adresa se shoduje s adresou zadanou při registraci, případně zkontrolujte složku se spamem."
 
 #: .\users\templates\users\password_reset_email.html:3
 #, python-format
@@ -115,28 +189,51 @@ msgid ""
 "To initiate the password reset process for your NeverExpire account '%(user)"
 "s', click the link below:"
 msgstr ""
-"Pro obnovení hesla pro účet '%(user)s' na neverexpire.com klikněte na "
-"následující odkaz:"
 
 #: .\users\templates\users\password_reset_email.html:7
 msgid ""
 "If clicking the link above doesn't work, please copy and paste the URL in a "
 "new browser window instead."
 msgstr ""
-"Pokud kliknutí na předchozí odkaz nefunguje, zkopírujte jej do nového okna prohlížeče a stiskněte Enter."
 
 #: .\users\templates\users\password_reset_email.html:9
 msgid ""
 "Sincerely,\n"
 "The NeverExpire Team\n"
 msgstr ""
-"S pozdravem,\n"
-"tým NeverExpire\n"
 
 #: .\users\templates\users\password_reset_subject.txt:2
 msgid "NeverExpire Password Reset"
-msgstr "NeverExpire - obnovení hesla"
+msgstr ""
 
-#: .\users\templates\users\signup.html:20
+#: .\users\templates\users\signup.html:12
 msgid "Sign up"
-msgstr "Přihlášení"
+msgstr ""
+
+#: .\main.ReminderChoice/field:1
+msgid "1 day"
+msgstr "1 den"
+
+#: .\main.ReminderChoice/field:2
+msgid "3 days"
+msgstr "3 dny"
+
+#: .\main.ReminderChoice/field:3
+msgid "1 week"
+msgstr "1 týden"
+
+#: .\main.ReminderChoice/field:4
+msgid "2 weeks"
+msgstr "2 týdny"
+
+#: .\main.ReminderChoice/field:5
+msgid "1 month"
+msgstr "1 měsíc"
+
+#: .\main.ReminderChoice/field:6
+msgid "3 months"
+msgstr "3 měsíce"
+
+#: .\main.ReminderChoice/field:7
+msgid "6 months"
+msgstr "6 měsíců"

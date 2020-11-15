@@ -15,13 +15,17 @@ class DocumentUpdateForm(forms.ModelForm):
         super(DocumentUpdateForm, self).__init__(*args, **kwargs)
         # ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
         self.fields['category'].queryset = Category.objects.filter(author=self.request.user)
-        self.fields['expiry_date'] = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(
-                                                     attrs={'oninput': "verifyDate()",
-                                                            'onshow': "verifyDate()",
-                                                            'autocomplete': 'off'}
-        ),
+        self.fields['expiry_date'] = forms.DateField(
+            # input_formats=['%m/%d/%Y'],
+                                                     # widget=FengyuanChenDatePickerInput(
+                                                     # attrs={'oninput': "verifyDate()",
+                                                     #        'onshow': "verifyDate()",
+                                                     #        'autocomplete': 'off'}),
+                                                     # widget=DatePickerInput(),
                                                      required=False,
                                                      help_text='Reminders can be chosen once this field is not empty')
+        self.fields['expiry_date'].widget.attrs = {'oninput': "verifyDate()",
+                                                   'autocomplete': 'off'}
         self.fields['reminder'].widget = forms.CheckboxSelectMultiple()
         self.fields['reminder'].queryset = ReminderChoice.objects.all().order_by('id')
 

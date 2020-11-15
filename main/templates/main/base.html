@@ -1,5 +1,5 @@
-{% load static %}
-{% load i18n %}
+{% load i18n static %}
+{% load cookielaw_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -10,18 +10,23 @@
 
     <!-- Bootstrap CSS -->
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'main/css/lightbox.css' %}">
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'main/css/lightbox.css' %}">-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cardo&subset=latin,latin-ext">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <!--<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">-->
+      <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />-->
+    <link rel="stylesheet" href="{% static 'main/css/datepicker.min.css' %}">
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+      <!--<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
+    <script src="{% static 'main/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'main/js/cookielaw.js' %}"></script>
+    <script src="{% static 'main/js/popper.min.js' %}"></script>
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>-->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-        <title>Reminder</title>
+    <title>Reminder</title>
 </head>
 <body class="d-flex flex-column">
     <!--<header class="site-header">-->
@@ -70,7 +75,7 @@
             <!--<ul class="navbar-nav ml-auto">-->
               <ul class="navbar-nav text-center ml-auto">
                 <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
-                  <a class="nav-link" href="{% url 'home' %}">Home</a>
+                  <a class="nav-link" href="{% url 'home' %}">Overview</a>
                 </li>
                 <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
                   <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">Documents</a>
@@ -85,26 +90,36 @@
             </div>
           </nav>
         </div>
-      </div>
-      {% else %}
-      {% endif %}
-      <div class="messages_wrapper">
+        <div class="messages_wrapper">
         <div class="container messages-container d-flex justify-content-center">
           {% include 'main/includes/messages.html' %}
         </div>
       </div>
+      </div>
+      {% else %}
+      {% endif %}
+      <!--<div class="messages_wrapper">-->
+        <!--<div class="container messages-container d-flex justify-content-center">-->
+          <!--{% include 'main/includes/messages.html' %}-->
+        <!--</div>-->
+      <!--</div>-->
 
     {% block content %}
     {% endblock %}
-
+    <div class="modal fade" id="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+      </div>
+    </div>
     <footer class="footer mt-auto">
       <div class="container footer-container pt-3">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-12">
             <h5 class="mb-4">About NeverExpire</h5>
             <p class="mb-2"><a href="#">Purpose</a></p>
-            <p class="mb-2"><a href="#">Terms of Use</a></p>
-            <p class="mb-2"><a href="#">Privacy Policy</a></p>
+            <p class="mb-2"><a href="javascript:void(0)" class="js-terms" data-url="{% url 'terms' %}">Terms of Use</a></p>
+            <p class="mb-2"><a href="javascript:void(0)" class="js-privacy" data-url="{% url 'privacy' %}">Privacy Policy</a></p>
           </div>
           <div class="col-lg-4 col-md-6 col-sm-12 footer-2nd-col">
             <h5 class="mb-4">Get in touch</h5>
@@ -114,6 +129,28 @@
         </div>
       </div>
     </footer>
+    {% if request.COOKIES.cookielaw_accepted == null %}
+    <div id="CookielawBanner">
+      <div class="cookie-content d-flex justify-content-center align-items-center flex-column">
+          <div class="cookie-text mb-1">
+              {% trans 'This website uses cookies to make your experience better.' %}
+          </div>
+          <div class="cookie-buttons">
+               <a href="javascript:void(0)" class="btn btn-secondary js-privacy" data-url="{% url 'privacy' %}">{% trans "More info" %}</a>
+               <a href="javascript:Cookielaw.createCookielawCookie();" class="btn btn-save">{% trans "Ok, understood" %}</a>
+          </div>
+          <div class="close-cookies"></div>
+      </div>
+    </div>
+    {% endif %}
+
+    <script type="application/javascript">
+    $(document).ready(function () {
+       $('.close-cookies').click(function () {
+           $(this).parent().hide();
+       });
+    });
+    </script>
 
 
     <!-- Optional JavaScript -->
@@ -125,13 +162,14 @@
     <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
     <!--<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>-->
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    <!--<script src="{% static 'main/js/jquery-3.5.1.min.js' %}"></script>-->
     <!--<script type="text/javascript" src="{% static 'main/js/lightbox-plus-jquery.js' %}"></script>-->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!--<script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-    <!--<script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>-->
-    <!-- <script type="text/javascript" src="{% static 'gallery/js/active.js' %}"></script> -->
+    <!--<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>-->
+      <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>-->
+    <script src="{% static 'main/js/datepicker.min.js' %}"></script>
+    <script src="{% static 'main/js/scripts.js' %}"></script>
     {% block javascript %}
     {% endblock %}
 </body>

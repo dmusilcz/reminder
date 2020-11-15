@@ -2,11 +2,11 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView
 from django.utils import translation
@@ -32,11 +32,7 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    terms = render_to_string('main/includes/terms_of_use.html')
-    policy = render_to_string('main/includes/privacy_policy.html')
-    return render(request, 'users/signup.html', {'form': form,
-                                                 'terms': terms,
-                                                 'policy': policy})
+    return render(request, 'users/signup.html', {'form': form})
 
 
 class UpdatedLoginView(LoginView):
