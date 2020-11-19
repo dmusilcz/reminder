@@ -7,3 +7,5 @@ django-widget-tweaks
 django-vinaigrette
 django-cookie-law
 pytest-runner
+django_cron
+django_inlinecss

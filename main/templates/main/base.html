@@ -26,18 +26,17 @@
       <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>-->
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-    <title>Reminder</title>
+    <title>NeverExpire</title>
 </head>
 <body class="d-flex flex-column">
     <!--<header class="site-header">-->
-      <div class="user_navbar_container_wrapper">
+      <div class="user_navbar_container_wrapper{% if 'home' in request.resolver_match.url_name %}{% if not user.is_authenticated %} sticky-top{% endif %}{% endif %}">
         <div class="container user_navbar_container px-0">
           <nav class="navbar navbar-light navbar-static-top">
-            <div class="logo">NeverExpire</div>
+            <a href=" {% url 'home' %}"><div class="logo text-white">NeverExpire</div></a>
             <!--<a href=""><i class="fab fa-facebook-f ml-3"></i></a>-->
             <!--<a href=""><i class="fab fa-twitter ml-3"></i></a>-->
             <!--<a href=""><i class="fab fa-instagram ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-tripadvisor ml-3"></i></a>-->
             <div class="btn-group">
               {% get_current_language as LANGUAGE_CODE %}
               {% get_language_info for LANGUAGE_CODE as language %}
@@ -56,9 +55,9 @@
                 <a href="{% url 'logout' %}" class="btn btn-logout ml-2">Log out</a>
               </div>
             {% else %}
-              <div class="user-buttons">
-                <a href="{% url 'login' %}" class="btn btn-outline-info">Log in</a>
-                <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
+              <div class="user-buttons d-flex">
+                <a href="{% url 'login' %}" class="btn btn-light">Log in</a>
+                <a href="{% url 'signup' %}" class="btn btn-add ml-2">Sign up</a>
               </div>
             {% endif %}
           </nav>
@@ -123,7 +122,7 @@
           </div>
           <div class="col-lg-4 col-md-6 col-sm-12 footer-2nd-col">
             <h5 class="mb-4">Get in touch</h5>
-            <p class="mb-2"><a href="#">Contact us</a></p>
+            <p class="mb-2"><a href="{% url 'contact' %}">Contact us</a></p>
             <p class="mb-2"><a href="#">FAQ</a></p>
           </div>
         </div>

@@ -23,7 +23,6 @@ from django.conf import global_settings
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -36,7 +35,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 ADMINS = (
-    ('David Musil', 'dmusilcz@gmail.com'),
+    (config('ADMIN'), config('ADMIN_EMAIL')),
 )
 
 
@@ -55,6 +54,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'cookielaw',
     'vinaigrette',
+    'django_cron',
+    'django_inlinecss',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +99,10 @@ MESSAGE_TAGS = {
 
 WSGI_APPLICATION = 'reminder.wsgi.application'
 
+CRON_CLASSES = [
+    "cron.cron.SendReminders",
+    # ...
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -186,12 +191,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
-# DEFAULT_FROM_EMAIL = 'Parsifal Team <noreply@parsif.al>'
-# EMAIL_SUBJECT_PREFIX = '[NeverExpire] '
-# SERVER_EMAIL = 'application@parsif.al'
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+CONTACT_FORM_EMAIL = config('CONTACT_FORM_EMAIL')
+EMAIL_SUBJECT_PREFIX = '[NeverExpire] Expiration reminder'
 
 
 # Static files (CSS, JavaScript, Images)

@@ -32,75 +32,75 @@
     </div>
   </div>
   <div class="container h-100 p-0 py-3">
-      <div class="grid-container px-1">
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Documents saved</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ documents_count }}</p></div>
-          </div>
+    <div class="grid-user px-1">
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Documents saved</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ documents_count }}</p></div>
         </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Categories saved</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ categories_count }}</p></div>
-          </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Categories saved</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ categories_count }}</p></div>
         </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Next document expiring</h4></div>
-            <div class="home-item-content">
-              <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
-              <p class="mb-0">Document: {{ next_doc_expiring.name }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Next reminder sent on</h4></div>
-            <div class="home-item-content">
-              {% if next_reminder_sent_on %}
-                <ul class="list-unstyled mb-0">
-                  {% for reminder in next_reminder_sent_on %}
-                  <li>{{ reminder.0 }} | {{ reminder.1 }}</li>
-                  {% endfor %}
-                </ul>
-              {% else %}
-                <p class="mb-0">No reminders saved</p>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Last reminder sent on</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ last_reminder_sent_on }}</p></div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Documents expired</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ documents_expired }}</p></div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Documents expiring in 1 month</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ docs_expired_in_1_month }}</p></div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Documents expiring in 6 months</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ docs_expired_in_6_months }}</p></div>
-          </div>
-        </div>
-        <div class="home-item mb-0">
-          <div class="home-item-card card">
-            <div class="home-item-title"><h4 class="mb-0">Uncategorized documents</h4></div>
-            <div class="home-item-content"><p class="mb-0">{{ docs_uncategorized }}</p></div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Next document expiring</h4></div>
+          <div class="user-item-content">
+            <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
+            <p class="mb-0">Document: {{ next_doc_expiring.name }}</p>
           </div>
         </div>
       </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Next reminder sent on</h4></div>
+          <div class="user-item-content">
+            {% if next_reminder_sent_on %}
+              <ul class="list-unstyled mb-0">
+                {% for reminder in next_reminder_sent_on %}
+                <li>{{ reminder.0 }} | {{ reminder.1 }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="mb-0">No reminders saved</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Last reminder sent on</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ last_reminder_sent_on }}</p></div>
+        </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Documents expired</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ documents_expired }}</p></div>
+        </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Documents expiring in 1 month</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ docs_expired_in_1_month }}</p></div>
+        </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Documents expiring in 6 months</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ docs_expired_in_6_months }}</p></div>
+        </div>
+      </div>
+      <div class="user-item mb-0">
+        <div class="user-item-card card">
+          <div class="user-item-title"><h4 class="mb-0">Uncategorized documents</h4></div>
+          <div class="user-item-content"><p class="mb-0">{{ docs_uncategorized }}</p></div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>
 {% endblock content %}

@@ -3,6 +3,7 @@ from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoice
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 class DocumentUpdateForm(forms.ModelForm):
@@ -68,7 +69,21 @@ class SearchForm(forms.Form):
         expiry_date_to = cd.get("expiry_date_to")
 
         if expiry_date_from and expiry_date_to and expiry_date_from > expiry_date_to:
-            # Or you might want to tie this validation to the password1 field
             raise ValidationError("Entered 'Expiry date from' is later than 'Expiry date to'")
 
         return cd
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField(max_length=100, required=True, label=_("Email"))
+    subject = forms.CharField(max_length=200, required=False, label=_("Subject"))
+    message = forms.CharField(max_length=10000, required=True, label=_("Message"), widget=forms.Textarea()
+                              # , error_messages={'required': "Toto pole je povinné."}
+                              )
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super(ContactForm, self).__init__(*args, **kwargs)
+
+        if self.request.user.is_authenticated:
+            self.fields['email'].initial = self.request.user.email

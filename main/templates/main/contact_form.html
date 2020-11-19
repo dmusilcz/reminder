@@ -1,0 +1,31 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load crispy_forms_tags form_tags widget_tweaks %}
+
+{% block content %}
+<main class="main">
+  <div class="container px-0 h-100 main-container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="text-center mt-2">
+          <h1>Contact us</h1>
+        </div>
+        <div class="card doc-update-card">
+          <div class="card-body">
+            <form method="post" novalidate>
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}">
+              <fieldset class="form-group">
+                {{ form|crispy }}
+              </fieldset>
+              <button type="submit" class="btn btn-block btn-save">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+

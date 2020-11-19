@@ -52,35 +52,61 @@ html, body, #fullheight {
   /*background-color: rgb(252, 252, 252);*/
 }
 
-.grid-container {
+.banner {
+  background: url('/static/main/images/hero.jpg') no-repeat center;
+  /*background: url('/static/main/images/home2.jpg') center no-repeat;*/
+  background-color: grey;
+  background-size: cover;
+  background-blend-mode: screen;
+}
+
+@media (max-width: 576px) {
+.hero-text {
+  font-size: 3rem;
+}}
+
+.display-4 {
+  font-weight: 500;
+  color: #1d2659;
+}
+
+.grid-user {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 1rem 1rem;
 }
 
-@media (max-width: 768px) {
-  .grid-container {
-    grid-gap: 0.7rem 1rem;
-  }
+.grid-home {
+  /*display: grid;*/
+  /*grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));*/
+  /*grid-gap: 1rem 1rem;*/
+
 }
 
-.home-item {
+.user-item {
   min-height: 150px;
 }
 
 .home-item-card {
+  padding: 50px;
+  min-height: 270px;
+  /*display: flex;*/
+  /*align-content: center;*/
+  }
+
+.user-item-card {
   min-height: 150px;
   padding-right: 5px;
   padding-left: 5px;
   /*align-items: center;*/
 }
 
-.home-item-title {
+.user-item-title {
   border-bottom: rgba(168, 168, 168, 0.68) 2px solid;
   min-height: 80px;
 }
 
-.home-item-title, .home-item-content {
+.user-item-title, .user-item-content {
   text-align: center;
   width: 100%;
   display: flex;
@@ -91,6 +117,36 @@ html, body, #fullheight {
   padding-bottom: 10px;
   /*padding-top: auto;*/
   /*padding-bottom: auto;*/
+}
+
+@media (max-width: 768px) {
+  .grid-user {
+    grid-gap: 0.7rem 1rem;
+  }
+  .home-item-card {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .example-item {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .examples-row {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+
+
+.home-icon {
+  margin: 20px 0;
+  font-size: 50px;
+}
+
+.example-icon {
+  margin: 10px 0;
+  font-size: 30px;
 }
 
 .signup-card, .login-card, .account-card, .doc-update-card {
@@ -177,7 +233,7 @@ html, body, #fullheight {
   margin-bottom: 10px;
 }
 
-.doc-card, .cat-card, .home-item-card {
+.doc-card, .cat-card, .home-item-card, .user-item-card, .example-item-card {
   /*box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(0, 0, 0, 0.2);*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 12px 0 rgba(0, 0, 0, 0.19);
 }
@@ -255,6 +311,12 @@ html, body, #fullheight {
   font-size: 18px;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.19);
 }
+
+@media (max-width: 576px) {
+.user-buttons {
+  width: 100%;
+  justify-content: flex-end;
+}}
 
 .user_navbar_container {
   /*position: relative;*/

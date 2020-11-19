@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-15 22:31+0100\n"
+"POT-Creation-Date: 2020-11-19 19:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,30 +18,67 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
-#: .\main\templates\main\base.html:136
+#: .\main\forms.py:78
+msgid "Email"
+msgstr ""
+
+#: .\main\forms.py:79
+msgid "Subject"
+msgstr ""
+
+#: .\main\forms.py:80
+msgid "Message"
+msgstr ""
+
+#: .\main\templates\main\base.html:135
 msgid "This website uses cookies to make your experience better."
 msgstr ""
 
-#: .\main\templates\main\base.html:139
+#: .\main\templates\main\base.html:138
 msgid "More info"
 msgstr ""
 
-#: .\main\templates\main\base.html:140
+#: .\main\templates\main\base.html:139
 msgid "Ok, understood"
 msgstr ""
 
-#: .\main\templates\main\home.html:11
+#: .\main\templates\main\reminder_email.html:3
 #, python-format
-msgid "You have %(num)s document."
-msgid_plural "You have %(num)s documents."
-msgstr[0] ""
-msgstr[1] ""
+msgid ""
+"<p>Hello <b>%(username)s</b>, sending you an expiration reminder for some of "
+"your documents on NeverExpire.com:</p>"
+msgstr ""
+"<p>Dobrý den,<b>%(username)s</b>, posíláme Vám upomínku na expiraci některých Vašich dokumentů na NeverExpire.net:</p>"
 
-#: .\reminder\settings.py:161
+#: .\main\templates\main\reminder_email.html:8
+msgid "Document name"
+msgstr "Název dokumentu"
+
+#: .\main\templates\main\reminder_email.html:9
+msgid "Expiration Date"
+msgstr "Datum expirace"
+
+#: .\main\templates\main\reminder_email.html:10
+msgid "Days to expiration"
+msgstr "Dní do expirace"
+
+#: .\main\templates\main\reminder_email.html:24
+msgid ""
+"<p>Make sure you don't forget to renew them before they expire!</p>\n"
+"<p>Sincerely, The NeverExpire Team</p>"
+msgstr ""
+"<p>Nezapomeňte je obnovit než jim vyprší platnost!</p>\n"
+"<p>S pozdravem, tým NeverExpire</p>"
+
+#: .\main\views.py:657
+msgid "Your message was sent"
+msgstr ""
+
+#: .\reminder\settings.py:165
 msgid "Czech"
 msgstr ""
 
-#: .\reminder\settings.py:162
+#: .\reminder\settings.py:166
 msgid "English"
 msgstr ""
 

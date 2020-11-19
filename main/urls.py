@@ -35,6 +35,7 @@ urlpatterns = [
     # path('cat/<int:pk>/', views.CategoryDetailView.as_view(), name='cat_detail'),
     path('cat/<int:pk>/update/', views.cat_update, name='cat_update'),
     path('cat/<int:pk>/delete/', views.cat_delete, name='cat_delete'),
+    path('contact/', views.contact, name='contact'),
     path('terms/', views.terms, name='terms'),
     path('privacy/', views.privacy, name='privacy'),
     path('i18n/', include('django.conf.urls.i18n')),

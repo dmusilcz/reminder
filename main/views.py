@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.core.mail import send_mail
 from operator import itemgetter
 from datetime import datetime, timedelta, tzinfo
 from django import forms
@@ -22,8 +24,8 @@ from django.views.generic import (
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoice, ReminderThrough
 # from .filters import DocFilter
-from .forms import SearchForm, DocumentUpdateForm, CategoryUpdateForm
-from django.utils.translation import get_language
+from .forms import SearchForm, DocumentUpdateForm, CategoryUpdateForm, ContactForm
+from django.utils.translation import get_language, gettext_lazy as _
 
 # Create your views here.
 
@@ -454,7 +456,6 @@ def doc_update(request, pk):
         data['action_update'] = True
         data['modal_content'] = render_to_string('main/includes/partial_doc_update.html', context, request=request)
 
-
     return JsonResponse(data)
 
 @login_required
@@ -464,8 +465,6 @@ def doc_delete(request, pk):
     data = dict()
     if request.method == 'POST' and request.user == doc.author:
         doc.delete()
-        # user = get_object_or_404(User, username=request.user)
-        # docs = Document.objects.filter(author=user).order_by('name')
         data['form_is_valid'] = True
 
         doc_pk_list = request.session.get('searched_docs_pks', None)
@@ -606,11 +605,7 @@ def cat_update(request, pk):
 def cat_delete(request, pk):
     cat = get_object_or_404(Category, pk=pk)
     data = dict()
-
-    print('HERE')
     if request.method == 'POST' and request.user == cat.author:
-
-        print('HERE')
         cat.delete()
         data['form_is_valid'] = True
         cat_list = Category.objects.filter(author=request.user).order_by('name')
@@ -645,6 +640,26 @@ def get_order(request):
     label_sort_by = sorting_labels[order]
 
     return order, label_sort_by
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request=request, data=request.POST)
+        if form.is_valid():
+            subject = f"NeverExpire contact form: {form.cleaned_data.get('subject')}"
+            email = form.cleaned_data.get('email')
+            message = form.cleaned_data.get('message')
+            text = f'Sender: User {request.user} ({email})\n\n{message}'
+            email_from = settings.CONTACT_FORM_EMAIL
+            recipient_list = [settings.ADMINS[0][1], ]
+
+            send_mail(subject, text, email_from, recipient_list)
+            messages.success(request, _('Your message was sent'))
+
+            render(request, 'main/contact_form.html', {'form': form})
+    else:
+        form = ContactForm(request=request)
+    return render(request, 'main/contact_form.html', {'form': form})
 
 
 def terms(request):
