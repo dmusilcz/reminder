@@ -9,12 +9,15 @@
         <div class="text-center menu-heading mt-2">
           <h1>Update my account</h1>
         </div>
-        <div class="card account-card">
+        <div class="card user-card">
         <div class="card-body">
           <form method="post" novalidate>
             {% csrf_token %}
             {% include 'users/includes/user_update_form.html' %}
-            <button type="submit" class="btn btn-secondary">Save changes</button>
+            <div class="d-flex justify-content-end">
+              <a href="{% url 'my_account' %}" class="btn btn-grey-outline mr-1">Back</a>
+              <button type="submit" class="btn btn-blue">Save changes</button>
+            </div>
           </form>
         </div>
         </div>

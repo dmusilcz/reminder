@@ -11,7 +11,10 @@
 {% for field in form %}
   <div class="form-group">
     {% if field.name == 'remember_me' %}
-      <label><input name="remember_me" type="checkbox"> Keep me logged in</label>
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" name="remember_me" type="checkbox" id="remember-me">
+        <label class="custom-control-label" for="remember-me">Keep me logged in</label>
+      </div>
     {% else %}
       {{ field.label_tag }}
       {% render_field field class=field|input_class %}

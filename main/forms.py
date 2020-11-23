@@ -39,10 +39,12 @@ class CategoryUpdateForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     name = forms.CharField(required=False, label='<b>Name</b> contains:')
-    desc = forms.CharField(required=False, label='<b> Description</b> contains:')
+    desc = forms.CharField(required=False, label='<b>Description</b> contains:')
     category = forms.MultipleChoiceField()
     expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> from:')
-    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:', help_text="Tip: you can search for expired documents by only setting the <i><b>Expiry date</b> to</i>.")
+    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:',
+                                     # help_text="Tip: you can search for expired documents by only setting the <i><b>Expiry date</b> to</i>."
+                                     )
     reminder = forms.MultipleChoiceField()
 
     def __init__(self, *args, **kwargs):

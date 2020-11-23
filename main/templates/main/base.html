@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
     <!--<link rel="stylesheet" type="text/css" href="{% static 'main/css/lightbox.css' %}">-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cardo&subset=latin,latin-ext">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo&subset=latin,latin-ext&family=Open+Sans&display=swap&Source+Sans+Pro&display=swap&family=Roboto&display=swap">
     <!--<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">-->
       <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />-->
     <link rel="stylesheet" href="{% static 'main/css/datepicker.min.css' %}">
@@ -34,13 +35,10 @@
         <div class="container user_navbar_container px-0">
           <nav class="navbar navbar-light navbar-static-top">
             <a href=" {% url 'home' %}"><div class="logo text-white">NeverExpire</div></a>
-            <!--<a href=""><i class="fab fa-facebook-f ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-twitter ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-instagram ml-3"></i></a>-->
             <div class="btn-group">
               {% get_current_language as LANGUAGE_CODE %}
               {% get_language_info for LANGUAGE_CODE as language %}
-              <button type="button" class="btn btn-light dropdown-toggle mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ language.name_local }} ({{ LANGUAGE_CODE }})
+              <button type="button" class="btn btn-light dropdown-toggle lang-button mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-americas mr-2"></i>{{ language.name_local }} ({{ LANGUAGE_CODE }})
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu language-menu">
@@ -52,12 +50,12 @@
             </div>
             {% if user.is_authenticated %}
               <div class="user-buttons d-flex">
-                <a href="{% url 'logout' %}" class="btn btn-logout ml-2">Log out</a>
+                <a href="{% url 'logout' %}" class="btn btn-light ml-2">Log out</a>
               </div>
             {% else %}
               <div class="user-buttons d-flex">
                 <a href="{% url 'login' %}" class="btn btn-light">Log in</a>
-                <a href="{% url 'signup' %}" class="btn btn-add ml-2">Sign up</a>
+                <a href="{% url 'signup' %}" class="btn btn-light ml-2">Sign up</a>
               </div>
             {% endif %}
           </nav>
@@ -112,7 +110,7 @@
       </div>
     </div>
     <footer class="footer mt-auto">
-      <div class="container footer-container pt-3">
+      <div class="container footer-container pt-4">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-12">
             <h5 class="mb-4">About NeverExpire</h5>
@@ -135,8 +133,8 @@
               {% trans 'This website uses cookies to make your experience better.' %}
           </div>
           <div class="cookie-buttons">
-               <a href="javascript:void(0)" class="btn btn-secondary js-privacy" data-url="{% url 'privacy' %}">{% trans "More info" %}</a>
-               <a href="javascript:Cookielaw.createCookielawCookie();" class="btn btn-save">{% trans "Ok, understood" %}</a>
+               <a href="javascript:void(0)" class="btn btn-grey-outline js-privacy" data-url="{% url 'privacy' %}">{% trans "More info" %}</a>
+               <a href="javascript:Cookielaw.createCookielawCookie();" class="btn btn-blue">{% trans "Ok, understood" %}</a>
           </div>
           <div class="close-cookies"></div>
       </div>

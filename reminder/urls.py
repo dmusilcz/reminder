@@ -45,6 +45,8 @@ urlpatterns = [
     re_path(r'^password/$', user_views.change_password, name='password_change'),
     # re_path(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='users/password_change_done.html'),
     #     name='password_change_done'),
+    re_path(r'^account_delete/$', user_views.AccountDeleteView.as_view(), name='account_delete'),
+    re_path(r'^user_denied/$', user_views.user_denied, name='user_denied'),
     re_path(r'^admin/', admin.site.urls),
     re_path(r'set_language/(?P<user_language>\w+)/$', user_views.set_language_from_url, name="set_language_from_url"),
     path('', include('main.urls')),

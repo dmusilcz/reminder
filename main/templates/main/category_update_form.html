@@ -10,7 +10,7 @@
         <div class="text-center mt-2">
           <h1>Update category</h1>
         </div>
-        <div class="card doc-update-card">
+        <div class="card update-card">
           <div class="card-body">
             <form method="post" novalidate>
               {% csrf_token %}
@@ -18,7 +18,7 @@
               <fieldset class="form-group">
                 {{ form|crispy }}
               </fieldset>
-              <button type="submit" class="btn btn-primary btn-block">Update</button>
+              <button type="submit" class="btn btn-blue btn-block">Update</button>
             </form>
           </div>
         </div>

@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-
+# DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 ADMINS = (
@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'crispy_forms',
     'widget_tweaks',
     'cookielaw',
     'vinaigrette',
     'django_cron',
     'django_inlinecss',
+    'maintenancemode'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'maintenancemode.middleware.MaintenanceModeMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend'
+    # 'users.backends.CustomModelBackend',
 ]
 
 ROOT_URLCONF = 'reminder.urls'
@@ -103,6 +111,9 @@ CRON_CLASSES = [
     "cron.cron.SendReminders",
     # ...
 ]
+
+SITE_ID = 2
+MAINTENANCE_503_TEMPLATE = 'main/503.html'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

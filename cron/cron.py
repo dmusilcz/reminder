@@ -31,7 +31,7 @@ class SendReminders(CronJobBase):
                 users[doc_reminder[0].author].append((doc_reminder[0].name, doc_reminder[0].expiry_date, doc_reminder[1]))
                 doc_reminder[0].last_reminder_sent = timezone.localtime()
                 doc_reminder[0].save()
-            print(users)
+            # print(users)
 
             email_records = list()
 
@@ -40,7 +40,7 @@ class SendReminders(CronJobBase):
                 email_records.append(email_record)
 
             email_records = tuple(email_records)
-            print(email_records)
+            # print(email_records)
 
             emails_sent = self.send_mass_html_mail(email_records)
             print(emails_sent)
@@ -51,7 +51,6 @@ class SendReminders(CronJobBase):
             print(e)
 
     def compose_email_for_user(self, user, document_info):
-        # username = user.username
         language = user.profile.language
         activate(language)
 
@@ -59,22 +58,6 @@ class SendReminders(CronJobBase):
                                                              'document_info': document_info})
 
         return ("Test subject", "Test text", html, settings.DEFAULT_FROM_EMAIL, [user.email,])
-
-        # cs_table_head = f"<thead><tr><th></th><th>Document name</th><th>Expiration Date</th><th>Days to expiration</th></tr></thead>"
-        # en_table_head = f"<thead><tr><th></th><th>Název dokumentu</th><th>Datum expirace</th><th>Dní do expirace</th></tr></thead>"
-        # cs_table_row = f""
-        # en_tbody = f""
-        # for doc in document_info:
-        #     en_tbody += f"<tr><td>{doc[0]}</td><td>{doc[1]}</td><td>{doc[2]}</td></tr>"
-        # cs_template = """"""
-        # en_template = f"<p>Hello <b>{username}</b>, sending you an expiration reminder for some of your documents on NeverExpire.com:</p><br><br>" \
-        #               f"<table class='table'>{en_table_head}<tbody>{en_tbody}</tbody></table><br><br>" \
-        #               f"<p>Make sure you don't forget to renew them before they expire!</p>" \
-        #               f"<p>Sincerely, NeverExpire Team</p>"
-        #
-        # print(en_template)
-
-        # return ("Test subject", en_template, settings.DEFAULT_FROM_EMAIL, [user.email,])
 
     def send_mass_html_mail(self, datatuple, fail_silently=False, user=None, password=None, connection=None):
         """

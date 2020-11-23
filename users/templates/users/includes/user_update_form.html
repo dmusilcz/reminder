@@ -29,7 +29,10 @@
   <div class="form-group">
     {% if field.name == 'news_consent' %}
       <h5>Newsletter consent</h5>
-      <div><label><input name="news_consent" type="checkbox" {% if checked %} checked="checked"{% endif %}> I agree to receive news about NeverExpire (new updates, features, etc.) to my email address</label></div>
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" name="news_consent" type="checkbox" id="reminder-checkbox"{% if checked %} checked="checked"{% endif %}>
+        <label class="custom-control-label" for="reminder-checkbox"> I agree to receive news about NeverExpire (new updates, features, etc.) to my email address</label>
+      </div>
     {% else %}
       <h5 class="mb-0">{{ field.label_tag }}</h5>
       {% render_field field class=field|input_class %}

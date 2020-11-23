@@ -33,6 +33,9 @@ def UniqueUsernameIgnoreCaseValidator(value):
 class LoginForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False, label=_('Keep me logged in'), widget=forms.CheckboxInput())
 
+    def confirm_login_allowed(self, user):
+        pass
+
 
 class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())

@@ -6,7 +6,7 @@
   <div class="container px-0 h-100 main-container">
     <div class="row justify-content-center">
       <div class="col-lg-4 col-md-6 col-sm-8">
-        <div class="card login-card">
+        <div class="card user-card">
           <div class="card-body">
             <h3 class="card-title">Log in</h3>
             <form method="post" novalidate>
@@ -14,11 +14,11 @@
               <input type="hidden" name="next" value="{{ next }}">
               {% include 'users/includes/login_form.html' %}
               <!--<label><input name="remember_me" type="checkbox">Keep me logged in</label>-->
-              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+              <button type="submit" class="btn btn-blue btn-block">Log in</button>
             </form>
           </div>
           <div class="card-footer text-muted text-center">
-            New to Never Expire? <a href="{% url 'signup' %}">Sign up</a>
+            New to Never Expire? <a href="{% url 'signup' %}" class="link-blue">Sign up</a>
             <div class="text-center pt-2">
           <small>
             <a href="{% url 'password_reset' %}" class="text-muted">Forgot your password?</a>

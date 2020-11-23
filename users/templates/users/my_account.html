@@ -8,9 +8,9 @@
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10">
         <div class="text-center menu-heading mt-2">
-          <h1>{% trans "My account" %}</h1>
+          <h2>{% trans "My account" %}</h2>
         </div>
-        <div class="card account-card">
+        <div class="card user-card">
           <div class="card-body">
             <h5>{% trans "Username" %}</h5>
             <p class="mb-0">{{ object.username }}</p><hr>
@@ -26,9 +26,9 @@
             <label><input type="checkbox" disabled="disabled"{% if object.profile.news_consent %} checked="checked"{% endif %}>{% blocktrans %} I agree to receive news about NeverExpire (new updates, features, etc.) to my email address{% endblocktrans %}</label>
           </div>
           <div id="user-buttons" class="card-footer text-center">
-            <a class="btn btn-secondary btn-sm mt-1" href="{% url 'my_account_update'%}">{% trans "Update info" %}</a>
-            <a class="btn btn-secondary btn-sm mt-1" href="{% url 'password_change'%}">{% trans "Change password" %}</a>
-            <a class="btn btn-delete btn-sm mt-1" href="#">{% trans "Delete account" %}</a>
+            <a class="btn btn-blue btn-sm mt-1" href="{% url 'my_account_update'%}">{% trans "Update info" %}</a>
+            <a class="btn btn-grey btn-sm mt-1" href="{% url 'password_change'%}">{% trans "Change password" %}</a>
+            <a class="btn btn-red btn-sm mt-1"  href="{% url 'account_delete' %}">{% trans "Delete account" %}</a>
           </div>
         </div>
       </div>

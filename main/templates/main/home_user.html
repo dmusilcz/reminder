@@ -14,7 +14,7 @@
     <div class="text-center menu-heading w-100 pt-3">
         <h1>Overview</h1>
       </div>
-    {% if docs.documents_count == 0 %}
+    {% if documents_count == 0 %}
       <div class="row mx-0 mt-3">
         <div class="d-flex text-center justify-content-center w-100">
           <div class="d-flex no-docs px-2">
@@ -27,8 +27,8 @@
       </div>
     {% endif %}
     <div class="row d-flex justify-content-center mx-0 pt-3">
-      <a class="btn btn-add text-white mx-1 my-1" href="{% url 'new_doc' %}">Add document</a>
-      <a class="btn btn-secondary text-white mx-1 my-1 " href="{% url 'docs' %}">My documents</a>
+      <a class="btn btn-blue mx-1 my-1" href="{% url 'new_doc' %}"><i class="fas fa-plus-square mr-2"></i>Add document</a>
+      <a class="btn btn-grey mx-1 my-1 " href="{% url 'docs' %}"><i class="far fa-file mr-2"></i>My documents</a>
     </div>
   </div>
   <div class="container h-100 p-0 py-3">
@@ -49,8 +49,12 @@
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Next document expiring</h4></div>
           <div class="user-item-content">
-            <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
-            <p class="mb-0">Document: {{ next_doc_expiring.name }}</p>
+            {% if next_reminder_sent_on %}
+              <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
+              <p class="mb-0">Document: {{ next_doc_expiring.name }}</p>
+            {% else %}
+              <p class="mb-0">-</p>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -65,7 +69,7 @@
                 {% endfor %}
               </ul>
             {% else %}
-              <p class="mb-0">No reminders saved</p>
+              <p class="mb-0">-</p>
             {% endif %}
           </div>
         </div>
@@ -73,7 +77,7 @@
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Last reminder sent on</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ last_reminder_sent_on }}</p></div>
+          <div class="user-item-content"><p class="mb-">{% if last_reminder_sent_on %}{{ last_reminder_sent_on }} (UTC timezone){% else %}-{% endif %}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">

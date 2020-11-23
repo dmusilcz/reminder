@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<main class="main">
+  <div class="container px-0 h-100 main-container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card user-card">
+          <div class="card-body">
+            <h3 class="card-title">{% trans "User access limited" %}</h3>
+              {% url 'contact' as contact_url %}
+              <p>{% blocktrans %}Your access to the site has been restricted.
+                Please contact us using our <a href="{{ contact_url }}">contact form</a> stating your username and the issue you are experiencing.{% endblocktrans %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

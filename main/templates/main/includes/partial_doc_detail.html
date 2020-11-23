@@ -17,12 +17,12 @@
       {% endfor %}
     </div>
     <div class="doc-last-reminder-sent-title text-center"><p>Last reminder sent on</p></div>
-    <div class="doc-last-reminder-sent-content"><p>{{ doc.get_last_reminder_sent }}</p></div>
+    <div class="doc-last-reminder-sent-content"><p>{{ doc.get_last_reminder_sent }} (UTC timezone)</p></div>
 </div>
 <div class="modal-footer">
   <div id="doc-detail-buttons">
-    <button type="button" class="btn btn-update btn-sm js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>
-    <button type="button" class="btn btn-danger btn-sm js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Delete</button>
-    <button type="button" class="btn btn-outline-secondary btn-sm mt-1 mb-1" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-blue btn-sm js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>
+    <button type="button" class="btn btn-red btn-sm js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Delete</button>
+    <button type="button" class="btn btn-grey-outline btn-sm mt-1 mb-1" data-dismiss="modal">Close</button>
   </div>
 </div>

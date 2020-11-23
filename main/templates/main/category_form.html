@@ -3,15 +3,24 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<main>
-  <div class="container">
+<main class="main">
+  <div class="container px-0 h-100">
     <div class="row justify-content-center">
-      <form method="post" novalidate>
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
-            {% include 'users/includes/form.html' %}
-            <button type="submit" class="btn btn-primary btn-block">Create</button>
-          </form>
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="text-center mt-2">
+          <h1>Add category</h1>
+        </div>
+        <div class="card update-card">
+          <div class="card-body">
+            <form method="post" novalidate>
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}">
+              {% include 'users/includes/form.html' %}
+              <button type="submit" class="btn btn-blue btn-block btn-save">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </main>
