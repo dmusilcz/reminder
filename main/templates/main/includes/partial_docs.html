@@ -5,8 +5,8 @@
         <h1>Documents</h1>
       </div>
       {% if docs %}
-        <div class="w-100 text-center">
-          <p class="lead">You have <b>{{ user.document_set.count }}</b> document{{ user.document_set.count|pluralize }} saved</p>
+        <div class="w-100 docs_count text-center">
+          <p>You have <b>{{ user.document_set.count }}</b> document{{ user.document_set.count|pluralize }} saved</p>
         </div>
       {% endif %}
       <div class="mt-3 mb-2 mx-2" id="doc-function-buttons">

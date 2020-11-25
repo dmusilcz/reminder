@@ -1,5 +1,4 @@
 {% extends "main/base.html" %}
-<!--{% load static %}-->
 
 {% block content %}
 <main class="main" id="main">
@@ -36,13 +35,13 @@
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Documents saved</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ documents_count }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ documents_count }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Categories saved</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ categories_count }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ categories_count }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
@@ -83,25 +82,25 @@
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Documents expired</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ documents_expired }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ documents_expired }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Documents expiring in 1 month</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ docs_expired_in_1_month }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ docs_expired_in_1_month }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Documents expiring in 6 months</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ docs_expired_in_6_months }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ docs_expired_in_6_months }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">Uncategorized documents</h4></div>
-          <div class="user-item-content"><p class="mb-0">{{ docs_uncategorized }}</p></div>
+          <div class="user-item-content"><p class="larger mb-0">{{ docs_uncategorized }}</p></div>
         </div>
       </div>
     </div>

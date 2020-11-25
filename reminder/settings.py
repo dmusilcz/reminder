@@ -11,25 +11,17 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 from decouple import config, Csv
-import dj_database_url
 from django.utils.translation import gettext_lazy as _
 from django.contrib.messages import constants as messages
 
+import dj_database_url
 import os
-
 import django.conf.locale
-from django.conf import global_settings
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 # DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
@@ -57,7 +49,7 @@ INSTALLED_APPS = [
     'vinaigrette',
     'django_cron',
     'django_inlinecss',
-    'maintenancemode'
+    'maintenancemode',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +66,6 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.AllowAllUsersModelBackend'
-    # 'users.backends.CustomModelBackend',
 ]
 
 ROOT_URLCONF = 'reminder.urls'
@@ -109,26 +100,10 @@ WSGI_APPLICATION = 'reminder.wsgi.application'
 
 CRON_CLASSES = [
     "cron.cron.SendReminders",
-    # ...
 ]
 
 SITE_ID = 2
 MAINTENANCE_503_TEMPLATE = 'main/503.html'
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'reminder',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#         'OPTIONS': {'charset': 'utf8mb4'}
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -170,7 +145,6 @@ USE_TZ = True
 
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
-    # os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale', 'users'),
 )
 
 LANGUAGES = [
@@ -193,8 +167,6 @@ django.conf.locale.LANG_INFO = LANG_INFO
 FORMAT_MODULE_PATH = [
     'reminder.formats',
 ]
-
-# global_settings.LANGUAGES = global_settings.LANGUAGES + [("cz",'Čeština'),]
 
 # Email
 
@@ -224,7 +196,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-# DATE_INPUT_FORMATS = ['%m/%d/%Y']
+
 # SESSION_COOKIE_AGE = 360
 
 # LOGGING = {

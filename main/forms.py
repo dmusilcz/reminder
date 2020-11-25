@@ -1,7 +1,6 @@
 from django import forms
 from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoice
-from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -14,16 +13,8 @@ class DocumentUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(DocumentUpdateForm, self).__init__(*args, **kwargs)
-        # ids = [choice.id for choice in ReminderChoices.objects.filter(author=self.request.user).order_by('id')]
         self.fields['category'].queryset = Category.objects.filter(author=self.request.user)
-        self.fields['expiry_date'] = forms.DateField(
-            # input_formats=['%m/%d/%Y'],
-                                                     # widget=FengyuanChenDatePickerInput(
-                                                     # attrs={'oninput': "verifyDate()",
-                                                     #        'onshow': "verifyDate()",
-                                                     #        'autocomplete': 'off'}),
-                                                     # widget=DatePickerInput(),
-                                                     required=False,
+        self.fields['expiry_date'] = forms.DateField(required=False,
                                                      help_text='Reminders can be chosen once this field is not empty')
         self.fields['expiry_date'].widget.attrs = {'oninput': "verifyDate()",
                                                    'autocomplete': 'off'}
@@ -42,9 +33,7 @@ class SearchForm(forms.Form):
     desc = forms.CharField(required=False, label='<b>Description</b> contains:')
     category = forms.MultipleChoiceField()
     expiry_date_from = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> from:')
-    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:',
-                                     # help_text="Tip: you can search for expired documents by only setting the <i><b>Expiry date</b> to</i>."
-                                     )
+    expiry_date_to = forms.DateField(input_formats=['%m/%d/%Y'], widget=FengyuanChenDatePickerInput(), required=False, label='<b>Expiry date</b> to:')
     reminder = forms.MultipleChoiceField()
 
     def __init__(self, *args, **kwargs):
@@ -79,9 +68,7 @@ class SearchForm(forms.Form):
 class ContactForm(forms.Form):
     email = forms.EmailField(max_length=100, required=True, label=_("Email"))
     subject = forms.CharField(max_length=200, required=False, label=_("Subject"))
-    message = forms.CharField(max_length=10000, required=True, label=_("Message"), widget=forms.Textarea()
-                              # , error_messages={'required': "Toto pole je povinné."}
-                              )
+    message = forms.CharField(max_length=10000, required=True, label=_("Message"), widget=forms.Textarea())
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")

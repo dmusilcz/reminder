@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
-from datetime import datetime, timedelta, tzinfo
 
 # Create your models here.
 
@@ -23,27 +21,11 @@ class Category(models.Model):
         return self.name
 
 
-# REMINDER_CHOICES = ((1, _('1 day')),
-#                     (2, _('3 days')),
-#                     (3, _('1 week')),
-#                     (4, _('2 weeks')),
-#                     (5, _('1 month')),
-#                     (6, _('3 months')),
-#                     (7, _('6 months')),)
-
-
 class ReminderChoice(models.Model):
     field = models.CharField(max_length=20)
 
     def __str__(self):
         return str(self.field)
-        # return {'1': '1 day',
-        #         '2': '3 days',
-        #         '3': '1 week',
-        #         '4': '2 weeks',
-        #         '5': '1 month',
-        #         '6': '3 months',
-        #         '7': '6 months'}.get(str(self.field))
 
 
 class Document(models.Model):
