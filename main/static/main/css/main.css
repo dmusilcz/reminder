@@ -42,11 +42,11 @@ body {
   font-family: 'Cardo', serif;
 }
 
-.footer-container h5, p {
+.footer-container h5{
   color: white;
 }
 
-.footer-container a {
+.footer-container a, .footer-container p {
   color: #e8e8e8;
   font-size: 16px;
 }
