@@ -108,9 +108,19 @@
           <p class="mb-2"><a href="javascript:void(0)" class="js-terms" data-url="{% url 'terms' %}">Terms of Use</a></p>
           <p class="mb-2"><a href="javascript:void(0)" class="js-privacy" data-url="{% url 'privacy' %}">Privacy Policy</a></p>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 footer-2nd-col">
+        <div class="col-lg-4 col-md-6 col-sm-12 footer-col-2">
           <h5 class="mb-4">Get in touch</h5>
           <p class="mb-2"><a href="{% url 'contact' %}">Contact us</a></p>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 footer-col-3">
+          <p class="mb-2">If you're enjoying NeverExpire and you'd like to contribute to server costs, you can do so using the button below.</p>
+          <div class="w-100 d-flex justify-content-center">
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="AZ2CHYQHTCBBA" />
+            <input type="image" src="https://i.ibb.co/C0hkC8Y/paypal.jpg" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.paypal.com/en_CZ/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+          </div>
         </div>
       </div>
     </div>

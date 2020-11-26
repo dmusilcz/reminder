@@ -2,21 +2,16 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.views.generic import UpdateView, DetailView, DeleteView
+from django.views.generic import DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
-from django.template.loader import render_to_string
 from django.contrib.auth.views import LoginView
 from django.utils import translation
-from django.urls import translate_url
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import LoginForm, SignUpForm, UserInformationUpdateForm, ProfileUpdateForm
 from .models import Profile
-
-# Create your views here.
 
 
 def signup(request):
@@ -29,6 +24,7 @@ def signup(request):
             request.session[translation.LANGUAGE_SESSION_KEY] = language
             profile = Profile.objects.create(user=user, language=language, news_consent=True)
             profile.save()
+
             return redirect('home')
     else:
         form = SignUpForm()
@@ -40,14 +36,17 @@ class UpdatedLoginView(LoginView):
 
     def form_valid(self, form):
         remember_me = form.cleaned_data['remember_me']
+
         if remember_me:
-            self.request.session.set_expiry(30)
+            session_cookie_age = 7200
+            self.request.session.set_expiry(session_cookie_age)
             self.request.session.modified = True
         return super(UpdatedLoginView, self).form_valid(form)
 
     def get_success_url(self):
         url = super(UpdatedLoginView, self).get_success_url()
         user = self.request.user
+
         if user.is_authenticated:
             print(f'AUTH: {user.is_authenticated}')
             language = user.profile.language
@@ -59,7 +58,6 @@ class UpdatedLoginView(LoginView):
         return url
 
 
-# @method_decorator(login_required, name='dispatch')
 class UserDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = User
     fields = ('first_name', 'last_name', 'email',)

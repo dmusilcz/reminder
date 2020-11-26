@@ -60,7 +60,6 @@ class UserInformationUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    # news_consent = forms.BooleanField(required=False)
     language = forms.ChoiceField(required=True, choices=Profile.choices)
 
     class Meta:

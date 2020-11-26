@@ -42,7 +42,7 @@ body {
   font-family: 'Cardo', serif;
 }
 
-.footer-container h5 {
+.footer-container h5, p {
   color: white;
 }
 
@@ -52,7 +52,7 @@ body {
 }
 
 @media (max-width: 576px) {
-  .footer-2nd-col {
+  .footer-col-2, .footer-col-3 {
     padding-top: 1.5em;
   }}
 

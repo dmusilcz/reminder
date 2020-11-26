@@ -19,11 +19,8 @@ import os
 import django.conf.locale
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 SECRET_KEY = config('SECRET_KEY')
-
 DEBUG = config('DEBUG', default=False, cast=bool)
-# DEBUG = False
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 ADMINS = (
@@ -102,7 +99,7 @@ CRON_CLASSES = [
     "cron.cron.SendReminders",
 ]
 
-SITE_ID = 2
+SITE_ID = 1
 MAINTENANCE_503_TEMPLATE = 'main/503.html'
 
 DATABASES = {
@@ -117,7 +114,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -135,7 +131,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
 
 LANGUAGE_CODE = 'cs'
 TIME_ZONE = 'UTC'
@@ -170,8 +165,7 @@ FORMAT_MODULE_PATH = [
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
@@ -179,11 +173,10 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 CONTACT_FORM_EMAIL = config('CONTACT_FORM_EMAIL')
-EMAIL_SUBJECT_PREFIX = '[NeverExpire] Expiration reminder'
+EMAIL_SUBJECT_PREFIX = '[NeverExpire] Expiration reminder '
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
@@ -199,50 +192,50 @@ LOGOUT_REDIRECT_URL = 'home'
 
 SESSION_COOKIE_AGE = 1
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'filters': {
-#          'require_debug_false': {
-#              '()': 'django.utils.log.RequireDebugFalse'
-#          }
-#      },
-#     'formatters': {
-#             'verbose': {
-#                 'format': '[contactor] %(levelname)s %(asctime)s %(message)s'
-#             },
-#         },
-#     'handlers': {
-#         # Send all messages to console
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#         # Log to a text file that can be rotated by logrotate
-#         'logfile': {
-#             'class': 'logging.handlers.WatchedFileHandler',
-#             'level': 'WARNING',
-#             'filename': '/home/reminder/logs/log.log'
-#         },
-#         'mail_admins': {
-#             'class': 'django.utils.log.AdminEmailHandler',
-#             'level': 'WARNING',
-#             'filters': ['require_debug_false'],
-#             # 'include_html': True,
-#         },
-#         # critical errors are logged to sentry
-#         'sentry': {
-#             'level': 'WARNING',
-#             'filters': ['require_debug_false'],
-#             'class': 'raven.contrib.django.handlers.SentryHandler',
-#         },
-#     },
-#     'loggers': {
-#         # The "catch all" logger
-#         '': {
-#             'handlers': ['console', 'logfile', 'mail_admins', 'sentry'],
-#             'level': 'DEBUG',
-#             'propagate': False,
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+         'require_debug_false': {
+             '()': 'django.utils.log.RequireDebugFalse'
+         }
+     },
+    'formatters': {
+            'verbose': {
+                'format': '[contactor] %(levelname)s %(asctime)s %(message)s'
+            },
+        },
+    'handlers': {
+        # Send all messages to console
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+        # Log to a text file that can be rotated by logrotate
+        'logfile': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'level': 'WARNING',
+            'filename': '/home/reminder/logs/log.log'
+        },
+        'mail_admins': {
+            'class': 'django.utils.log.AdminEmailHandler',
+            'level': 'WARNING',
+            'filters': ['require_debug_false'],
+            # 'include_html': True,
+        },
+        # critical errors are logged to sentry
+        'sentry': {
+            'level': 'WARNING',
+            'filters': ['require_debug_false'],
+            'class': 'raven.contrib.django.handlers.SentryHandler',
+        },
+    },
+    'loggers': {
+        # The "catch all" logger
+        '': {
+            'handlers': ['console', 'logfile', 'mail_admins', 'sentry'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
