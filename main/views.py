@@ -79,7 +79,7 @@ def user_docs(request):
             doc_list = Document.objects.filter(author=user).order_by(order)
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(doc_list, 3)
+        paginator = Paginator(doc_list, 25)
         try:
             doc_list = paginator.page(page)
         except PageNotAnInteger:
@@ -149,7 +149,7 @@ def search(request):
                 request.session['searched_docs_pks'] = [doc.pk for doc in doc_list]
 
                 page = request.GET.get('page', 1)
-                paginator = Paginator(doc_list, 3)
+                paginator = Paginator(doc_list, 25)
                 try:
                     doc_list = paginator.page(page)
                 except PageNotAnInteger:
@@ -279,7 +279,7 @@ def doc_update(request, pk):
                     searched = False
 
                 page = request.GET.get('page', 1)
-                paginator = Paginator(doc_list, 3)
+                paginator = Paginator(doc_list, 25)
                 try:
                     doc_list = paginator.page(page)
                 except PageNotAnInteger:
@@ -340,7 +340,7 @@ def doc_delete(request, pk):
                 searched = False
 
             page = request.GET.get('page', 1)
-            paginator = Paginator(doc_list, 3)
+            paginator = Paginator(doc_list, 25)
             try:
                 doc_list = paginator.page(page)
             except PageNotAnInteger:
