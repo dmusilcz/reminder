@@ -39,7 +39,7 @@ class UpdatedLoginView(LoginView):
         remember_me = form.cleaned_data['remember_me']
 
         if remember_me:
-            session_cookie_age = 7200
+            session_cookie_age = 60 * 60 * 24 * 14
             self.request.session.set_expiry(session_cookie_age)
             self.request.session.modified = True
         return super(UpdatedLoginView, self).form_valid(form)
