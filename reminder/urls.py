@@ -20,9 +20,8 @@ from users import views as user_views
 
 urlpatterns = [
     re_path(r'^signup/$', user_views.signup, name='signup'),
-    # re_path(r'^login/$', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     re_path(r'^login/$', user_views.UpdatedLoginView.as_view(template_name='users/login.html'), name='login'),
-    re_path(r'^logout/$', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    re_path(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
     re_path(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='users/password_reset.html',
@@ -39,13 +38,12 @@ urlpatterns = [
     re_path(r'^reset/complete/$',
         auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
         name='password_reset_complete'),
-    # re_path(r'^account/update/', user_views.UserUpdateView.as_view(), name='my_account_update'),
     re_path(r'^account/update/', user_views.user_update_view, name='my_account_update'),
     re_path(r'^account/', user_views.UserDetailView.as_view(), name='my_account'),
-    re_path(r'^settings/password/$', auth_views.PasswordChangeView.as_view(template_name='users/password_change.html'),
-        name='password_change'),
-    re_path(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='users/password_change_done.html'),
-        name='password_change_done'),
+    re_path(r'^password/$', user_views.change_password, name='password_change'),
+    re_path(r'^account_delete/$', user_views.AccountDeleteView.as_view(), name='account_delete'),
+    re_path(r'^user_denied/$', user_views.user_denied, name='user_denied'),
     re_path(r'^admin/', admin.site.urls),
+    re_path(r'set_language/(?P<user_language>\w+)/$', user_views.set_language_from_url, name="set_language_from_url"),
     path('', include('main.urls')),
 ]

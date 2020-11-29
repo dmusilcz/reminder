@@ -1,20 +1,28 @@
 {% extends "main/base.html" %}
-{% load static %}
-{% load crispy_forms_tags form_tags widget_tweaks %}
+{% load static crispy_forms_tags form_tags widget_tweaks i18n %}
 
 {% block javascript %}
-  <script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>
+  <!--<script src="{% static 'main/js/scripts.js' %}"></script>-->
+  <script src="{% static 'main/js/datepicker.cs.js' %}"></script>
+  <script>
+    $(function () {
+      $("#id_expiry_date").attr("placeholder", '{{placeholder}}').datepicker({
+      language: '{{lang}}',
+      autoHide: true
+    });
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
 <main class="main">
-  <div class="container px-0 h-100 main-container">
+  <div class="container px-0 h-100">
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10 col-sm-12">
-        <div class="text-center mt-2">
-          <h1>Add document</h1>
+        <div class="text-center menu-heading mt-2">
+          <h1>{% trans "Add document" %}</h1>
         </div>
-        <div class="card doc-update-card">
+        <div class="card update-card">
           <div class="card-body">
             <form method="post" novalidate>
               {% csrf_token %}
@@ -22,7 +30,7 @@
               <fieldset class="form-group">
                 {{ form|crispy }}
               </fieldset>
-              <button type="submit" class="btn btn-primary btn-block">Create</button>
+              <button type="submit" class="btn btn-blue btn-block">{% trans "Create" %}</button>
             </form>
           </div>
         </div>
@@ -31,3 +39,5 @@
   </div>
 </main>
 {% endblock content %}
+
+

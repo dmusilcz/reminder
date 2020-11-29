@@ -1,0 +1,36 @@
+{% load crispy_forms_tags static i18n l10n %}
+
+<form method="post" novalidate autocomplete="off" action="{% url 'doc_update' form.instance.pk %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}" class="js-doc-update-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <div class="doc-name text-center w-100">
+      <h3>{% trans "Update " %}<strong>{{ doc.name }}</strong></h3>
+    </div>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" name="next" value="{{ next }}">
+      <fieldset class="form-group">
+        {{ form.name|as_crispy_field }}
+        {{ form.desc|as_crispy_field }}
+        {{ form.category|as_crispy_field }}
+        {{ form.expiry_date|as_crispy_field }}
+        {{ form.reminder.errors}}
+        {{ form.reminder|as_crispy_field }}
+      </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">{% trans "Close" %}</button>
+    <button type="submit" class="btn btn-blue">{% trans "Save" %}</button>
+  </div>
+</form>
+
+<script src="{% static 'main/js/datepicker.cs.js' %}"></script>
+
+<script>
+  $(function () {
+    $("#id_expiry_date").attr("placeholder", '{{placeholder}}').datepicker({
+    language: '{{lang}}',
+    autoHide: true
+  });
+  });
+</script>

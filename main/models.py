@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from multiselectfield import MultiSelectField
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -12,7 +12,7 @@ class Category(models.Model):
     author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = _('Categories')
 
     def get_absolute_url(self):
         return reverse('categories')
@@ -21,57 +21,34 @@ class Category(models.Model):
         return self.name
 
 
-REMINDER_CHOICES = ((1, '1 day'),
-                    (2, '3 days'),
-                    (3, '1 week'),
-                    (4, '2 weeks'),
-                    (5, '1 month'),
-                    (6, '3 months'),
-                    (7, '6 months'))
-
-
-class ReminderChoices(models.Model):
-    author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE, null=True)
+class ReminderChoice(models.Model):
     field = models.CharField(max_length=20)
 
     def __str__(self):
         return str(self.field)
-        # return {'1': '1 day',
-        #         '2': '3 days',
-        #         '3': '1 week',
-        #         '4': '2 weeks',
-        #         '5': '1 month',
-        #         '6': '3 months',
-        #         '7': '6 months'}.get(str(self.field))
 
 
 class Document(models.Model):
     name = models.CharField(max_length=60, verbose_name='Name')
-    desc = models.TextField(max_length=200, verbose_name='Description', blank=True)
+    desc = models.TextField(max_length=2000, verbose_name='Description', blank=True)
     author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE)
     category = models.ForeignKey(Category, verbose_name='Category', blank=True, null=True, on_delete=models.SET_NULL)
     expiry_date = models.DateField(verbose_name='Expiry date', blank=True, null=True)
-    reminder = models.ManyToManyField(ReminderChoices, through='ReminderThrough', blank=True)
+    last_reminder_sent = models.DateTimeField(verbose_name='Last reminder sent', null=True, blank=True, default=None)
+    reminder = models.ManyToManyField(ReminderChoice, through='ReminderThrough', blank=True)
+
+    class Meta:
+        verbose_name_plural = _('Documents')
 
     def get_reminders(self):
         reminders = [str(rem.field) for rem in self.reminder.all().order_by('id')]
         if len(reminders) is 0:
-            reminders.append("No reminders set")
+            reminders.append(_("No reminders set"))
         return reminders
-        # return ', '.join([str(rem.field) for rem in self.reminder.all()])
 
-    def get_parsed_reminders(self):
-        reminders = [str(rem.field) for rem in self.reminder.all()]
-
-        if reminders:
-            if len(reminders) == 1:
-                reminders_string = reminders[0]
-            else:
-                reminders_string = ", ".join(reminders)
-        else:
-            reminders_string = "No reminder set"
-
-        return reminders_string
+    def get_last_reminder_sent(self):
+        last_reminder_sent = self.last_reminder_sent if self.last_reminder_sent else _('No reminder sent')
+        return last_reminder_sent
 
     def get_absolute_url(self):
         return reverse('docs')
@@ -81,14 +58,30 @@ class Document(models.Model):
 
 
 class ReminderThrough(models.Model):
-    reminder_choice = models.ForeignKey(ReminderChoices, on_delete=models.CASCADE)
+    reminder_choice = models.ForeignKey(ReminderChoice, on_delete=models.CASCADE)
     document = models.ForeignKey(Document, on_delete=models.CASCADE)
 
-    # def __str__(self):
-    #     return {'1': '1 day',
-    #             '2': '3 days',
-    #             '3': '1 week',
-    #             '4': '2 weeks',
-    #             '5': '1 month',
-    #             '6': '3 months',
-    #             '7': '6 months'}.get(str(self.reminder_choice.field))
+    def __str__(self):
+        return str(self.reminder_choice)
+
+    def get_days(self):
+        return {'1 day': 1,
+                '3 days': 3,
+                '1 week': 7,
+                '2 weeks': 14,
+                '1 month': 30,
+                '3 months': 92,
+                '6 months': 183}.get(self.reminder_choice.field)
+
+    def get_days_by_id(self):
+        return {1: 1,
+                2: 3,
+                3: 7,
+                4: 14,
+                5: 30,
+                6: 92,
+                7: 183}.get(self.reminder_choice.id)
+
+
+class Announcement(models.Model):
+    text = models.TextField(max_length=6000, verbose_name='Text')

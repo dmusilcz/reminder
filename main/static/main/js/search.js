@@ -10,8 +10,8 @@ $(function () {
       dataType: 'json',
       beforeSend: function () {
         $("#modal-doc").modal("show");
-        var navbar = document.getElementById("menu_navbar_container");
-        $(navbar).css('margin-right', 'auto')
+        // var navbar = document.getElementById("menu_navbar_container");
+        // $(navbar).css('margin-right', 'auto')
       },
       success: function (data) {
         $("#modal-doc .modal-content").html(data.html_form);
@@ -28,7 +28,9 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if (data.form_is_valid) {
-          $("#docs-col").html(data.html_docs_list);
+          $("#main").html(data.html_docs_list);
+          // $("#docs-col").html(data.html_docs_list);
+          // $("#order-button").html(data.order_button);
           $("#modal-doc").modal("hide");
         }
         else {
@@ -52,7 +54,8 @@ $(function () {
 
   // Delete book
   // $("#doc-function-buttons").on("click", ".js-search", loadForm);
-  $(".js-search").on("click", loadForm);
+  // $(".js-search").on("click", loadForm);
+  $(document).on("click", ".js-search", loadForm);
   $("#modal-doc").on("submit", ".js-search-form", saveForm);
 
 });

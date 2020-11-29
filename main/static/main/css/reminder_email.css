@@ -1,0 +1,50 @@
+.wrapper {
+    margin: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.base-table, .inner-table {
+    width: 100%;
+    padding: 0;
+    border-spacing: 0;
+    border: 0;
+    text-align: center;
+}
+
+.base-td {
+    width: 100%;
+    padding: 0;
+}
+
+.title-td {
+    padding: 20px 0;
+    text-align: center;
+    vertical-align: top;
+}
+
+.message {
+    width: 100%;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.docs-td {
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.docs-table {
+    border-collapse: collapse;
+}
+
+.docs-table > thead > tr > th, .docs-table > tbody > tr > td {
+    border: 1px solid #999;
+    padding: 10px;
+    text-align: center;
+}

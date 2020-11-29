@@ -1,124 +1,156 @@
-{% load static %}
+{% load i18n static cookielaw_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-6WBDN0FP2H"></script>-->
+  <!--<script>-->
+    <!--window.dataLayer = window.dataLayer || [];-->
+    <!--function gtag(){dataLayer.push(arguments);}-->
+    <!--gtag('js', new Date());-->
 
-    <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'main/css/lightbox.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cardo&subset=latin,latin-ext">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
-        <title>Reminder</title>
+    <!--gtag('config', 'G-6WBDN0FP2H');-->
+  <!--</script>-->
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="shortcut icon" href="{% static 'main/images/favicon.png' %}"/>
+  <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo&subset=latin,latin-ext&family=Open+Sans&display=swap&Source+Sans+Pro&display=swap&family=Roboto&display=swap">
+  <link rel="stylesheet" href="{% static 'main/css/datepicker.min.css' %}">
+  <script src="{% static 'main/js/jquery-3.5.1.min.js' %}"></script>
+  <script src="{% static 'main/js/cookielaw.js' %}"></script>
+  <script src="{% static 'main/js/popper.min.js' %}"></script>
+  <title>NeverExpire</title>
 </head>
 <body class="d-flex flex-column">
-    <!--<header class="site-header">-->
-      <div class="user_navbar_container_wrapper">
-        <div class="container user_navbar_container px-0">
-          <nav class="navbar navbar-light navbar-static-top">
-            <div class="logo">NeverExpire</div>
-            <!--<a href=""><i class="fab fa-facebook-f ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-twitter ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-instagram ml-3"></i></a>-->
-            <!--<a href=""><i class="fab fa-tripadvisor ml-3"></i></a>-->
-            {% if user.is_authenticated %}
-              <div class="user-buttons d-flex">
-                <p>{{ user.username }}</p>
-                <a href="{% url 'logout' %}" class="btn btn-logout ml-2">Log out</a>
-              </div>
-            {% else %}
-              <div class="user-buttons">
-                <a href="{% url 'login' %}" class="btn btn-outline-info">Log in</a>
-                <a href="{% url 'signup' %}" class="btn btn-primary ml-2">Sign up</a>
-              </div>
-            {% endif %}
-          </nav>
+  <div class="user_navbar_container_wrapper{% if 'home' in request.resolver_match.url_name %}{% if not user.is_authenticated %} sticky-top{% endif %}{% endif %}">
+    <div class="container user_navbar_container px-0">
+      <nav class="navbar navbar-light navbar-static-top">
+        <a href=" {% url 'home' %}" class="logo"><div class="text-white">NeverExpire</div></a>
+        <div class="btn-group">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_language_info for LANGUAGE_CODE as language %}
+          <button type="button" class="btn btn-light dropdown-toggle lang-button mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-americas mr-2"></i>{{ language.name_local }} ({{ LANGUAGE_CODE }})
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu language-menu">
+          {% get_available_languages as LANGUAGES %}
+          {% for lang in LANGUAGES %}
+            <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% url "set_language_from_url" user_language=lang.0 %}" class="dropdown-item">{{ lang.1|capfirst }} ({{ lang.0 }})</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+        {% if user.is_authenticated %}
+          <div class="user-buttons d-flex">
+            <a href="{% url 'logout' %}" class="btn btn-light ml-2">{% trans "Log out" %}</a>
+          </div>
+        {% else %}
+          <div class="user-buttons d-flex">
+            <a href="{% url 'login' %}" class="btn btn-light">{% trans "Log in" %}</a>
+            <a href="{% url 'signup' %}" class="btn btn-light ml-2">{% trans "Sign up" %}</a>
+          </div>
+        {% endif %}
+      </nav>
+    </div>
+  </div>
+  {% if user.is_authenticated %}
+  <div class="menu_navbar_container_wrapper sticky-top">
+    <div class="container menu_navbar_container  px-0" id="menu_navbar_container">
+      <nav class="navbar navbar-expand-md navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <ul class="navbar-nav text-center ml-auto">
+            <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
+              <a class="nav-link" href="{% url 'home' %}">{% trans "Overview" %}</a>
+            </li>
+            <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
+              <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">{% trans "Documents" %}</a>
+            </li>
+            <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
+              <a class="nav-link" href="{% url 'categories' %}">{% trans "Categories" %}</a>
+            </li>
+            <li {% if 'my_account' in request.resolver_match.url_name %}class="active"{% endif %}>
+              <a class="nav-link" href="{% url 'my_account' %}">{% trans "My account" %}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="messages_wrapper">
+    <div class="container messages-container d-flex justify-content-center">
+      {% include 'main/includes/messages.html' %}
+    </div>
+  </div>
+  </div>
+  {% else %}
+  {% endif %}
+  {% block content %}
+  {% endblock %}
+  <div class="modal fade" id="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  <footer class="footer mt-auto">
+    <div class="container footer-container pt-4">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <h5 class="mb-4">{% trans "About NeverExpire" %}</h5>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-origin" data-url="{% url 'origin' %}">{% trans "Origin" %}</a></p>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-terms" data-url="{% url 'terms' %}">{% trans "Terms of Use" %}</a></p>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-privacy" data-url="{% url 'privacy' %}">{% trans "Privacy Policy" %}</a></p>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 footer-col-2">
+          <h5 class="mb-4">{% trans "Get in touch" %}</h5>
+          <p class="mb-2"><a href="{% url 'contact' %}">{% trans "Contact us" %}</a></p>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 footer-col-3">
+          <p class="mb-2">{% blocktrans %}If you're enjoying NeverExpire and you'd like to contribute to server costs, you can do so using the button below.{% endblocktrans %}</p>
+          <div class="w-100 d-flex justify-content-center">
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="hosted_button_id" value="AZ2CHYQHTCBBA" />
+            <input type="image" src="https://i.ibb.co/C0hkC8Y/paypal.jpg" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+            <img alt="" border="0" src="https://www.paypal.com/en_CZ/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+          </div>
         </div>
       </div>
-          {% if user.is_authenticated %}
-          <div class="menu_navbar_container_wrapper sticky-top">
-            <div class="container menu_navbar_container  px-0" id="menu_navbar_container">
-              <nav class="navbar navbar-expand-md navbar-light">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                <!--<ul class="navbar-nav ml-auto">-->
-                  <ul class="navbar-nav text-center ml-auto">
-                    <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <!--<li {% if 'calendar' in request.resolver_match.url_name %}class="active"{% endif %}>-->
-                      <!--<a class="nav-link" href="{% url 'calendar' %}">Calendar</a>-->
-                    <!--</li>-->
-                    <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'docs' %}">Documents</a>
-                    </li>
-                    <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'categories' %}">Categories</a>
-                    </li>
-                    <li {% if 'my_account' in request.resolver_match.url_name %}class="active"{% endif %}>
-                      <a class="nav-link" href="{% url 'my_account' %}">My account</a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
-          </div>
-          {% else %}
-          {% endif %}
-
-    <!--</header>-->
-    {% block content %}
-    {% endblock %}
-
-    <footer class="footer mt-auto">
-      <div class="container footer-container pt-3">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-12">
-            <h5 class="mb-4">About NeverExpire</h5>
-            <p class="mb-2"><a href="#">Purpose</a></p>
-            <p class="mb-2"><a href="#">Terms of Use</a></p>
-            <p class="mb-2"><a href="#">Privacy Policy</a></p>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 footer-2nd-col">
-            <h5 class="mb-4">Get in touch</h5>
-            <p class="mb-2"><a href="#">Contact us</a></p>
-            <p class="mb-2"><a href="#">FAQ</a></p>
-          </div>
+    </div>
+  </footer>
+  {% if request.COOKIES.cookielaw_accepted == null %}
+  <div id="CookielawBanner">
+    <div class="cookie-content d-flex justify-content-center align-items-center flex-column">
+        <div class="cookie-text mb-1">
+            {% trans 'This website uses cookies to make your experience better.' %}
         </div>
-      </div>
-    </footer>
+        <div class="cookie-buttons">
+             <a href="javascript:void(0)" class="btn btn-grey-outline js-privacy" data-url="{% url 'privacy' %}">{% trans "More info" %}</a>
+             <a href="javascript:Cookielaw.createCookielawCookie();" class="btn btn-blue">{% trans "Ok, understood" %}</a>
+        </div>
+        <div class="close-cookies"></div>
+    </div>
+  </div>
+  {% endif %}
 
+  <script type="application/javascript">
+  $(document).ready(function () {
+     $('.close-cookies').click(function () {
+         $(this).parent().hide();
+     });
+  });
+  </script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
-    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>-->
-    <!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
-    <script src="https://kit.fontawesome.com/7b6402dfcc.js" crossorigin="anonymous"></script>
-    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-    <!--<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>-->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!--<script type="text/javascript" src="{% static 'main/js/lightbox-plus-jquery.js' %}"></script>-->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script type="text/javascript" src="{% static 'main/js/scripts.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-    <!--<script type="text/javascript" src="{% static 'main/js/reminder.js' %}"></script>-->
-    <!-- <script type="text/javascript" src="{% static 'gallery/js/active.js' %}"></script> -->
-    {% block javascript %}
-    {% endblock %}
-
+  <script src="https://kit.fontawesome.com/7b6402dfcc.js" crossorigin="anonymous"></script><script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'main/js/datepicker.min.js' %}"></script>
+  <script src="{% static 'main/js/scripts.js' %}"></script>
+  {% block javascript %}
+  {% endblock %}
 </body>
 </html>

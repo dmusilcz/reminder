@@ -1,0 +1,60 @@
+{% load inlinecss %}
+{% load i18n %}
+
+{% inlinecss "main/css/reminder_email.css" %}
+<div class="wrapper">
+  <div class="content">
+    <table class="base-table">
+      <tbody>
+        <tr>
+          <td class="base-td">
+            <table class="inner-table">
+              <tbody>
+                <tr>
+                  <td class="title-td">
+                    <h3>NeverExpire</h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="message">
+                    {% blocktrans %}<p>Hello <b>{{ username }}</b>, sending you an expiration reminder for some of your documents:</p>{% endblocktrans %}
+                  </td>
+                </tr>
+                <tr>
+                  <td class="docs-td">
+                    <table class='docs-table'>
+                      <thead>
+                        <tr>
+                          <th>{% trans "Document name" %}</th>
+                          <th>{% trans "Expiration Date" %}</th>
+                          <th>{% trans "Days to expiration" %}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for doc in document_info %}
+                        <tr>
+                          <td>{{ doc.0|truncatechars:25 }}</td>
+                          <td>{{ doc.1 }}</td>
+                          <td>{{ doc.2 }}</td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="message">
+                    {% blocktrans %}<p>Make sure you don't forget to renew them before they expire!</p><br>
+                    <p>Sincerely, The NeverExpire Team</p>{% endblocktrans %}<br>
+                    <a href="https://www.neverexpire.net">https://www.neverexpire.net</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endinlinecss %}

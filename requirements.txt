@@ -1,4 +1,11 @@
 dj-database-url
-Django
+Django==2.2.4
 python-decouple
 pytz
+django-crispy-forms
+django-widget-tweaks
+django-vinaigrette
+django-cookie-law
+pytest-runner
+django_cron
+django_inlinecss

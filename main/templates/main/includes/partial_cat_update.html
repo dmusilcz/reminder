@@ -1,0 +1,20 @@
+{% load crispy_forms_tags i18n%}
+
+<form method="post" action="{% url 'cat_update' cat.id %}" class="js-cat-update-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <div class="doc-name text-center w-100">
+      <h3>{% trans "Update " %}<strong>{{ cat.name }}</strong></h3>
+    </div>
+  </div>
+  <div class="modal-body">
+    <input type="hidden" name="next" value="{{ next }}">
+      <fieldset class="form-group">
+        {{ form|crispy }}
+      </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">{% trans "Close" %}</button>
+    <button type="submit" class="btn btn-blue">{% trans "Save" %}</button>
+  </div>
+</form>

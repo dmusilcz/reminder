@@ -1,5 +1,5 @@
 {% extends "main/base.html" %}
-{% load static %}
+{% load i18n %}
 
 {% block content %}
 <main class="main">
@@ -7,14 +7,17 @@
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8 col-sm-10">
         <div class="text-center menu-heading mt-2">
-          <h1>Update my account</h1>
+          <h1>{% trans "Update my account" %}</h1>
         </div>
-        <div class="card account-card">
+        <div class="card user-card">
         <div class="card-body">
           <form method="post" novalidate>
             {% csrf_token %}
             {% include 'users/includes/user_update_form.html' %}
-            <button type="submit" class="btn btn-secondary">Save changes</button>
+            <div class="d-flex justify-content-end">
+              <a href="{% url 'my_account' %}" class="btn btn-grey-outline mr-1">{% trans "Back" %}</a>
+              <button type="submit" class="btn btn-blue">{% trans "Save changes" %}</button>
+            </div>
           </form>
         </div>
         </div>

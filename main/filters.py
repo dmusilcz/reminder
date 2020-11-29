@@ -1,4 +1,4 @@
-from .models import Category, Document, ReminderChoices
+from .models import Category, Document, ReminderChoice
 from django import forms
 import django_filters
 
@@ -12,9 +12,9 @@ def categories(request):
 
 def reminders(request):
     if request is None:
-        return ReminderChoices.objects.none()
+        return ReminderChoice.objects.none()
 
-    return ReminderChoices.objects.filter(author=request.user).order_by('id')
+    return ReminderChoice.objects.filter(author=request.user).order_by('id')
 
 
 # class DocFilter(django_filters.FilterSet):
