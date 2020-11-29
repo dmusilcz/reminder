@@ -179,7 +179,7 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 CONTACT_FORM_EMAIL = config('CONTACT_FORM_EMAIL')
-EMAIL_SUBJECT_PREFIX = '[NeverExpire] Expiration reminder'
+EMAIL_SUBJECT_PREFIX = _('[NeverExpire] Expiration reminder')
 
 
 # Static files (CSS, JavaScript, Images)
@@ -197,7 +197,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-SESSION_COOKIE_AGE = 1
+SESSION_COOKIE_AGE = 3600
 
 # LOGGING = {
 #     'version': 1,

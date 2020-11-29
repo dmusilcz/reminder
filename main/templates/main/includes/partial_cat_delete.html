@@ -1,16 +1,17 @@
+{% load i18n %}
 <form method="post" action="{% url 'cat_delete' cat.id %}" class="js-cat-delete-form">
   {% csrf_token %}
   <div class="modal-header">
-    <h4 class="modal-title">Confirm category deletion</h4>
+    <h4 class="modal-title">{% trans "Confirm category deletion" %}</h4>
   </div>
   <div class="modal-body">
-    <p class="lead">Are you sure you want to delete the category <strong>{{ cat.name }}</strong>?</p>
+    <p class="lead">{% trans "Are you sure you want to delete the category " %}<strong>{{ cat.name }}</strong>?</p>
     {% if cat.document_set.count > 0 %}
-      <p>Category contains {{ cat.document_set.count }} document/s which now won't have any category assigned.</p>
+      <p>{% blocktrans with cats_count=cat.document_set.count %}Category contains {{ cats_count }} document/s which now won't have any category assigned.{% endblocktrans %}</p>
     {% endif %}
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-red">Delete category</button>
+    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">{% trans "Close" %}</button>
+    <button type="submit" class="btn btn-red">{% trans "Delete category" %}</button>
   </div>
 </form>

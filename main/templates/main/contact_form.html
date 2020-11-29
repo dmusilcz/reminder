@@ -1,6 +1,5 @@
 {% extends "main/base.html" %}
-{% load static %}
-{% load crispy_forms_tags form_tags widget_tweaks %}
+{% load static crispy_forms_tags form_tags widget_tweaks i18n %}
 
 {% block content %}
 <main class="main">
@@ -8,7 +7,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10 col-sm-12">
         <div class="text-center contact-heading mt-2">
-          <h1>Contact us</h1>
+          <h1>{% trans "Contact us" %}</h1>
         </div>
         <div class="card update-card">
           <div class="card-body">
@@ -18,7 +17,7 @@
               <fieldset class="form-group">
                 {{ form|crispy }}
               </fieldset>
-              <button type="submit" class="btn btn-block btn-blue">Send</button>
+              <button type="submit" class="btn btn-block btn-blue">{% trans "Send" %}</button>
             </form>
           </div>
         </div>

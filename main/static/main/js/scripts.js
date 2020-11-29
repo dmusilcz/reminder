@@ -2,15 +2,19 @@ var modal_window = $("#modal");
 var modal_content = $(".modal-content");
 
 var verifyDate = function () {
-      var expiry_date = $("#id_expiry_date");
-      var reminder_div = $("#div_id_reminder");
-      const value = expiry_date.val();
-      const trimmed = value.trim();
-      if (trimmed) {
-          reminder_div.show();
-        } else {
-          reminder_div.hide();
-        }
+  var expiry_date = $("#id_expiry_date");
+  var reminder_div = $("#div_id_reminder");
+  const value = expiry_date.val();
+  if (value) {
+    const trimmed = value.trim();
+    if (trimmed) {
+        reminder_div.show();
+      } else {
+        reminder_div.hide();
+      }
+    } else {
+    reminder_div.hide();
+  }
   };
 
 $(function () {
@@ -59,6 +63,9 @@ $(function () {
         }
         else {
           modal_content.html(data.modal_content);
+          if (data.action_update){
+            verifyDate();
+          }
         }
       }
     });
@@ -100,8 +107,10 @@ $(function () {
   // Privacy policy
   $(document).on("click", ".js-privacy", loadForm);
 
+
   hideMessages();
 
-  $("#id_expiry_date").on('textInput input', verifyDate);
+  $("#id_expiry_date").on('textInput input unload', verifyDate);
+  verifyDate()
 
 });

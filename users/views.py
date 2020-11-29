@@ -12,6 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from .forms import LoginForm, SignUpForm, UserInformationUpdateForm, ProfileUpdateForm
 from .models import Profile
+from django.utils.translation import gettext_lazy as _
 
 
 def signup(request):
@@ -46,14 +47,9 @@ class UpdatedLoginView(LoginView):
     def get_success_url(self):
         url = super(UpdatedLoginView, self).get_success_url()
         user = self.request.user
-
-        if user.is_authenticated:
-            print(f'AUTH: {user.is_authenticated}')
-            language = user.profile.language
-            translation.activate(language)
-            self.request.session[translation.LANGUAGE_SESSION_KEY] = language
-        else:
-            print(f'NOT AUTH: {user.is_authenticated}')
+        language = user.profile.language
+        translation.activate(language)
+        self.request.session[translation.LANGUAGE_SESSION_KEY] = language
 
         return url
 
@@ -92,7 +88,7 @@ def user_update_view(request):
                 user_language = request.user.profile.language
                 translation.activate(user_language)
                 request.session[translation.LANGUAGE_SESSION_KEY] = user_language
-                messages.success(request, 'Account updated')
+                messages.success(request, _('Account updated'))
                 return redirect('my_account')
 
         else:
@@ -139,10 +135,10 @@ def change_password(request):
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
-                messages.success(request, 'Your password was successfully updated!')
+                messages.success(request, _('Your password was successfully updated!'))
                 return redirect('my_account')
             else:
-                messages.error(request, 'Please correct the error below.')
+                messages.error(request, _('Please correct the error below.'))
         else:
             form = PasswordChangeForm(request.user)
         return render(request, 'users/password_change.html', {'form': form})

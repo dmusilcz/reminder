@@ -1,28 +1,29 @@
+{% load i18n %}
 <div class="modal-header">
   <div class="doc-name text-center w-100">
     <h3 class="modal-title">{{ doc.name }}</h3>
   </div>
 </div>
 <div class="modal-body">
-  <div class="doc-desc-title text-center"><p>Description</p></div>
-    <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc }} {% else %}No description provided{% endif %}</p></div>
-    <div class="doc-cat-title text-center"><p>Category</p></div>
-    <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}No category set{% endif %}</p></div>
-    <div class="doc-expiry-date-title text-center"><p>Expiry date</p></div>
-    <div class="doc-expiry-date-content"><p>{% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}No expiry date set{% endif %}</p></div>
-    <div class="doc-reminder-title text-center"><p>Reminder</p></div>
+  <div class="doc-desc-title text-center"><p>{% trans "Description" %}</p></div>
+    <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc }} {% else %}{% trans "No description provided" %}{% endif %}</p></div>
+    <div class="doc-cat-title text-center"><p>{% trans "Category" %}</p></div>
+    <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}{% trans "No category set" %}{% endif %}</p></div>
+    <div class="doc-expiry-date-title text-center"><p>{% trans "Expiry date" %}</p></div>
+    <div class="doc-expiry-date-content"><p>{% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}{% trans "No expiry date set" %}{% endif %}</p></div>
+    <div class="doc-reminder-title text-center"><p>{% trans "Reminders before expiration" %}</p></div>
     <div class="doc-reminder-content">
       {% for reminder in doc.get_reminders %}
         <p {% if not forloop.last %}class="mb-0"{% endif %}>{{ reminder }}</p>
       {% endfor %}
     </div>
-    <div class="doc-last-reminder-sent-title text-center"><p>Last reminder sent on</p></div>
-    <div class="doc-last-reminder-sent-content"><p>{{ doc.get_last_reminder_sent }} (UTC timezone)</p></div>
+    <div class="doc-last-reminder-sent-title text-center"><p>{% trans "Last reminder sent on" %}</p></div>
+    <div class="doc-last-reminder-sent-content"><p>{{ doc.get_last_reminder_sent }} ({% trans "UTC timezone" %})</p></div>
 </div>
 <div class="modal-footer">
   <div id="doc-detail-buttons">
-    <button type="button" class="btn btn-blue btn-sm js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>
-    <button type="button" class="btn btn-red btn-sm js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Delete</button>
-    <button type="button" class="btn btn-grey-outline btn-sm mt-1 mb-1" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-blue btn-sm js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">{% trans "Update" %}</button>
+    <button type="button" class="btn btn-red btn-sm js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">{% trans "Delete" %}</button>
+    <button type="button" class="btn btn-grey-outline btn-sm mt-1 mb-1" data-dismiss="modal">{% trans "Close" %}</button>
   </div>
 </div>

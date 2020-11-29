@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-19 19:29+0100\n"
+"POT-Creation-Date: 2020-11-29 21:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,85 +18,625 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
+#: .\main\forms.py:17
+#: .\main\templates\main\includes\partial_doc_detail.html:10
+#: .\main\templates\main\includes\partial_docs.html:36 .\main\views.py:200
+msgid "Category"
+msgstr "Kategorie"
+
+#: .\main\forms.py:19 .\main\views.py:202
+msgid "Reminders can be chosen once this field is not empty"
+msgstr "Emailové připomínky lze vybrat jakmile toto pole nebude prázdné"
+
+#: .\main\forms.py:20
+#: .\main\templates\main\includes\partial_doc_detail.html:12
+#: .\main\templates\main\includes\partial_docs.html:38 .\main\views.py:203
+msgid "Expiry date"
+msgstr "Datum expirace"
+
+#: .\main\forms.py:25 .\main\views.py:210
+msgid "Email reminders before expiration"
+msgstr "Email připomínky před expirací"
+
+#: .\main\forms.py:26 .\main\forms.py:37 .\main\views.py:211
+#: .\main\views.py:398
+msgid "Name"
+msgstr "Název"
+
+#: .\main\forms.py:27 .\main\forms.py:38
+#: .\main\templates\main\includes\partial_cats.html:24
+#: .\main\templates\main\includes\partial_doc_detail.html:8
+#: .\main\templates\main\includes\partial_docs.html:34 .\main\views.py:212
+#: .\main\views.py:399
+msgid "Description"
+msgstr "Popis"
+
+#: .\main\forms.py:42
+msgid "<b>Name</b> contains:"
+msgstr "<b>Název</b> obsahuje:"
+
+#: .\main\forms.py:43
+msgid "<b>Description</b> contains:"
+msgstr "<b>Popis</b> obsahuje:"
+
+#: .\main\forms.py:47
+msgid "<b>Expiry date</b> from:"
+msgstr "<b>Datum expirace</b> od:"
+
+#: .\main\forms.py:50
+msgid "<b>Expiry date</b> to:"
+msgstr "<b>Datum expirace</b> do:"
+
+#: .\main\forms.py:59
+msgid "No reminder set"
+msgstr "Bez připomínky"
+
+#: .\main\forms.py:65
+#: .\main\templates\main\includes\partial_doc_detail.html:11
+#: .\main\templates\main\includes\partial_docs.html:37
+msgid "No category set"
+msgstr "Bez kategorie"
+
+#: .\main\forms.py:68
+msgid "<b>Category</b>:"
+msgstr "<b>Kategorie</b>:"
+
+#: .\main\forms.py:69
+msgid "Email reminders before expiration:"
+msgstr "Email připomínky před expirací"
+
 #: .\main\forms.py:78
+msgid "Entered 'Expiry date from' is later than 'Expiry date to'"
+msgstr "'Datum expirace do' je dříve než 'Datum expirace od'"
+
+#: .\main\forms.py:84
 msgid "Email"
-msgstr ""
+msgstr "Emailová adresa"
 
-#: .\main\forms.py:79
+#: .\main\forms.py:85
 msgid "Subject"
-msgstr ""
+msgstr "Předmět"
 
-#: .\main\forms.py:80
+#: .\main\forms.py:86
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
-#: .\main\templates\main\base.html:135
+#: .\main\models.py:15 .\main\templates\main\base.html:76
+#: .\main\templates\main\includes\partial_cats.html:6
+msgid "Categories"
+msgstr "Kategorie"
+
+#: .\main\models.py:41 .\main\templates\main\base.html:73
+#: .\main\templates\main\includes\partial_docs.html:6
+msgid "Documents"
+msgstr "Dokumenty"
+
+#: .\main\models.py:46
+msgid "No reminders set"
+msgstr "Připomínky nenastaveny"
+
+#: .\main\models.py:50
+msgid "No reminder sent"
+msgstr "Žádné"
+
+#: .\main\templates\main\503.html:29
+msgid ""
+"Site is currently in maintenance mode. Or some issue has come up.\n"
+"                It could be either one, honestly."
+msgstr ""
+"NeverExpire je momentálně v módu údržby. Nebo se vyskytnul nějaký problém.\n"
+"Upřímně to může být kterékoli z těch dvou."
+
+#: .\main\templates\main\base-kopie.html:133
+#: .\main\templates\main\base.html:131
 msgid "This website uses cookies to make your experience better."
-msgstr ""
+msgstr "Tato stránka používá cookies pro vylepšení její funkcionality."
 
-#: .\main\templates\main\base.html:138
+#: .\main\templates\main\base-kopie.html:136
+#: .\main\templates\main\base.html:134
 msgid "More info"
-msgstr ""
+msgstr "Více informací"
 
-#: .\main\templates\main\base.html:139
+#: .\main\templates\main\base-kopie.html:137
+#: .\main\templates\main\base.html:135
 msgid "Ok, understood"
-msgstr ""
+msgstr "Ok, rozumím"
 
-#: .\main\templates\main\reminder_email.html:3
+#: .\main\templates\main\base.html:49
+msgid "Log out"
+msgstr "Odhlásit"
+
+#: .\main\templates\main\base.html:53 .\users\templates\users\login.html:11
+#: .\users\templates\users\login.html:16
+#: .\users\templates\users\signup.html:30
+msgid "Log in"
+msgstr "Přihlásit"
+
+#: .\main\templates\main\base.html:54 .\users\templates\users\login.html:20
+#: .\users\templates\users\signup.html:12
+msgid "Sign up"
+msgstr "Registrace"
+
+#: .\main\templates\main\base.html:70 .\main\templates\main\home_user.html:15
+msgid "Overview"
+msgstr "Přehled"
+
+#: .\main\templates\main\base.html:79
+#: .\users\templates\users\my_account.html:10
+msgid "My account"
+msgstr "Můj profil"
+
+#: .\main\templates\main\base.html:105
+msgid "About NeverExpire"
+msgstr "O NeverExpire"
+
+#: .\main\templates\main\base.html:106
+#: .\main\templates\main\includes\origin.html:3
+msgid "Origin"
+msgstr "Vznik"
+
+#: .\main\templates\main\base.html:107
+msgid "Terms of Use"
+msgstr "Podmínky užívání"
+
+#: .\main\templates\main\base.html:108
+msgid "Privacy Policy"
+msgstr "Zásady ochrany údajů"
+
+#: .\main\templates\main\base.html:111
+msgid "Get in touch"
+msgstr "Ozvěte se"
+
+#: .\main\templates\main\base.html:112
+#: .\main\templates\main\contact_form.html:10
+msgid "Contact us"
+msgstr "Kontaktní formulář"
+
+#: .\main\templates\main\base.html:115
+msgid ""
+"If you're enjoying NeverExpire and you'd like to contribute to server costs, "
+"you can do so using the button below."
+msgstr ""
+"Pokud se Vám NeverExpire líbí a chcete přispět na provoz stránky, můžete tak "
+"učinit pomocí tlačítka níže."
+
+#: .\main\templates\main\category_form.html:10
+#: .\main\templates\main\includes\partial_cats.html:10
+msgid "Add category"
+msgstr "Přidat kategorii"
+
+#: .\main\templates\main\category_form.html:18
+#: .\main\templates\main\document_form.html:33
+msgid "Create"
+msgstr "Vytvořit"
+
+#: .\main\templates\main\category_update_form.html:10
+msgid "Update category"
+msgstr "Upravit kategorii"
+
+#: .\main\templates\main\category_update_form.html:20
+#: .\main\templates\main\includes\partial_cats.html:29
+#: .\main\templates\main\includes\partial_doc_detail.html:25
+#: .\main\templates\main\includes\partial_docs.html:48
+msgid "Update"
+msgstr "Upravit"
+
+#: .\main\templates\main\contact_form.html:20
+msgid "Send"
+msgstr "Odeslat"
+
+#: .\main\templates\main\document_form.html:23
+#: .\main\templates\main\home_user.html:32
+#: .\main\templates\main\includes\partial_docs.html:13
+msgid "Add document"
+msgstr "Přidat dokument"
+
+#: .\main\templates\main\home.html:8
+msgid "Don't let your documents expire"
+msgstr "Nenechte své dokumenty vyexpirovat"
+
+#: .\main\templates\main\home.html:9
+msgid ""
+"NeverExpire is a free service that lets you save any documents and sends you "
+"email reminders before they expire."
+msgstr ""
+"NeverExpire je bezplatná služba, která Vám umožňuje uložit jakékoli "
+"dokumenty a automaticky Vám emailem pošle připomínky dříve než expirují"
+
+#: .\main\templates\main\home.html:16
+msgid "All documents in one place"
+msgstr "Všechny dokumenty pohromadě"
+
+#: .\main\templates\main\home.html:18
+msgid "Have your documents in one spot and know exactly when they expire"
+msgstr "Mějte své dokumenty na jednom místě ať přesně víte, kdy expirují"
+
+#: .\main\templates\main\home.html:23
+msgid "Automated email reminders"
+msgstr "Automatické emailové připomínky"
+
+#: .\main\templates\main\home.html:25
+msgid ""
+"Reminders will be sent to you by email before expiration based on your "
+"settings"
+msgstr "Připomínky Vám budou zaslány emailem podle toho, jak si je nastavíte"
+
+#: .\main\templates\main\home.html:30
+msgid "Overview hub"
+msgstr "Přehled"
+
+#: .\main\templates\main\home.html:32
+msgid ""
+"Statistics about your documents are available to you such as which document "
+"expires next and more"
+msgstr ""
+"Máte k dispozici statistiky o svých dokumentech jako např. který expiruje "
+"jako další"
+
+#: .\main\templates\main\home.html:37
+msgid "Categorization"
+msgstr "Kategorie"
+
+#: .\main\templates\main\home.html:39
+msgid "Create categories for your documents for easier grouping"
+msgstr "Vytvořte si kategorie pro své dokumenty pro snazší třídění"
+
+#: .\main\templates\main\home.html:44
+msgid "Examples"
+msgstr "Příklady"
+
+#: .\main\templates\main\home.html:48
+msgid "Driver's license"
+msgstr "Řidičský průkaz"
+
+#: .\main\templates\main\home.html:54
+msgid "Credit card"
+msgstr "Platební karta"
+
+#: .\main\templates\main\home.html:60
+msgid "Home insurance"
+msgstr "Pojištění domu"
+
+#: .\main\templates\main\home.html:66
+msgid "MOT test"
+msgstr "Technická kontrola vozidla"
+
+#: .\main\templates\main\home_user.html:22
+msgid ""
+"\n"
+"              <h4 class=\"my-2\">You have no documents saved.</h4>\n"
+"              <h3>Don't let them expire and add them!</h3>\n"
+"              "
+msgstr ""
+"\n"
+"              <h4 class=\"my-2\">Nemáte žádné uložené dokumenty.</h4>\n"
+"              <h3>Nenechte je expirovat a uložte si je!</h3>\n"
+"              "
+
+#: .\main\templates\main\home_user.html:33
+msgid "My documents"
+msgstr "Mé dokumenty"
+
+#: .\main\templates\main\home_user.html:40
+msgid "Documents saved"
+msgstr "Uloženo dokumentů"
+
+#: .\main\templates\main\home_user.html:46
+msgid "Categories saved"
+msgstr "Uloženo kategorií"
+
+#: .\main\templates\main\home_user.html:52
+msgid "Next document expiring"
+msgstr "Nejbližší expirace"
+
+#: .\main\templates\main\home_user.html:56
+msgid "Document: "
+msgstr "Dokument: "
+
+#: .\main\templates\main\home_user.html:65
+msgid "Next reminder sent on"
+msgstr "Příští email připomínka"
+
+#: .\main\templates\main\home_user.html:81
+#: .\main\templates\main\includes\partial_doc_detail.html:20
+msgid "Last reminder sent on"
+msgstr "Poslední email připomínka"
+
+#: .\main\templates\main\home_user.html:82
+#: .\main\templates\main\includes\partial_doc_detail.html:21
+msgid "UTC timezone"
+msgstr "časová zóna: UTC"
+
+#: .\main\templates\main\home_user.html:87
+msgid "Documents expired"
+msgstr "Expirovaných dokumentů"
+
+#: .\main\templates\main\home_user.html:93
+msgid "Documents expiring in 1 month"
+msgstr "Počet expirací během 1 měsíce"
+
+#: .\main\templates\main\home_user.html:99
+msgid "Documents expiring in 6 months"
+msgstr "Počet expirací během 6 měsíců"
+
+#: .\main\templates\main\home_user.html:105
+msgid "Uncategorized documents"
+msgstr "Dokumentů bez kategorie"
+
+#: .\main\templates\main\includes\docs_pagination.html:4
+#, python-format
+msgid "Showing documents %(start)s-%(end)s of %(total)s"
+msgstr "Zobrazeny dokumenty %(start)s-%(end)s z %(total)s"
+
+#: .\main\templates\main\includes\order_button.html:4
+msgid "Order by:"
+msgstr "Řazení:"
+
+#: .\main\templates\main\includes\order_button.html:8 .\main\views.py:471
+msgid "Expiry date increases"
+msgstr "Expirace, vzestupně"
+
+#: .\main\templates\main\includes\order_button.html:9 .\main\views.py:472
+msgid "Expiry date decreases"
+msgstr "Expirace, sestupně"
+
+#: .\main\templates\main\includes\order_button.html:10 .\main\views.py:473
+msgid "Name (A - Z)"
+msgstr "Název (A - Z)"
+
+#: .\main\templates\main\includes\order_button.html:11 .\main\views.py:474
+msgid "Name (Z - A)"
+msgstr "Název (Z - A)"
+
+#: .\main\templates\main\includes\order_button.html:12
+#: .\main\templates\main\includes\order_button.html:13 .\main\views.py:475
+msgid "Category name (A - Z)"
+msgstr "Název kategorie (A - Z)"
+
+#: .\main\templates\main\includes\origin.html:10
+#, python-format
+msgid ""
+"<p>Once there was a guy who let his documents expire several times, which "
+"sometimes came at a steep price.</p>\n"
+"  <p>He wanted something to remind him about the expiration dates in advance "
+"in order to react in time, so he made this app.</p>\n"
+"  <p>He thought other people could benefit from this as well, so here it is "
+"if you want it.</p>\n"
+"  <p>If you'd like to contact the guy, please use this <a href=\"%"
+"(contact_url)s\" class=\"link-blue\">contact form</a>.</p>"
+msgstr ""
+"<p>Byl jednou jeden chlapík, který několikrát nechal své dokumenty "
+"vyexpirovat, což jej občas přišlo draho.</p>\n"
+"  <p>Chtěl, aby mu něco připomnělo, než mu dokumenty vyexpirují, aby tomu "
+"mohl včas zabránit, tak vytvořit tuto aplikaci.</p>\n"
+"  <p>Napadlo jej, že by z toho mohli mít užitek i další lidé, tak jestli "
+"chcete, tady ji máte.</p>\n"
+"  <p>Pokud se s tímto chlapíkem chcete spojit, použijte prosím tento <a href="
+"\"%(contact_url)s\" class=\"link-blue\">kontaktní formulář</a>.</p>"
+
+#: .\main\templates\main\includes\origin.html:16
+#: .\main\templates\main\includes\partial_cat_delete.html:14
+#: .\main\templates\main\includes\partial_cat_update.html:17
+#: .\main\templates\main\includes\partial_doc_delete.html:11
+#: .\main\templates\main\includes\partial_doc_detail.html:27
+#: .\main\templates\main\includes\partial_doc_update.html:22
+#: .\main\templates\main\includes\privacy_policy.html:110
+#: .\main\templates\main\includes\search_form.html:29
+#: .\main\templates\main\includes\terms_of_use.html:32
+msgid "Close"
+msgstr "Zavřít"
+
+#: .\main\templates\main\includes\partial_cat_delete.html:5
+msgid "Confirm category deletion"
+msgstr "Potvrzení smazání kategorie"
+
+#: .\main\templates\main\includes\partial_cat_delete.html:8
+msgid "Are you sure you want to delete the category "
+msgstr "Určitě chcete smazat kategorii "
+
+#: .\main\templates\main\includes\partial_cat_delete.html:10
+#, python-format
+msgid ""
+"Category contains %(cats_count)s document/s which now won't have any "
+"category assigned."
+msgstr ""
+"Kategorie obsahuje %(cats_count)s dokument(ů) které nyní budou nezařazené."
+
+#: .\main\templates\main\includes\partial_cat_delete.html:15
+msgid "Delete category"
+msgstr "Smazat kategorii"
+
+#: .\main\templates\main\includes\partial_cat_update.html:7
+#: .\main\templates\main\includes\partial_doc_update.html:7
+msgid "Update "
+msgstr "Upravit "
+
+#: .\main\templates\main\includes\partial_cat_update.html:18
+#: .\main\templates\main\includes\partial_doc_update.html:23
+msgid "Save"
+msgstr "Uložit"
+
+#: .\main\templates\main\includes\partial_cats.html:12
+msgid "Maximum categories: 30"
+msgstr "Maximum kategorií: 30"
+
+#: .\main\templates\main\includes\partial_cats.html:25
+#: .\main\templates\main\includes\partial_doc_detail.html:9
+#: .\main\templates\main\includes\partial_docs.html:35
+msgid "No description provided"
+msgstr "Bez popisu"
+
+#: .\main\templates\main\includes\partial_cats.html:26
+msgid "Documents in category"
+msgstr "Dokumentů v kategorii"
+
+#: .\main\templates\main\includes\partial_cats.html:30
+#: .\main\templates\main\includes\partial_doc_delete.html:12
+#: .\main\templates\main\includes\partial_doc_detail.html:26
+#: .\main\templates\main\includes\partial_docs.html:49
+msgid "Delete"
+msgstr "Smazat"
+
+#: .\main\templates\main\includes\partial_cats.html:38
+msgid ""
+"\n"
+"      <h4 class=\"my-2\">You have no categories created.</h4>\n"
+"      <h3>Add some and group up your documents!</h3>\n"
+"      "
+msgstr ""
+"\n"
+"      <h4 class=\"my-2\">Nemáte vytvořeny žádné kategorie.</h4>\n"
+"      <h3>Přidejte nějaké a usnadněte si třídění dokumentů!</h3>\n"
+"      "
+
+#: .\main\templates\main\includes\partial_doc_delete.html:5
+msgid "Confirm document deletion"
+msgstr "Potvrzení smazání dokumentu"
+
+#: .\main\templates\main\includes\partial_doc_delete.html:8
+msgid "Are you sure you want to delete the document "
+msgstr "Určitě chcete smazat dokument "
+
+#: .\main\templates\main\includes\partial_doc_detail.html:13
+#: .\main\templates\main\includes\partial_docs.html:39
+msgid "No expiry date set"
+msgstr "Nevyplněno"
+
+#: .\main\templates\main\includes\partial_doc_detail.html:14
+#: .\main\templates\main\includes\partial_docs.html:40
+msgid "Reminders before expiration"
+msgstr "Email připomínky před expirací"
+
+#: .\main\templates\main\includes\partial_docs.html:9
+#, python-format
+msgid "<p>You have <b>%(num)s</b> document saved</p>"
+msgid_plural "<p>You have <b>%(num)s</b> documents saved</p>"
+msgstr[0] "Máte <b>%(num)s</b> 0uložený dokument"
+msgstr[1] "Máte <b>%(num)s</b> 1uložené dokumenty"
+msgstr[2] "Máte <b>%(num)s</b> 2uložených dokumentů"
+msgstr[3] "Máte <b>%(num)s</b> 3uložených dokumentů"
+
+#: .\main\templates\main\includes\partial_docs.html:15
+msgid "Maximum documents: 100"
+msgstr "Maximum dokumentů: 100"
+
+#: .\main\templates\main\includes\partial_docs.html:17
+#: .\main\templates\main\includes\search_form.html:30
+msgid "Search"
+msgstr "Hledat"
+
+#: .\main\templates\main\includes\partial_docs.html:62
+msgid "No documents match your search."
+msgstr "Žádné dokumenty nenalezeny"
+
+#: .\main\templates\main\includes\partial_docs.html:64
+msgid ""
+"\n"
+"            <h4 class=\"my-2\">You have no documents saved.</h4>\n"
+"            <h3>Don't let them expire and add them!</h3>\n"
+"            "
+msgstr ""
+"\n"
+"            <h4 class=\"my-2\">Nemáte žádné uložené dokumenty.</h4>\n"
+"            <h3>Nenechte je vyexpirovat a uložte si je!</h3>\n"
+"            "
+
+#: .\main\templates\main\includes\search_form.html:6
+msgid "Search documents"
+msgstr "Hledání dokumentů"
+
+#: .\main\templates\main\reminder_email.html:20
 #, python-format
 msgid ""
 "<p>Hello <b>%(username)s</b>, sending you an expiration reminder for some of "
-"your documents on NeverExpire.com:</p>"
+"your documents:</p>"
 msgstr ""
-"<p>Dobrý den,<b>%(username)s</b>, posíláme Vám upomínku na expiraci některých Vašich dokumentů na NeverExpire.net:</p>"
+"<p>Dobrý den, <b>%(username)s</b>, posíláme Vám připomínku expirace "
+"některých Vašich dokumentů:</p>"
 
-#: .\main\templates\main\reminder_email.html:8
+#: .\main\templates\main\reminder_email.html:28
 msgid "Document name"
-msgstr "Název dokumentu"
+msgstr "Název dokumentů"
 
-#: .\main\templates\main\reminder_email.html:9
+#: .\main\templates\main\reminder_email.html:29
 msgid "Expiration Date"
 msgstr "Datum expirace"
 
-#: .\main\templates\main\reminder_email.html:10
+#: .\main\templates\main\reminder_email.html:30
 msgid "Days to expiration"
-msgstr "Dní do expirace"
+msgstr "Dnů do expirace"
 
-#: .\main\templates\main\reminder_email.html:24
+#: .\main\templates\main\reminder_email.html:47
 msgid ""
-"<p>Make sure you don't forget to renew them before they expire!</p>\n"
-"<p>Sincerely, The NeverExpire Team</p>"
+"<p>Make sure you don't forget to renew them before they expire!</p><br>\n"
+"                    <p>Sincerely, The NeverExpire Team</p>"
 msgstr ""
-"<p>Nezapomeňte je obnovit než jim vyprší platnost!</p>\n"
+"<p>Ujistěte se, že je obnovíte včas, ať nevyexpirují!</p><br>\n"
 "<p>S pozdravem, tým NeverExpire</p>"
 
-#: .\main\views.py:657
+#: .\main\views.py:226
+msgid "Document added"
+msgstr "Dokument přidán"
+
+#: .\main\views.py:355
+msgid "Document deleted"
+msgstr "Dokument smazán"
+
+#: .\main\views.py:405
+msgid "Category added"
+msgstr "Kategorie přidána"
+
+#: .\main\views.py:426
+msgid "Category updated"
+msgstr "Kategorie upravena"
+
+#: .\main\views.py:451
+msgid "Category deleted"
+msgstr "Kategorie smazána"
+
+#: .\main\views.py:476
+msgid "Category name (Z - A)"
+msgstr "Název kategorie (Z - A)"
+
+#: .\main\views.py:496
 msgid "Your message was sent"
-msgstr ""
+msgstr "Zpráva odeslána"
 
-#: .\reminder\settings.py:165
+#: .\reminder\settings.py:151 .\reminder\settings_prod.py:146
 msgid "Czech"
-msgstr ""
+msgstr "Čeština"
 
-#: .\reminder\settings.py:166
+#: .\reminder\settings.py:152 .\reminder\settings_prod.py:147
 msgid "English"
-msgstr ""
+msgstr "Angličtina"
+
+#: .\reminder\settings.py:182
+msgid "[NeverExpire] Expiration reminder"
+msgstr "[NeverExpire] Připomínka expirace"
+
+#: .\reminder\settings_prod.py:176
+msgid "[NeverExpire] Expiration reminder "
+msgstr "[NeverExpire] Připomínka expirace"
 
 #: .\users\forms.py:20
 msgid "Username contains a reserved word."
-msgstr ""
+msgstr "Uživatelské jméno obsahuje rezervovaný výraz"
 
 #: .\users\forms.py:25
 msgid "User with this Email already exists."
-msgstr ""
+msgstr "Uživatel s touto emailovou adresou již existuje"
 
 #: .\users\forms.py:30
 msgid "User with this Username already exists."
-msgstr ""
+msgstr "Uživatel s tímto uživatelským jménem již existuje"
 
-#: .\users\forms.py:34
+#: .\users\forms.py:34 .\users\templates\users\includes\login_form.html:16
 msgid "Keep me logged in"
-msgstr ""
+msgstr "Zapamatuj si mě"
+
+#: .\users\forms.py:71
+msgid "Language"
+msgstr "Jazyk"
 
 #: .\users\signals.py:11
 msgid "IDs"
@@ -108,117 +648,161 @@ msgstr "Auto"
 
 #: .\users\signals.py:11
 msgid "Insurance"
-msgstr "Pojistění"
+msgstr "Pojištění"
 
-#: .\users\templates\users\my_account.html:11
-msgid "My account"
+#: .\users\templates\users\delete.html:13
+#: .\users\templates\users\my_account.html:30
+msgid "Delete account"
+msgstr "Smazat účet"
+
+#: .\users\templates\users\delete.html:15
+msgid ""
+"This will permanently delete your account and all information you have "
+"entered to neverexpire.net.\n"
+"                  Are you sure you want to delete your account?"
 msgstr ""
+"Tato akce trvale vymaže Váš účet a veškeré informace, které jste zadali do "
+"NeverExpire.net.\n"
+"Jste si jistí?"
 
-#: .\users\templates\users\my_account.html:15
-msgid "Username"
-msgstr ""
+#: .\users\templates\users\delete.html:20
+#: .\users\templates\users\my_account_update.html:18
+#: .\users\templates\users\password_change.html:16
+msgid "Back"
+msgstr "Zpět"
 
-#: .\users\templates\users\my_account.html:17
-msgid "First name"
-msgstr ""
+#: .\users\templates\users\delete.html:21
+msgid "Yes"
+msgstr "Ano"
 
-#: .\users\templates\users\my_account.html:18
-#: .\users\templates\users\my_account.html:20
-msgid "Not saved"
-msgstr ""
-
-#: .\users\templates\users\my_account.html:19
-msgid "Last name"
-msgstr ""
-
-#: .\users\templates\users\my_account.html:21
-msgid "Email address"
-msgstr ""
-
-#: .\users\templates\users\my_account.html:23
-msgid "Preferred language"
-msgstr ""
-
-#: .\users\templates\users\my_account.html:25
+#: .\users\templates\users\includes\user_update_form.html:31
+#: .\users\templates\users\my_account.html:24
 msgid "Newsletter consent"
-msgstr ""
+msgstr "Souhlas se zasíláním novinek"
 
-#: .\users\templates\users\my_account.html:26
+#: .\users\templates\users\includes\user_update_form.html:34
+#: .\users\templates\users\my_account.html:25
 msgid ""
 " I agree to receive news about NeverExpire (new updates, features, etc.) to "
 "my email address"
 msgstr ""
+" Souhlasím se zasílám novinek o NeverExpire (updaty, nové funkce, atd.) na "
+"můj email"
+
+#: .\users\templates\users\login.html:20
+msgid "New to Never Expire? "
+msgstr "Jste tu nově? "
+
+#: .\users\templates\users\login.html:23
+msgid "Forgot your password?"
+msgstr "Zapomenuté heslo"
+
+#: .\users\templates\users\my_account.html:14
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+#: .\users\templates\users\my_account.html:16
+msgid "First name"
+msgstr "Křestní jméno"
+
+#: .\users\templates\users\my_account.html:17
+#: .\users\templates\users\my_account.html:19
+msgid "Not saved"
+msgstr "Nevyplněno"
+
+#: .\users\templates\users\my_account.html:18
+msgid "Last name"
+msgstr "Příjmení"
+
+#: .\users\templates\users\my_account.html:20
+msgid "Email address"
+msgstr "Emailová adresa"
+
+#: .\users\templates\users\my_account.html:22
+msgid "Preferred language"
+msgstr "Preferovaný jazyk"
+
+#: .\users\templates\users\my_account.html:28
+msgid "Update info"
+msgstr "Upravit informace"
 
 #: .\users\templates\users\my_account.html:29
-msgid "Update info"
-msgstr ""
-
-#: .\users\templates\users\my_account.html:30
 msgid "Change password"
-msgstr ""
+msgstr "Změnit heslo"
 
-#: .\users\templates\users\my_account.html:31
-msgid "Delete account"
-msgstr ""
+#: .\users\templates\users\my_account_update.html:10
+msgid "Update my account"
+msgstr "Upravit profil"
 
-#: .\users\templates\users\password_change.html:12
+#: .\users\templates\users\my_account_update.html:19
+msgid "Save changes"
+msgstr "Uložit změny"
+
+#: .\users\templates\users\password_change.html:11
 msgid "Password change"
-msgstr ""
+msgstr "Změna hesla"
 
-#: .\users\templates\users\password_change.html:16
+#: .\users\templates\users\password_change.html:17
 #: .\users\templates\users\password_reset.html:22
 #: .\users\templates\users\password_reset_confirm.html:30
 msgid "Submit"
-msgstr ""
+msgstr "Odeslat"
 
-#: .\users\templates\users\password_reset.html:12
+#: .\users\templates\users\password_reset.html:11
 msgid "Password reset"
-msgstr ""
+msgstr "Reset hesla"
+
+#: .\users\templates\users\password_reset_complete.html:11
+msgid "Password Reset Complete"
+msgstr "Reset hesla dokončen"
 
 #: .\users\templates\users\password_reset_complete.html:12
-msgid "Password Reset Complete"
-msgstr ""
-
-#: .\users\templates\users\password_reset_complete.html:13
 msgid "Your password has been changed. You may go ahead and "
-msgstr ""
+msgstr "Vaše heslo bylo změněno. Nyní se již můžete "
 
-#: .\users\templates\users\password_reset_complete.html:13
+#: .\users\templates\users\password_reset_complete.html:12
 msgid "log in"
-msgstr ""
+msgstr "přihlásit"
 
-#: .\users\templates\users\password_reset_complete.html:13
+#: .\users\templates\users\password_reset_complete.html:12
 msgid " now."
-msgstr ""
+msgstr "."
 
-#: .\users\templates\users\password_reset_confirm.html:12
+#: .\users\templates\users\password_reset_confirm.html:11
 msgid "Confirm Password Reset"
-msgstr ""
+msgstr "Potvrzení resetování hesla"
 
-#: .\users\templates\users\password_reset_confirm.html:33
+#: .\users\templates\users\password_reset_confirm.html:34
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
-"used.\n"
+"used or it has expired.\n"
 "                Please request a new password reset."
 msgstr ""
+"Odkaz pro reset hesla je nevalidní, pravděpodobně byl již použit nebo "
+"vypršela jeho platnost.\n"
+"Prosím opakujte proces pro reset."
+
+#: .\users\templates\users\password_reset_done.html:11
+msgid "Password reset instructions sent"
+msgstr "Instrukce pro reset hesla odeslány"
 
 #: .\users\templates\users\password_reset_done.html:12
-msgid "Password reset instructions sent"
-msgstr ""
-
-#: .\users\templates\users\password_reset_done.html:13
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered.\n"
 "            You should receive them shortly."
 msgstr ""
+"Na váš email jsme Vám odeslali instrukce pro reset hesla.\n"
+"Měli byste je brzy obdržet."
 
-#: .\users\templates\users\password_reset_done.html:15
+#: .\users\templates\users\password_reset_done.html:14
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with,\n"
 "            and check your spam folder."
 msgstr ""
+"Pokud jste email neobdrželi, ujistěte se, že jste zadali stejnou emailovou "
+"adresu jako při registraci, a zkontrolujte SPAM složku."
 
 #: .\users\templates\users\password_reset_email.html:3
 #, python-format
@@ -226,26 +810,97 @@ msgid ""
 "To initiate the password reset process for your NeverExpire account '%(user)"
 "s', click the link below:"
 msgstr ""
+"Pro resetování hesla k Vašemu NeverExpire účtu '%(user)s', klikněte na odkaz "
+"níže:"
 
 #: .\users\templates\users\password_reset_email.html:7
 msgid ""
 "If clicking the link above doesn't work, please copy and paste the URL in a "
 "new browser window instead."
 msgstr ""
+"Pokud kliknutí na odkaz nefunguje, zkopírujte odkaz a vložte jej do okna "
+"prohlížeče."
 
 #: .\users\templates\users\password_reset_email.html:9
 msgid ""
 "Sincerely,\n"
 "The NeverExpire Team\n"
 msgstr ""
+"S pozdravem,\n"
+"tým NeverExpire\n"
 
 #: .\users\templates\users\password_reset_subject.txt:2
 msgid "NeverExpire Password Reset"
-msgstr ""
+msgstr "NeverExpire - reset hesla"
 
-#: .\users\templates\users\signup.html:12
-msgid "Sign up"
+#: .\users\templates\users\signup.html:18
+#, python-format
+msgid ""
+"\n"
+"              <p>By clicking the \"Create an account\" button you agree to "
+"our <a href=\"javascript:void(0)\"\n"
+"                                                                   class="
+"\"link-blue js-terms\"\n"
+"                                                                   data-url="
+"\"%(terms_url)s\">Terms of Use</a> and\n"
+"                                                                <a href="
+"\"javascript:void(0)\"\n"
+"                                                                   class="
+"\"link-blue js-privacy\"\n"
+"                                                                   data-url="
+"\"%(privacy_url)s\">Privacy Policy</a>.</p>\n"
+"              "
 msgstr ""
+"\n"
+"              <p>Klinutím na \"Vytvořit účet\" souhlasíte s našimi <a href="
+"\"javascript:void(0)\"\n"
+"                                                                   class="
+"\"link-blue js-terms\"\n"
+"                                                                   data-url="
+"\"%(terms_url)s\">Podmínkami použití</a> a\n"
+"                                                                <a href="
+"\"javascript:void(0)\"\n"
+"                                                                   class="
+"\"link-blue js-privacy\"\n"
+"                                                                   data-url="
+"\"%(privacy_url)s\">Zásadami ochrany osobních údajů</a>.</p>\n"
+"              "
+
+#: .\users\templates\users\signup.html:26
+msgid "Create an account"
+msgstr "Vytvořit účet"
+
+#: .\users\templates\users\signup.html:30
+msgid "Already have an account? "
+msgstr "Už máte účet? "
+
+#: .\users\templates\users\user_denied.html:11
+msgid "User access limited"
+msgstr "Přístup uživatele omezen"
+
+#: .\users\templates\users\user_denied.html:13
+#, python-format
+msgid ""
+"Your access to the site has been restricted.\n"
+"                Please contact us using our <a href=\"%(contact_url)s"
+"\">contact form</a> stating your username and the issue you are experiencing."
+msgstr ""
+"Váš přístup na tuto stránku byl omezen.\n"
+"Prosím kontaktujte nás pomocí <a href=\"%(contact_url)s\">kontaktního "
+"formuláře</a> s Vaším uživatelským jménem a přidejte inforamce o tom, co se "
+"přihodilo."
+
+#: .\users\views.py:91
+msgid "Account updated"
+msgstr "Profil upraven"
+
+#: .\users\views.py:138
+msgid "Your password was successfully updated!"
+msgstr "Vaše heslo bylo úspěšně změněno"
+
+#: .\users\views.py:141
+msgid "Please correct the error below."
+msgstr "Prosím opravte chybu uvedenou níže."
 
 #: .\main.ReminderChoice/field:1
 msgid "1 day"

@@ -1,21 +1,20 @@
+{% load i18n %}
 <div class="container h-100 p-0 main-container">
   <div class="row mx-0">
     <div class="col-12 px-0 pt-2">
       <div class="text-center menu-heading mt-2">
-        <h1>Documents</h1>
+        <h1>{% trans "Documents" %}</h1>
       </div>
       {% if docs %}
-        <div class="w-100 docs_count text-center">
-          <p>You have <b>{{ user.document_set.count }}</b> document{{ user.document_set.count|pluralize }} saved</p>
-        </div>
+        <div class="w-100 docs_count text-center">{% blocktrans count num=user.document_set.count %}<p>You have <b>{{ num }}</b> document saved</p>{% plural %}<p>You have <b>{{ num }}</b> documents saved</p>{% endblocktrans %}</div>
       {% endif %}
       <div class="mt-3 mb-2 mx-2" id="doc-function-buttons">
         {% if user.document_set.count < 100 %}
-          <a href="{% url 'new_doc' %}" class="btn btn-blue mb-1"><i class="fas fa-plus-square mr-2"></i>Add document</a>
+          <a href="{% url 'new_doc' %}" class="btn btn-blue mb-1"><i class="fas fa-plus-square mr-2"></i>{% trans "Add document" %}</a>
         {% else %}
-          <button class="mb-1 btn btn-blue" disabled>Maximum documents: 100</button>
+          <button class="mb-1 btn btn-blue" disabled>{% trans "Maximum documents: 100" %}</button>
         {% endif %}
-        <button type="button" class="btn btn-search mb-1 js-search" data-url="{% url 'search' %}{% if order %}?o={{order}}{% endif %}"><i class="fas fa-search mr-2"></i>Search</button>
+        <button type="button" class="btn btn-search mb-1 js-search" data-url="{% url 'search' %}{% if order %}?o={{order}}{% endif %}"><i class="fas fa-search mr-2"></i>{% trans "Search" %}</button>
         <div class="btn-group" id="order-button">
           {% include 'main/includes/order_button.html' %}
         </div>
@@ -32,13 +31,13 @@
           <div class="col-lg-4 col-md-6 col-sm-12 doc">
             <div class="card p-2 doc-card">
               <div class="doc-name text-center"><h4>{{ doc.name|truncatechars:60 }}</h4></div>
-              <div class="doc-desc-title text-center"><p>Description</p></div>
-              <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc|truncatechars:200}} {% else %}No description provided{% endif %}</p></div>
-              <div class="doc-cat-title text-center"><p>Category</p></div>
-              <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}No category set{% endif %}</p></div>
-              <div class="doc-expiry-date-title text-center"><p>Expiry date</p></div>
-              <div class="doc-expiry-date-content"><p>{% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}No expiry date set{% endif %}</p></div>
-              <div class="doc-reminder-title text-center"><p>Reminder</p></div>
+              <div class="doc-desc-title text-center"><p>{% trans "Description" %}</p></div>
+              <div class="doc-desc-content"><p>{% if doc.desc %}{{ doc.desc|truncatechars:200}} {% else %}{% trans "No description provided" %}{% endif %}</p></div>
+              <div class="doc-cat-title text-center"><p>{% trans "Category" %}</p></div>
+              <div class="doc-cat-content"><p>{% if doc.category %}{{ doc.category }} {% else %}{% trans "No category set" %}{% endif %}</p></div>
+              <div class="doc-expiry-date-title text-center"><p>{% trans "Expiry date" %}</p></div>
+              <div class="doc-expiry-date-content"><p>{% if doc.expiry_date %}{{ doc.expiry_date }} {% else %}{% trans "No expiry date set" %}{% endif %}</p></div>
+              <div class="doc-reminder-title text-center"><p>{% trans "Reminders before expiration" %}</p></div>
               <div class="doc-reminder-content">
                 {% for reminder in doc.get_reminders %}
                   <p class="mb-0">{{ reminder }}</p>
@@ -46,8 +45,8 @@
               </div>
               <div id="doc-buttons" class="d-flex justify-content-center">
                 <button type="button" class="btn btn-grey btn-sm mx-1 my-1 js-doc-detail" data-url="{% url 'doc_detail' doc.id %}">Detail</button>
-                <button type="button" class="btn btn-blue btn-sm mx-1 my-1 js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Update</button>
-                <button type="button" class="btn btn-red btn-sm mx-1 my-1 js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">Delete</button>
+                <button type="button" class="btn btn-blue btn-sm mx-1 my-1 js-update-doc" data-url="{% url 'doc_update' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">{% trans "Update" %}</button>
+                <button type="button" class="btn btn-red btn-sm mx-1 my-1 js-delete-doc" data-url="{% url 'doc_delete' doc.id %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}">{% trans "Delete" %}</button>
               </div>
             </div>
           </div>
@@ -60,10 +59,12 @@
       <div class="d-flex text-center justify-content-center w-100">
         <div class="d-flex no-docs px-2">
           {% if searched %}
-            <h4 class="my-2">No documents match your search.</h4>
+            <h4 class="my-2">{% trans "No documents match your search." %}</h4>
           {% else %}
+            {% blocktrans %}
             <h4 class="my-2">You have no documents saved.</h4>
             <h3>Don't let them expire and add them!</h3>
+            {% endblocktrans %}
           {% endif %}
         </div>
       </div>

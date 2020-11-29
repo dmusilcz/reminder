@@ -26,10 +26,11 @@ def home(request):
             today = timezone.localdate()
             documents_count = documents.count()
             categories_count = categories.count()
+            docs_with_expiry_dates = documents.filter(expiry_date__isnull=False)
             next_doc_expiring = documents.order_by('expiry_date').filter(expiry_date__gte=today).first()
             docs_with_sent_reminder = documents.exclude(last_reminder_sent__isnull=True).order_by('-last_reminder_sent')
 
-            reminder_throughs = ReminderThrough.objects.filter(document__in=documents)
+            reminder_throughs = ReminderThrough.objects.filter(document__in=docs_with_expiry_dates)
 
             if reminder_throughs.first():
                 reminder_dates = [(reminder_throughs.get(id=reminder.id).document, reminder.document.expiry_date - timedelta(days=reminder.get_days_by_id())) for reminder in reminder_throughs]
@@ -196,17 +197,33 @@ class DocCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         reminder_choices = [(choice.id, choice.field) for choice in ReminderChoice.objects.all().order_by('id')]
         form = super(DocCreateView, self).get_form(*args, **kwargs)
         form.fields['category'].queryset = Category.objects.filter(author=self.request.user)
+        form.fields['category'].label = _('Category')
         form.fields['expiry_date'] = forms.DateField(required=False,
-                                                     help_text='Reminders can be chosen once this field is not empty')
+                                                     help_text=_('Reminders can be chosen once this field is not empty'),
+                                                     label=_('Expiry date'))
+        form.fields['expiry_date'].widget.attrs = {
+        # 'oninput': "verifyDate()",
+                                                   'autocomplete': 'off'
+        }
         form.fields['reminder'] = forms.MultipleChoiceField(required=False, widget=forms.CheckboxSelectMultiple,
-                                                            choices=reminder_choices)
+                                                            choices=reminder_choices,
+                                                            label=_('Email reminders before expiration'))
+        form.fields['name'].label = _('Name')
+        form.fields['desc'].label = _('Description')
 
         return form
 
+    # Remove reminders if no expiry date is entered
+    def post(self, request, *args, **kwargs):
+        request.POST = request.POST.copy()
+        if request.POST['expiry_date'] == '' and 'reminder' in request.POST:
+            request.POST.pop('reminder')
+
+        return super(DocCreateView, self).post(request, **kwargs)
+
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, 'Document added')
-
+        messages.success(self.request, _('Document added'))
         return super().form_valid(form)
 
     def test_func(self):
@@ -243,12 +260,13 @@ def doc_update(request, pk):
 
     if request.user == doc.author and request.user.is_active:
         if request.method == 'POST':
+            # Remove reminders if no expiry date is entered
+            request.POST = request.POST.copy()
+            if request.POST['expiry_date'] == '' and 'reminder' in request.POST:
+                request.POST.pop('reminder')
+
             form = DocumentUpdateForm(request.POST, instance=doc, request=request)
             if form.is_valid():
-                request.POST = request.POST.copy()
-                if request.POST['expiry_date'] == '' and 'reminder' in request.POST:
-                    request.POST.pop('reminder')
-
                 form.save()
                 data['form_is_valid'] = True
 
@@ -334,7 +352,7 @@ def doc_delete(request, pk):
                        'searched': searched,
                        'order': order,
                        'label_sort_by': label_sort_by}
-            messages.success(request, 'Document deleted')
+            messages.success(request, _('Document deleted'))
             data['action'] = 'delete'
             data['messages'] = render_to_string('main/includes/messages.html', context,
                                                 request=request)
@@ -375,9 +393,16 @@ class CategoryCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         else:
             return redirect('user_denied')
 
+    def get_form(self, *args, **kwargs):
+        form = super(CategoryCreateView, self).get_form(*args, **kwargs)
+        form.fields['name'].label = _('Name')
+        form.fields['desc'].label = _('Description')
+
+        return form
+
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, 'Category added')
+        messages.success(self.request, _('Category added'))
 
         return super().form_valid(form)
 
@@ -398,7 +423,7 @@ def cat_update(request, pk):
                 data['form_is_valid'] = True
                 cat_list = Category.objects.filter(author=request.user).order_by('name')
                 context = {'cats': cat_list}
-                messages.success(request, 'Category updated')
+                messages.success(request, _('Category updated'))
                 data['action'] = 'update'
                 data['messages'] = render_to_string('main/includes/messages.html', context, request=request)
                 data['html_items_list'] = render_to_string('main/includes/partial_cats.html', context, request=request)
@@ -423,7 +448,7 @@ def cat_delete(request, pk):
             data['form_is_valid'] = True
             cat_list = Category.objects.filter(author=request.user).order_by('name')
             context = {'cats': cat_list}
-            messages.success(request, 'Category deleted')
+            messages.success(request, _('Category deleted'))
             data['action'] = 'delete'
             data['messages'] = render_to_string('main/includes/messages.html', context, request=request)
             data['html_items_list'] = render_to_string('main/includes/partial_cats.html', context, request=request)
@@ -443,12 +468,12 @@ def get_order(request):
         order = default_order
 
     sorting_labels = {
-        'expiry_date': 'Expiry date increases',
-        '-expiry_date': 'Expiry date decreases',
-        'name': 'Name (A - Z)',
-        '-name': 'Name (Z - A)',
-        'category': 'Category name (A - Z)',
-        '-category': 'Category name (Z - A)',
+        'expiry_date': _('Expiry date increases'),
+        '-expiry_date': _('Expiry date decreases'),
+        'name': _('Name (A - Z)'),
+        '-name': _('Name (Z - A)'),
+        'category': _('Category name (A - Z)'),
+        '-category': _('Category name (Z - A)'),
     }
 
     label_sort_by = sorting_labels[order]

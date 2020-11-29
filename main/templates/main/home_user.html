@@ -1,4 +1,5 @@
 {% extends "main/base.html" %}
+{% load i18n %}
 
 {% block content %}
 <main class="main" id="main">
@@ -11,46 +12,48 @@
       </div>
     {% endif %}
     <div class="text-center menu-heading w-100 pt-3">
-        <h1>Overview</h1>
+        <h1>{% trans "Overview" %}</h1>
       </div>
     {% if documents_count == 0 %}
       <div class="row mx-0 mt-3">
         <div class="d-flex text-center justify-content-center w-100">
           <div class="d-flex no-docs px-2">
             <div>
+              {% blocktrans %}
               <h4 class="my-2">You have no documents saved.</h4>
               <h3>Don't let them expire and add them!</h3>
+              {% endblocktrans %}
               </div>
           </div>
         </div>
       </div>
     {% endif %}
     <div class="row d-flex justify-content-center mx-0 pt-3">
-      <a class="btn btn-blue mx-1 my-1" href="{% url 'new_doc' %}"><i class="fas fa-plus-square mr-2"></i>Add document</a>
-      <a class="btn btn-grey mx-1 my-1 " href="{% url 'docs' %}"><i class="far fa-file mr-2"></i>My documents</a>
+      <a class="btn btn-blue mx-1 my-1" href="{% url 'new_doc' %}"><i class="fas fa-plus-square mr-2"></i>{% trans "Add document" %}</a>
+      <a class="btn btn-grey mx-1 my-1 " href="{% url 'docs' %}"><i class="far fa-file mr-2"></i>{% trans "My documents" %}</a>
     </div>
   </div>
   <div class="container h-100 p-0 py-3">
     <div class="grid-user px-1">
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Documents saved</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Documents saved" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ documents_count }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Categories saved</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Categories saved" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ categories_count }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Next document expiring</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Next document expiring" %}</h4></div>
           <div class="user-item-content">
             {% if next_reminder_sent_on %}
               <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
-              <p class="mb-0">Document: {{ next_doc_expiring.name }}</p>
+              <p class="mb-0">{% trans "Document: " %}{{ next_doc_expiring.name }}</p>
             {% else %}
               <p class="mb-0">-</p>
             {% endif %}
@@ -59,7 +62,7 @@
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Next reminder sent on</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Next reminder sent on" %}</h4></div>
           <div class="user-item-content">
             {% if next_reminder_sent_on %}
               <ul class="list-unstyled mb-0">
@@ -75,31 +78,31 @@
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Last reminder sent on</h4></div>
-          <div class="user-item-content"><p class="mb-">{% if last_reminder_sent_on %}{{ last_reminder_sent_on }} (UTC timezone){% else %}-{% endif %}</p></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Last reminder sent on" %}</h4></div>
+          <div class="user-item-content"><p class="mb-">{% if last_reminder_sent_on %}{{ last_reminder_sent_on }} ({% trans "UTC timezone" %}){% else %}-{% endif %}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Documents expired</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Documents expired" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ documents_expired }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Documents expiring in 1 month</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Documents expiring in 1 month" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ docs_expired_in_1_month }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Documents expiring in 6 months</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Documents expiring in 6 months" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ docs_expired_in_6_months }}</p></div>
         </div>
       </div>
       <div class="user-item mb-0">
         <div class="user-item-card card">
-          <div class="user-item-title"><h4 class="mb-0">Uncategorized documents</h4></div>
+          <div class="user-item-title"><h4 class="mb-0">{% trans "Uncategorized documents" %}</h4></div>
           <div class="user-item-content"><p class="larger mb-0">{{ docs_uncategorized }}</p></div>
         </div>
       </div>

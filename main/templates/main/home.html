@@ -1,70 +1,69 @@
 {% extends "main/base.html" %}
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block content %}
 <main class="main">
   <section class="banner p-1 text-center">
     <div class="col-md-6 p-lg-6 mx-auto my-5 py-5">
-      <h1 class="hero-headline">Don't let your documents expire</h1>
-      <p class="hero-text">NeverExpire is a free service that lets you save any documents and sends you email reminders before they expire.</p>
+      <h1 class="hero-headline">{% trans "Don't let your documents expire" %}</h1>
+      <p class="hero-text">{% trans "NeverExpire is a free service that lets you save any documents and sends you email reminders before they expire." %}</p>
     </div>
   </section>
   <div class="container text-center">
     <div class="row my-2 my-lg-5">
       <div class="home-item col-md-6 col-sm-12 p-3">
         <div class="home-item-card card">
-          <div class="home-item-title"><h4 class="mb-0">All documents in one place</h4></div>
+          <div class="home-item-title"><h4 class="mb-0">{% trans "All documents in one place" %}</h4></div>
           <i class="fas fa-map-marker-alt home-icon"></i>
-          <div class="home-item-text"><p class="mb-0">Have your documents in one spot and know exactly when they expire</p></div>
+          <div class="home-item-text"><p class="mb-0">{% trans "Have your documents in one spot and know exactly when they expire" %}</p></div>
         </div>
       </div>
       <div class="home-item col-md-6 col-sm-12 p-3">
         <div class="home-item-card card">
-          <div class="home-item-title"><h4 class="mb-0">Automated email reminders</h4></div>
+          <div class="home-item-title"><h4 class="mb-0">{% trans "Automated email reminders" %}</h4></div>
           <i class="far fa-envelope home-icon"></i>
-          <div class="home-item-text"><p class="mb-0">Reminders will be sent to you by email before expiration based on your settings</p></div>
+          <div class="home-item-text"><p class="mb-0">{% trans "Reminders will be sent to you by email before expiration based on your settings" %}</p></div>
         </div>
       </div>
       <div class="home-item col-md-6 col-sm-12 p-3">
         <div class="home-item-card card">
-          <div class="home-item-title"><h4 class="mb-0">Overview hub</h4></div>
+          <div class="home-item-title"><h4 class="mb-0">{% trans "Overview hub" %}</h4></div>
           <i class="fas fa-info home-icon"></i>
-          <div class="home-item-text"><p class="mb-0">Statistics about your documents are available to you such as which document expires next and more</p></div>
+          <div class="home-item-text"><p class="mb-0">{% trans "Statistics about your documents are available to you such as which document expires next and more" %}</p></div>
         </div>
       </div>
       <div class="home-item col-md-6 col-sm-12 p-3">
         <div class="home-item-card card">
-          <div class="home-item-title"><h4 class="mb-0">Categorization</h4></div>
+          <div class="home-item-title"><h4 class="mb-0">{% trans "Categorization" %}</h4></div>
           <i class="far fa-clone home-icon"></i>
-          <div class="home-item-text"><p class="mb-0">Create categories for your documents for easier grouping</p></div>
+          <div class="home-item-text"><p class="mb-0">{% trans "Create categories for your documents for easier grouping" %}</p></div>
         </div>
       </div>
     </div>
     <div class="row my-5 examples-row">
-      <div class="w-100 text-center mb-4"><h3 class="examples-title">Examples</h3></div>
+      <div class="w-100 text-center mb-4"><h3 class="examples-title">{% trans "Examples" %}</h3></div>
       <div class="example-item col-6 col-md-6 col-lg-3 mb-3">
         <div class="example-item-card card py-3">
           <i class="fas fa-car example-icon"></i>
-          <p class="lead mb-0">Driver's license</p>
+          <p class="lead mb-0">{% trans "Driver's license" %}</p>
         </div>
       </div>
       <div class="example-item col-6 col-md-6 col-lg-3 mb-3">
         <div class="example-item-card card py-3">
           <i class="fas fa-credit-card example-icon"></i>
-          <p class="lead mb-0">Credit card</p>
+          <p class="lead mb-0">{% trans "Credit card" %}</p>
         </div>
       </div>
       <div class="example-item col-6 col-md-6 col-lg-3 mb-3">
         <div class="example-item-card card py-3">
           <i class="fas fa-home example-icon"></i>
-          <p class="lead mb-0">Home insurance</p>
+          <p class="lead mb-0">{% trans "Home insurance" %}</p>
         </div>
       </div>
       <div class="example-item col-6 col-md-6 col-lg-3 mb-3">
         <div class="example-item-card card py-3">
           <i class="fas fa-wrench example-icon"></i>
-          <p class="lead mb-0">MOT test</p>
+          <p class="lead mb-0">{% trans "MOT test" %}</p>
         </div>
       </div>
     </div>

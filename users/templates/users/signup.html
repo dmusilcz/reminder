@@ -13,17 +13,21 @@
             <form method="post" novalidate>
               {% csrf_token %}
               {% include 'users/includes/form.html' %}
+              {% url 'terms' as terms_url %}
+              {% url 'privacy' as privacy_url %}
+              {% blocktrans %}
               <p>By clicking the "Create an account" button you agree to our <a href="javascript:void(0)"
                                                                    class="link-blue js-terms"
-                                                                   data-url="{% url 'terms' %}">Terms of Use</a> and
+                                                                   data-url="{{ terms_url }}">Terms of Use</a> and
                                                                 <a href="javascript:void(0)"
                                                                    class="link-blue js-privacy"
-                                                                   data-url="{% url 'privacy' %}">Privacy Policy</a>.</p>
-              <button type="submit" class="btn btn-blue btn-block">Create an account</button>
+                                                                   data-url="{{ privacy_url }}">Privacy Policy</a>.</p>
+              {% endblocktrans %}
+              <button type="submit" class="btn btn-blue btn-block">{% trans "Create an account" %}</button>
             </form>
           </div>
           <div class="card-footer text-muted text-center">
-            Already have an account? <a href="{% url 'login' %}" class="link-blue">Log in</a>
+            {% trans "Already have an account? " %}<a href="{% url 'login' %}" class="link-blue">{% trans "Log in" %}</a>
           </div>
         </div>
       </div>

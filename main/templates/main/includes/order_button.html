@@ -1,13 +1,14 @@
+{% load i18n %}
 <button type="button" class="btn btn-grey dropdown-toggle mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   <i class="fas fa-sort-alpha-down mr-1"></i>
-  Order by: {{ label_sort_by }}
+  {% trans "Order by:" %} {{ label_sort_by }}
   <span class="caret"></span>
 </button>
 <ul class="dropdown-menu dropdown-menu-right">
-  <li{% if order == 'expiry_date' %} class="order-active"{% endif %}><a href="?o=expiry_date{% if searched %}&searched=True{% endif %}" class="dropdown-item">Expiry date increases</a></li>
-  <li{% if order == '-expiry_date' %} class="order-active"{% endif %}><a href="?o=-expiry_date{% if searched %}&searched=True{% endif %}" class="dropdown-item">Expiry date decreases</a></li>
-  <li{% if order == 'name' %} class="order-active"{% endif %}><a href="?o=name{% if searched %}&searched=True{% endif %}" class="dropdown-item">Name (A - Z)</a></li>
-  <li{% if order == '-name' %} class="order-active"{% endif %}><a href="?o=-name{% if searched %}&searched=True{% endif %}" class="dropdown-item">Name (Z - A)</a></li>
-  <li{% if order == 'category' %} class="order-active"{% endif %}><a href="?o=category{% if searched %}&searched=True{% endif %}" class="dropdown-item">Category name (A - Z)</a></li>
-  <li{% if order == '-category' %} class="order-active"{% endif %}><a href="?o=-category{% if searched %}&searched=True{% endif %}" class="dropdown-item">Category name (A - Z)</a></li>
+  <li{% if order == 'expiry_date' %} class="order-active"{% endif %}><a href="?o=expiry_date{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Expiry date increases" %}</a></li>
+  <li{% if order == '-expiry_date' %} class="order-active"{% endif %}><a href="?o=-expiry_date{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Expiry date decreases" %}</a></li>
+  <li{% if order == 'name' %} class="order-active"{% endif %}><a href="?o=name{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Name (A - Z)" %}</a></li>
+  <li{% if order == '-name' %} class="order-active"{% endif %}><a href="?o=-name{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Name (Z - A)" %}</a></li>
+  <li{% if order == 'category' %} class="order-active"{% endif %}><a href="?o=category{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Category name (A - Z)" %}</a></li>
+  <li{% if order == '-category' %} class="order-active"{% endif %}><a href="?o=-category{% if searched %}&searched=True{% endif %}" class="dropdown-item">{% trans "Category name (A - Z)" %}</a></li>
 </ul>

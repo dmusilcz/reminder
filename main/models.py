@@ -12,7 +12,7 @@ class Category(models.Model):
     author = models.ForeignKey(User, verbose_name='Author', on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = _('Categories')
 
     def get_absolute_url(self):
         return reverse('categories')
@@ -37,14 +37,17 @@ class Document(models.Model):
     last_reminder_sent = models.DateTimeField(verbose_name='Last reminder sent', null=True, blank=True, default=None)
     reminder = models.ManyToManyField(ReminderChoice, through='ReminderThrough', blank=True)
 
+    class Meta:
+        verbose_name_plural = _('Documents')
+
     def get_reminders(self):
         reminders = [str(rem.field) for rem in self.reminder.all().order_by('id')]
         if len(reminders) is 0:
-            reminders.append("No reminders set")
+            reminders.append(_("No reminders set"))
         return reminders
 
     def get_last_reminder_sent(self):
-        last_reminder_sent = self.last_reminder_sent if self.last_reminder_sent else 'No reminder sent'
+        last_reminder_sent = self.last_reminder_sent if self.last_reminder_sent else _('No reminder sent')
         return last_reminder_sent
 
     def get_absolute_url(self):

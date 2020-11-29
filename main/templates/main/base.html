@@ -1,5 +1,4 @@
-{% load i18n static %}
-{% load cookielaw_tags %}
+{% load i18n static cookielaw_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -47,12 +46,12 @@
         </div>
         {% if user.is_authenticated %}
           <div class="user-buttons d-flex">
-            <a href="{% url 'logout' %}" class="btn btn-light ml-2">Log out</a>
+            <a href="{% url 'logout' %}" class="btn btn-light ml-2">{% trans "Log out" %}</a>
           </div>
         {% else %}
           <div class="user-buttons d-flex">
-            <a href="{% url 'login' %}" class="btn btn-light">Log in</a>
-            <a href="{% url 'signup' %}" class="btn btn-light ml-2">Sign up</a>
+            <a href="{% url 'login' %}" class="btn btn-light">{% trans "Log in" %}</a>
+            <a href="{% url 'signup' %}" class="btn btn-light ml-2">{% trans "Sign up" %}</a>
           </div>
         {% endif %}
       </nav>
@@ -68,16 +67,16 @@
         <div class="collapse navbar-collapse" id="navbarToggle">
           <ul class="navbar-nav text-center ml-auto">
             <li {% if 'home' in request.resolver_match.url_name %}class="active"{% endif %}>
-              <a class="nav-link" href="{% url 'home' %}">Overview</a>
+              <a class="nav-link" href="{% url 'home' %}">{% trans "Overview" %}</a>
             </li>
             <li {% if 'docs' in request.resolver_match.url_name %}class="active"{% endif %}>
-              <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">Documents</a>
+              <a class="nav-link" href="{% url 'docs' %}{% if order %}?o={{order}}{% endif %}">{% trans "Documents" %}</a>
             </li>
             <li {% if 'categories' in request.resolver_match.url_name %}class="active"{% endif %}>
-              <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+              <a class="nav-link" href="{% url 'categories' %}">{% trans "Categories" %}</a>
             </li>
             <li {% if 'my_account' in request.resolver_match.url_name %}class="active"{% endif %}>
-              <a class="nav-link" href="{% url 'my_account' %}">My account</a>
+              <a class="nav-link" href="{% url 'my_account' %}">{% trans "My account" %}</a>
             </li>
           </ul>
         </div>
@@ -103,17 +102,17 @@
     <div class="container footer-container pt-4">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12">
-          <h5 class="mb-4">About NeverExpire</h5>
-          <p class="mb-2"><a href="javascript:void(0)" class="js-origin" data-url="{% url 'origin' %}">Origin</a></p>
-          <p class="mb-2"><a href="javascript:void(0)" class="js-terms" data-url="{% url 'terms' %}">Terms of Use</a></p>
-          <p class="mb-2"><a href="javascript:void(0)" class="js-privacy" data-url="{% url 'privacy' %}">Privacy Policy</a></p>
+          <h5 class="mb-4">{% trans "About NeverExpire" %}</h5>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-origin" data-url="{% url 'origin' %}">{% trans "Origin" %}</a></p>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-terms" data-url="{% url 'terms' %}">{% trans "Terms of Use" %}</a></p>
+          <p class="mb-2"><a href="javascript:void(0)" class="js-privacy" data-url="{% url 'privacy' %}">{% trans "Privacy Policy" %}</a></p>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 footer-col-2">
-          <h5 class="mb-4">Get in touch</h5>
-          <p class="mb-2"><a href="{% url 'contact' %}">Contact us</a></p>
+          <h5 class="mb-4">{% trans "Get in touch" %}</h5>
+          <p class="mb-2"><a href="{% url 'contact' %}">{% trans "Contact us" %}</a></p>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 footer-col-3">
-          <p class="mb-2">If you're enjoying NeverExpire and you'd like to contribute to server costs, you can do so using the button below.</p>
+          <p class="mb-2">{% blocktrans %}If you're enjoying NeverExpire and you'd like to contribute to server costs, you can do so using the button below.{% endblocktrans %}</p>
           <div class="w-100 d-flex justify-content-center">
             <form action="https://www.paypal.com/donate" method="post" target="_top">
             <input type="hidden" name="hosted_button_id" value="AZ2CHYQHTCBBA" />

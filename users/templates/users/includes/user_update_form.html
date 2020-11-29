@@ -1,4 +1,4 @@
-{% load form_tags widget_tweaks %}
+{% load form_tags widget_tweaks i18n %}
 
 {% if u_form.non_field_errors %}
   <div class="alert alert-danger" role="alert">
@@ -28,10 +28,10 @@
 {% for field in p_form %}
   <div class="form-group">
     {% if field.name == 'news_consent' %}
-      <h5>Newsletter consent</h5>
+      <h5>{% trans "Newsletter consent" %}</h5>
       <div class="custom-control custom-checkbox">
         <input class="custom-control-input" name="news_consent" type="checkbox" id="reminder-checkbox"{% if checked %} checked="checked"{% endif %}>
-        <label class="custom-control-label" for="reminder-checkbox"> I agree to receive news about NeverExpire (new updates, features, etc.) to my email address</label>
+        <label class="custom-control-label" for="reminder-checkbox">{% trans " I agree to receive news about NeverExpire (new updates, features, etc.) to my email address" %}</label>
       </div>
     {% else %}
       <h5 class="mb-0">{{ field.label_tag }}</h5>

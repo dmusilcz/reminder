@@ -1,6 +1,7 @@
+{% load i18n %}
 <div class="pagination w-100 d-flex flex-column">
   <div class="text-center">
-    <p class="small mb-1">Showing documents {{ docs.start_index }}-{{ docs.end_index }} of {{ docs.paginator.count }}</p>
+    <p class="small mb-1">{% blocktrans with start=docs.start_index end=docs.end_index total=docs.paginator.count %}Showing documents {{ start }}-{{ end }} of {{ total }}{% endblocktrans %}</p>
   </div>
   <div class="d-flex justify-content-center">
     {% if docs.has_previous %}

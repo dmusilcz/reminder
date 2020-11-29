@@ -1,13 +1,10 @@
-{% load crispy_forms_tags %}
-{% load static %}
-{% load i18n %}
-{% load l10n %}
+{% load crispy_forms_tags static i18n l10n %}
 
-<form method="post" action="{% url 'doc_update' form.instance.pk %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}" class="js-doc-update-form">
+<form method="post" novalidate autocomplete="off" action="{% url 'doc_update' form.instance.pk %}{% if order %}?o={{order}}{% endif %}{% if searched %}&searched=True{% endif %}" class="js-doc-update-form">
   {% csrf_token %}
   <div class="modal-header">
     <div class="doc-name text-center w-100">
-      <h3>Update <strong>{{ doc.name }}</strong></h3>
+      <h3>{% trans "Update " %}<strong>{{ doc.name }}</strong></h3>
     </div>
   </div>
   <div class="modal-body">
@@ -22,8 +19,8 @@
       </fieldset>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-blue">Save</button>
+    <button type="button" class="btn btn-grey-outline" data-dismiss="modal">{% trans "Close" %}</button>
+    <button type="submit" class="btn btn-blue">{% trans "Save" %}</button>
   </div>
 </form>
 
