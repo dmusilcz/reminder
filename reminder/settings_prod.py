@@ -103,15 +103,8 @@ SITE_ID = 1
 MAINTENANCE_503_TEMPLATE = 'main/503.html'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reminder',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': ''
+    'default': dj_database_url.config(default=config('DATABASE_URL'))
     }
-}
 
 # Password validation
 
