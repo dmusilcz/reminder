@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-03 18:15+0100\n"
+"POT-Creation-Date: 2020-12-04 00:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -555,16 +555,17 @@ msgstr ""
 "některých Vašich dokumentů:</p>"
 
 #: .\main\templates\main\reminder_email.html:28
+#: .\main\templates\main\reminder_email_plain.html:4
 msgid "Document name"
 msgstr "Název dokumentů"
 
 #: .\main\templates\main\reminder_email.html:29
-#, fuzzy
-#| msgid "Expiration Date"
+#: .\main\templates\main\reminder_email_plain.html:4
 msgid "Expiration date"
 msgstr "Datum expirace"
 
 #: .\main\templates\main\reminder_email.html:30
+#: .\main\templates\main\reminder_email_plain.html:4
 msgid "Days to expiration"
 msgstr "Dnů do expirace"
 
@@ -575,6 +576,23 @@ msgid ""
 msgstr ""
 "<p>Ujistěte se, že je obnovíte včas, ať nevyexpirují!</p><br>\n"
 "<p>S pozdravem, tým NeverExpire</p>"
+
+#: .\main\templates\main\reminder_email_plain.html:2
+#, python-format
+msgid ""
+"Hello %(username)s, sending you an expiration reminder for some of your "
+"documents:"
+msgstr ""
+"Dobrý den, %(username)s, posíláme Vám připomínku expirace "
+"některých Vašich dokumentů:"
+
+#: .\main\templates\main\reminder_email_plain.html:9
+msgid ""
+"Make sure you don't forget to renew them before they expire!\n"
+"Sincerely, The NeverExpire Team"
+msgstr ""
+"Ujistěte se, že je obnovíte včas, ať nevyexpirují!\n"
+"S pozdravem, tým NeverExpire"
 
 #: .\main\views.py:226
 msgid "Document added"

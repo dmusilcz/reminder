@@ -54,10 +54,12 @@ class SendReminders(CronJobBase):
         language = user.profile.language
         activate(language)
 
+        text = render_to_string('main/reminder_email_plain.html', {'username': user.username,
+                                                             'document_info': document_info})
         html = render_to_string('main/reminder_email.html', {'username': user.username,
                                                              'document_info': document_info})
 
-        return (settings.EMAIL_SUBJECT_PREFIX, "", html, settings.DEFAULT_FROM_EMAIL, [user.email,])
+        return (settings.EMAIL_SUBJECT_PREFIX, text, html, settings.DEFAULT_FROM_EMAIL, [user.email,])
 
     def send_mass_html_mail(self, datatuple, fail_silently=False, user=None, password=None, connection=None):
         """

@@ -26,6 +26,9 @@
     padding: 20px 0;
     text-align: center;
     vertical-align: top;
+}
+
+.title-text {
     font-size: 1.6rem;
     color: rgba(3, 23, 75, 0.77);
 }
