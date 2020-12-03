@@ -1,0 +1,12 @@
+{% load i18n %}
+{% blocktrans %}Hello {{ username }}, sending you an expiration reminder for some of your documents:{% endblocktrans %}
+
+{% trans "Document name" %} | {% trans "Expiration date" %} | {% trans "Days to expiration" %}
+{% for doc in document_info %}
+{{ doc.0|truncatechars:25 }} | {{ doc.1 }} | {{ doc.2 }}
+{% endfor %}
+
+{% blocktrans %}Make sure you don't forget to renew them before they expire!
+Sincerely, The NeverExpire Team{% endblocktrans %}
+
+https://www.neverexpire.net
