@@ -17,6 +17,8 @@ from django.contrib.messages import constants as messages
 import dj_database_url
 import os
 import django.conf.locale
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'vinaigrette',
     'django_cron',
     'django_inlinecss',
-    'maintenancemode',
+    # 'maintenancemode',
 ]
 
 MIDDLEWARE = [
@@ -183,7 +185,19 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-SESSION_COOKIE_AGE = 1
+SESSION_COOKIE_AGE = 3600
+
+# Sentry settings
+
+sentry_sdk.init(
+    dsn="https://a16e56cf14e5442e8cd6400ffc2011e7@o485345.ingest.sentry.io/5540568",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
 
 LOGGING = {
     'version': 1,

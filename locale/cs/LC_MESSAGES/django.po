@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-29 21:12+0100\n"
+"POT-Creation-Date: 2020-12-03 18:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -511,10 +511,10 @@ msgstr "Email připomínky před expirací"
 #, python-format
 msgid "<p>You have <b>%(num)s</b> document saved</p>"
 msgid_plural "<p>You have <b>%(num)s</b> documents saved</p>"
-msgstr[0] "Máte <b>%(num)s</b> 0uložený dokument"
-msgstr[1] "Máte <b>%(num)s</b> 1uložené dokumenty"
-msgstr[2] "Máte <b>%(num)s</b> 2uložených dokumentů"
-msgstr[3] "Máte <b>%(num)s</b> 3uložených dokumentů"
+msgstr[0] "Máte <b>%(num)s</b> uložený dokument"
+msgstr[1] "Máte <b>%(num)s</b> uložené dokumenty"
+msgstr[2] "Máte <b>%(num)s</b> uložených dokumentů"
+msgstr[3] "Máte <b>%(num)s</b> uložených dokumentů"
 
 #: .\main\templates\main\includes\partial_docs.html:15
 msgid "Maximum documents: 100"
@@ -559,7 +559,9 @@ msgid "Document name"
 msgstr "Název dokumentů"
 
 #: .\main\templates\main\reminder_email.html:29
-msgid "Expiration Date"
+#, fuzzy
+#| msgid "Expiration Date"
+msgid "Expiration date"
 msgstr "Datum expirace"
 
 #: .\main\templates\main\reminder_email.html:30
@@ -602,19 +604,19 @@ msgstr "Název kategorie (Z - A)"
 msgid "Your message was sent"
 msgstr "Zpráva odeslána"
 
-#: .\reminder\settings.py:151 .\reminder\settings_prod.py:146
+#: .\reminder\settings.py:153 .\reminder\settings_prod.py:141
 msgid "Czech"
 msgstr "Čeština"
 
-#: .\reminder\settings.py:152 .\reminder\settings_prod.py:147
+#: .\reminder\settings.py:154 .\reminder\settings_prod.py:142
 msgid "English"
 msgstr "Angličtina"
 
-#: .\reminder\settings.py:182
+#: .\reminder\settings.py:184
 msgid "[NeverExpire] Expiration reminder"
 msgstr "[NeverExpire] Připomínka expirace"
 
-#: .\reminder\settings_prod.py:176
+#: .\reminder\settings_prod.py:171
 msgid "[NeverExpire] Expiration reminder "
 msgstr "[NeverExpire] Připomínka expirace"
 

@@ -17,6 +17,8 @@ from django.contrib.messages import constants as messages
 import dj_database_url
 import os
 import django.conf.locale
+# import sentry_sdk
+# from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -198,6 +200,15 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 SESSION_COOKIE_AGE = 3600
+
+# Sentry settings
+
+# sentry_sdk.init(
+#     dsn="https://a16e56cf14e5442e8cd6400ffc2011e7@o485345.ingest.sentry.io/5540568",
+#     integrations=[DjangoIntegration()],
+#     traces_sample_rate=1.0,
+#     send_default_pii=True
+# )
 
 # LOGGING = {
 #     'version': 1,
