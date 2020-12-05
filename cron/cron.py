@@ -77,7 +77,7 @@ class SendReminders(CronJobBase):
         messages = []
 
         for subject, text, html, from_email, recipient in datatuple:
-            message = EmailMultiAlternatives(subject, text, from_email, recipient)
+            message = EmailMultiAlternatives(subject, text, from_email, recipient, headers={'Reply-To': 'dmusilcz@gmail.com', 'List-Unsubscribe': '<https://www.neverexpire.net/docs/>'})
             message.attach_alternative(html, 'text/html')
             messages.append(message)
 

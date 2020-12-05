@@ -2,11 +2,15 @@
 {% blocktrans %}Hello {{ username }}, sending you an expiration reminder for some of your documents:{% endblocktrans %}
 
 {% trans "Document name" %} | {% trans "Expiration date" %} | {% trans "Days to expiration" %}
+
 {% for doc in document_info %}
 {{ doc.0|truncatechars:25 }} | {{ doc.1 }} | {{ doc.2 }}
 {% endfor %}
 
 {% blocktrans %}Make sure you don't forget to renew them before they expire!
+
+To unsubscribe or change your email reminders preferences, visit this link: www.neverexpire.net/docs/
+
 Sincerely, The NeverExpire Team{% endblocktrans %}
 
-https://www.neverexpire.net
+www.neverexpire.net
