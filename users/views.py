@@ -13,6 +13,10 @@ from django.contrib.auth import update_session_auth_hash
 from .forms import LoginForm, SignUpForm, UserInformationUpdateForm, ProfileUpdateForm
 from .models import Profile
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import activate
+from django.core.mail import get_connection, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.conf import settings
 
 
 def signup(request):
@@ -25,6 +29,8 @@ def signup(request):
             request.session[translation.LANGUAGE_SESSION_KEY] = language
             profile = Profile.objects.create(user=user, language=language, news_consent=True)
             profile.save()
+            email = send_welcome_email(user)
+            print(email)
 
             return redirect('home')
     else:
@@ -155,3 +161,21 @@ def set_language_from_url(request, user_language):
     request.session[translation.LANGUAGE_SESSION_KEY] = user_language
 
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+def send_welcome_email(user, fail_silently=False, password=None, connection=None):
+    language = user.profile.language
+    activate(language)
+
+    text = render_to_string('main/welcome_email_plain.html', {'username': user.username})
+    html = render_to_string('main/welcome_email.html', {'username': user.username})
+
+    connection = connection or get_connection(username=user, password=password, fail_silently=fail_silently)
+    messages = []
+
+    message = EmailMultiAlternatives(_('Welcome to NeverExpire'), text, settings.DEFAULT_FROM_EMAIL, [user.email,],
+                                     headers={'List-Unsubscribe': '<https://www.neverexpire.net/docs/>'})
+    message.attach_alternative(html, 'text/html')
+    messages.append(message)
+
+    return connection.send_messages(messages)

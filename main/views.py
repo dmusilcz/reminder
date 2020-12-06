@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.views.generic import ListView, CreateView
-from .models import Category, Document, ReminderChoice, ReminderThrough
+from .models import Category, Document, ReminderChoice, ReminderThrough, Announcement
 from .forms import SearchForm, DocumentUpdateForm, CategoryUpdateForm, ContactForm
 from django.utils.translation import get_language, gettext_lazy as _
 
@@ -46,6 +46,9 @@ def home(request):
             docs_expired_in_6_months = documents.filter(expiry_date__range=(today, today + timedelta(days=183))).count()
             docs_uncategorized = documents.filter(category__isnull=True).count()
 
+            announcements = Announcement.objects.all()
+            announcement = announcements.first() if announcements else None
+
             context = {'documents_count': documents_count,
                        'categories_count': categories_count,
                        'next_doc_expiring': next_doc_expiring,
@@ -54,7 +57,8 @@ def home(request):
                        'documents_expired': documents_expired,
                        'docs_expired_in_1_month': docs_expired_in_1_month,
                        'docs_expired_in_6_months': docs_expired_in_6_months,
-                       'docs_uncategorized': docs_uncategorized}
+                       'docs_uncategorized': docs_uncategorized,
+                       'announcement': announcement}
 
             return render(request, 'main/home_user.html', context)
         else:
