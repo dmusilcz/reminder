@@ -4,10 +4,17 @@
 {% block content %}
 <main class="main" id="main">
   <div class="container p-0">
+    <div class="row mx-0 pt-3 px-1">
+      <div class="spam-warning w-100" role="alert">
+        <p class="my-0 p-2">{% blocktrans %}Important: Please take a moment to go to your email settings and make sure our emails from 'noreply@neverexpire.net' are not received into your SPAM/Promotions/other non-inbox folders so you dont miss them.{% endblocktrans %}</p>
+        <p class="my-0 p-2">{% blocktrans with user_joined=user.date_joined %}You can find instructions to do so in an email we sent to you after your registration ({{ user_joined }} UTC).{% endblocktrans %}</p>
+      </div>
+    </div>
     {% if announcement %}
       <div class="row mx-0 pt-3 px-1">
-        <div class="announcement text-center bg-warning w-100" role="alert">
-          <p class="my-0 py-1">{{ announcement }}</p>
+        <div class="announcement bg-warning w-100" role="alert">
+          <p class="my-0 p-2">CZ: {{ announcement.text_cz }}</p>
+          <p class="my-0 p-2">EN: {{ announcement.text_en }}</p>
         </div>
       </div>
     {% endif %}
@@ -33,7 +40,7 @@
       <a class="btn btn-grey mx-1 my-1 " href="{% url 'docs' %}"><i class="far fa-file mr-2"></i>{% trans "My documents" %}</a>
     </div>
   </div>
-  <div class="container h-100 p-0 py-3">
+  <div class="container  p-0 py-3">
     <div class="grid-user px-1">
       <div class="user-item mb-0">
         <div class="user-item-card card">

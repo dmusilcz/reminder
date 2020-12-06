@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-05 14:03+0100\n"
+"POT-Creation-Date: 2020-12-06 19:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,34 +20,34 @@ msgstr ""
 
 #: .\main\forms.py:17
 #: .\main\templates\main\includes\partial_doc_detail.html:10
-#: .\main\templates\main\includes\partial_docs.html:36 .\main\views.py:200
+#: .\main\templates\main\includes\partial_docs.html:36 .\main\views.py:204
 msgid "Category"
 msgstr "Kategorie"
 
-#: .\main\forms.py:19 .\main\views.py:202
+#: .\main\forms.py:19 .\main\views.py:206
 msgid "Reminders can be chosen once this field is not empty"
 msgstr "Emailové připomínky lze vybrat jakmile toto pole nebude prázdné"
 
 #: .\main\forms.py:20
 #: .\main\templates\main\includes\partial_doc_detail.html:12
-#: .\main\templates\main\includes\partial_docs.html:38 .\main\views.py:203
+#: .\main\templates\main\includes\partial_docs.html:38 .\main\views.py:207
 msgid "Expiry date"
 msgstr "Datum expirace"
 
-#: .\main\forms.py:25 .\main\views.py:210
+#: .\main\forms.py:25 .\main\views.py:214
 msgid "Email reminders before expiration"
 msgstr "Email připomínky před expirací"
 
-#: .\main\forms.py:26 .\main\forms.py:37 .\main\views.py:211
-#: .\main\views.py:398
+#: .\main\forms.py:26 .\main\forms.py:37 .\main\views.py:215
+#: .\main\views.py:402
 msgid "Name"
 msgstr "Název"
 
 #: .\main\forms.py:27 .\main\forms.py:38
 #: .\main\templates\main\includes\partial_cats.html:24
 #: .\main\templates\main\includes\partial_doc_detail.html:8
-#: .\main\templates\main\includes\partial_docs.html:34 .\main\views.py:212
-#: .\main\views.py:399
+#: .\main\templates\main\includes\partial_docs.html:34 .\main\views.py:216
+#: .\main\views.py:403
 msgid "Description"
 msgstr "Popis"
 
@@ -157,7 +157,7 @@ msgstr "Přihlásit"
 msgid "Sign up"
 msgstr "Registrace"
 
-#: .\main\templates\main\base.html:70 .\main\templates\main\home_user.html:15
+#: .\main\templates\main\base.html:70 .\main\templates\main\home_user.html:22
 msgid "Overview"
 msgstr "Přehled"
 
@@ -226,7 +226,7 @@ msgid "Send"
 msgstr "Odeslat"
 
 #: .\main\templates\main\document_form.html:23
-#: .\main\templates\main\home_user.html:32
+#: .\main\templates\main\home_user.html:39
 #: .\main\templates\main\includes\partial_docs.html:13
 msgid "Add document"
 msgstr "Přidat dokument"
@@ -301,7 +301,23 @@ msgstr "Pojištění domu"
 msgid "MOT test"
 msgstr "Technická kontrola vozidla"
 
-#: .\main\templates\main\home_user.html:22
+#: .\main\templates\main\home_user.html:9
+msgid ""
+"Important: Please take a moment to go to your email settings and make sure "
+"our emails from 'noreply@neverexpire.net' are not received into your SPAM/"
+"Promotions/other non-inbox folders so you dont miss them."
+msgstr ""
+"Důležité: Doporučujeme zkontrolovat nastavení Vaší emailové schránky a ujistit se, že naše emaily (od noreply@neverexpire.net) Vám nechodí do SPAM/Promoakce/jiné složky mimo přijaté emaily, kde si jich nemusíte všimnout."
+
+#: .\main\templates\main\home_user.html:10
+#, python-format
+msgid ""
+"You can find instructions to do so in an email we sent to you after your "
+"registration (%(user_joined)s UTC)."
+msgstr ""
+"Instrukce pro nastavení lze nalézt v emailu, který jsme Vám odeslali ihned po registraci (%(user_joined)s UTC)."
+
+#: .\main\templates\main\home_user.html:29
 msgid ""
 "\n"
 "              <h4 class=\"my-2\">You have no documents saved.</h4>\n"
@@ -313,53 +329,53 @@ msgstr ""
 "              <h3>Nenechte je expirovat a uložte si je!</h3>\n"
 "              "
 
-#: .\main\templates\main\home_user.html:33
+#: .\main\templates\main\home_user.html:40
 msgid "My documents"
 msgstr "Mé dokumenty"
 
-#: .\main\templates\main\home_user.html:40
+#: .\main\templates\main\home_user.html:47
 msgid "Documents saved"
 msgstr "Uloženo dokumentů"
 
-#: .\main\templates\main\home_user.html:46
+#: .\main\templates\main\home_user.html:53
 msgid "Categories saved"
 msgstr "Uloženo kategorií"
 
-#: .\main\templates\main\home_user.html:52
+#: .\main\templates\main\home_user.html:59
 msgid "Next document expiring"
 msgstr "Nejbližší expirace"
 
-#: .\main\templates\main\home_user.html:56
+#: .\main\templates\main\home_user.html:63
 msgid "Document: "
 msgstr "Dokument: "
 
-#: .\main\templates\main\home_user.html:65
+#: .\main\templates\main\home_user.html:72
 msgid "Next reminder sent on"
 msgstr "Příští email připomínka"
 
-#: .\main\templates\main\home_user.html:81
+#: .\main\templates\main\home_user.html:88
 #: .\main\templates\main\includes\partial_doc_detail.html:20
 msgid "Last reminder sent on"
 msgstr "Poslední email připomínka"
 
-#: .\main\templates\main\home_user.html:82
+#: .\main\templates\main\home_user.html:89
 #: .\main\templates\main\includes\partial_doc_detail.html:21
 msgid "UTC timezone"
 msgstr "časová zóna: UTC"
 
-#: .\main\templates\main\home_user.html:87
+#: .\main\templates\main\home_user.html:94
 msgid "Documents expired"
 msgstr "Expirovaných dokumentů"
 
-#: .\main\templates\main\home_user.html:93
+#: .\main\templates\main\home_user.html:100
 msgid "Documents expiring in 1 month"
 msgstr "Počet expirací během 1 měsíce"
 
-#: .\main\templates\main\home_user.html:99
+#: .\main\templates\main\home_user.html:106
 msgid "Documents expiring in 6 months"
 msgstr "Počet expirací během 6 měsíců"
 
-#: .\main\templates\main\home_user.html:105
+#: .\main\templates\main\home_user.html:112
 msgid "Uncategorized documents"
 msgstr "Dokumentů bez kategorie"
 
@@ -372,24 +388,24 @@ msgstr "Zobrazeny dokumenty %(start)s-%(end)s z %(total)s"
 msgid "Order by:"
 msgstr "Řazení:"
 
-#: .\main\templates\main\includes\order_button.html:8 .\main\views.py:471
+#: .\main\templates\main\includes\order_button.html:8 .\main\views.py:475
 msgid "Expiry date increases"
 msgstr "Expirace, vzestupně"
 
-#: .\main\templates\main\includes\order_button.html:9 .\main\views.py:472
+#: .\main\templates\main\includes\order_button.html:9 .\main\views.py:476
 msgid "Expiry date decreases"
 msgstr "Expirace, sestupně"
 
-#: .\main\templates\main\includes\order_button.html:10 .\main\views.py:473
+#: .\main\templates\main\includes\order_button.html:10 .\main\views.py:477
 msgid "Name (A - Z)"
 msgstr "Název (A - Z)"
 
-#: .\main\templates\main\includes\order_button.html:11 .\main\views.py:474
+#: .\main\templates\main\includes\order_button.html:11 .\main\views.py:478
 msgid "Name (Z - A)"
 msgstr "Název (Z - A)"
 
 #: .\main\templates\main\includes\order_button.html:12
-#: .\main\templates\main\includes\order_button.html:13 .\main\views.py:475
+#: .\main\templates\main\includes\order_button.html:13 .\main\views.py:479
 msgid "Category name (A - Z)"
 msgstr "Název kategorie (A - Z)"
 
@@ -578,7 +594,8 @@ msgid ""
 "                    <p>Sincerely, The NeverExpire Team</p><br>"
 msgstr ""
 "<p>Ujistěte se, že je obnovíte včas, ať nevyexpirují!</p><br>\n"
-"<p>Pro odhlášení nebo změnu Vašich emailových preferencí navštivte <a href='https://www.neverexpire.net/docs/'>tento odkaz</a>.</p><br>\n"
+"<p>Pro odhlášení nebo změnu Vašich emailových preferencí navštivte <a "
+"href='https://www.neverexpire.net/docs/'>tento odkaz</a>.</p><br>\n"
 "<p>S pozdravem, tým NeverExpire</p>"
 
 #: .\main\templates\main\reminder_email_plain.html:2
@@ -600,36 +617,147 @@ msgid ""
 "Sincerely, The NeverExpire Team"
 msgstr ""
 "Ujistěte se, že je obnovíte včas, ať nevyexpirují!\n"
-">Pro odhlášení nebo změnu Vašich emailových preferencí navštivte tento odkaz: "
-"www.neverexpire.net/docs/\n"
+"Pro odhlášení nebo změnu Vašich emailových preferencí navštivte tento "
+"odkaz: www.neverexpire.net/docs/\n"
 "\n"
 "S pozdravem, tým NeverExpire"
 
-#: .\main\views.py:226
+#: .\main\templates\main\welcome_email.html:20
+#, python-format
+msgid ""
+"<p>Hello <b>%(username)s</b>, welcome to NeverExpire! You are now ready to "
+"save your documents and choose when to be reminded of their expiration.</"
+"p><br>\n"
+"                    <p>However if you've received this email into your SPAM/"
+"Promotions/other folder than your primary inbox, please follow the "
+"instructions below so you don't miss your email reminders.</p><br><br>\n"
+"                    <p>For Gmail:</p><br>\n"
+"                    <ol>\n"
+"                      <li>Click the three bullets button ('More') in the top "
+"of this email</li>\n"
+"                      <li>Select 'Filter messages like these'</li>\n"
+"                      <li>Click 'Create filter'</li>\n"
+"                      <li>Check 'Never send it to Spam'</li>\n"
+"                      <li>Check 'Categorize as' and select 'Primary' from "
+"the dropdown list</li>\n"
+"                      <li>Check 'Also apply filter to X matching "
+"conversations'</li>\n"
+"                      <li>Click 'Create filter'</li>\n"
+"                    </ol><br>"
+msgstr ""
+"<p>Dobrý den, <b>%(username)s</b>, vítá Vás NeverExpire! Nyní si můžete "
+"uložit své dokumenty a zvolit si, kdy Vám máme připomenout jejich expiraci.</p><br>\n"
+"<p>Pokud jste ale tento email obdrželi do SPAMu/"
+"Promoakcí/jiné složky mimo Vaši primární složku pro přijaté emaily, "
+"následujte prosím instrukce níže, ať Vám od nás neunikne žádná email připomínka.</p><br><br>\n"
+"<p>Gmail:</p><br>\n"
+"<ol>\n"
+"<li>Klikněte na tlačítko se třemi tečkami ('Další') v horní části tohoto emailu</li>\n"
+"<li>Zvolte 'Filtrovat podobné zprávy'</li>\n"
+"<li>Klikněte na 'Vytvořit filtr'</li>\n"
+"<li>Zaškrtněte 'Nikdy neposílat do složky Spam'</li>\n"
+"<li>Zaškrtněte 'Zařadit do kategorie:' a zvolte 'Primární' z rozbalovacího menu</li>\n"
+"<li>Zaškrtněte 'Použít filtr také na X odpovídající konverzace'</li>\n"
+"<li>Kliněte na 'Vytvořit filtr'</li>\n"
+"</ol><br>"
+
+#: .\main\templates\main\welcome_email.html:36
+msgid ""
+"<p>If you don't find similar option in your mailbox, some providers allow to "
+"add 'noreply@neverexpire.net' as a trustworthy email address to avoid "
+"miscategorization of emails from this address.</p><br>\n"
+"                    <p>We hope you will enjoy NeverExpire!</p><br>\n"
+"                    <p>To unsubscribe or change your email reminders "
+"preferences, visit <a href='https://www.neverexpire.net/docs/'>this link</a>."
+"</p><br>\n"
+"                    <p>Sincerely, The NeverExpire Team</p><br>"
+msgstr ""
+"<p>Pokud jste ve své schránce nenašli podobné nastavení, někteří poskytovatelé umožňují přidat adresu 'noreply@neverexpire.net' jako důvěryhodnou, aby bylo možné se vyhnout nesprávnému zařazení emailů od tohoto odesilatele.</p><br>\n"
+"<p>Věříme, že se Vám NeverExpire bude líbit!</p><br>\n"
+"<p>Pro odhlášení nebo změnu Vašich emailových preferencí navštivte <a "
+"href='https://www.neverexpire.net/docs/'>tento odkaz</a>.</p><br>\n"
+"<p>S pozdravem, tým NeverExpire</p>"
+
+#: .\main\templates\main\welcome_email_plain.html:2
+#, python-format
+msgid ""
+"Hello %(username)s, welcome to NeverExpire! You are now ready to save your "
+"documents and choose when to be reminded of their expiration.\n"
+"\n"
+"However if you've received this email into your SPAM/Promotions/other folder "
+"than your primary inbox, please follow the instructions below so you don't "
+"miss your email reminders.\n"
+"\n"
+"For Gmail:\n"
+"1. Click the three bullets button ('More') in the top of this email\n"
+"2. Select 'Filter messages like these'\n"
+"3. Click 'Create filter'\n"
+"4. Check 'Never send it to Spam'\n"
+"5. Check 'Categorize as' and select 'Primary' from the dropdown list\n"
+"6. Check 'Also apply filter to X matching conversations'\n"
+"7. Click 'Create filter'"
+msgstr ""
+"Dobrý den, %(username)s, vítá Vás NeverExpire! Nyní si můžete "
+"uložit své dokumenty a zvolit si, kdy Vám máme připomenout jejich expiraci.\n"
+"\n"
+"Pokud jste ale tento email obdrželi do SPAMu/"
+"Promoakcí/jiné složky mimo Vaši primární složku pro přijaté emaily, "
+"následujte prosím instrukce níže, ať Vám od nás neunikne žádná email připomínka.\n"
+"\n"
+"Gmail:\n"
+"1. Klikněte na tlačítko se třemi tečkami ('Další') v horní části tohoto emailu\n"
+"2. Zvolte 'Filtrovat podobné zprávy'\n"
+"3. Klikněte na 'Vytvořit filtr'\n"
+"4. Zaškrtněte 'Nikdy neposílat do složky Spam'\n"
+"5. Zaškrtněte 'Zařadit do kategorie:' a zvolte 'Primární' z rozbalovacího menu\n"
+"6. Zaškrtněte 'Použít filtr také na X odpovídající konverzace'\n"
+"7. Kliněte na 'Vytvořit filtr'"
+
+#: .\main\templates\main\welcome_email_plain.html:15
+msgid ""
+"If you don't find similar option in your mailbox, some providers allow to "
+"add 'noreply@neverexpire.net' as a trustworthy email address to avoid "
+"miscategorization of emails from this address.\n"
+"\n"
+"We hope you will enjoy NeverExpire!\n"
+"\n"
+"To unsubscribe or change your email reminders preferences, visit this link: "
+"www.neverexpire.net/docs/\n"
+"\n"
+"Sincerely, The NeverExpire Team"
+msgstr ""
+"Pokud jste ve své schránce nenašli podobné nastavení, někteří poskytovatelé umožňují přidat adresu 'noreply@neverexpire.net' jako důvěryhodnou, aby bylo možné se vyhnout nesprávnému zařazení emailů od tohoto odesilatele.\n"
+"Věříme, že se Vám NeverExpire bude líbit!\n"
+"Pro odhlášení nebo změnu Vašich emailových preferencí navštivte tento "
+"odkaz: www.neverexpire.net/docs/\n"
+"\n"
+"S pozdravem, tým NeverExpire"
+
+#: .\main\views.py:230
 msgid "Document added"
 msgstr "Dokument přidán"
 
-#: .\main\views.py:355
+#: .\main\views.py:359
 msgid "Document deleted"
 msgstr "Dokument smazán"
 
-#: .\main\views.py:405
+#: .\main\views.py:409
 msgid "Category added"
 msgstr "Kategorie přidána"
 
-#: .\main\views.py:426
+#: .\main\views.py:430
 msgid "Category updated"
 msgstr "Kategorie upravena"
 
-#: .\main\views.py:451
+#: .\main\views.py:455
 msgid "Category deleted"
 msgstr "Kategorie smazána"
 
-#: .\main\views.py:476
+#: .\main\views.py:480
 msgid "Category name (Z - A)"
 msgstr "Název kategorie (Z - A)"
 
-#: .\main\views.py:496
+#: .\main\views.py:500
 msgid "Your message was sent"
 msgstr "Zpráva odeslána"
 
@@ -921,17 +1049,21 @@ msgstr ""
 "formuláře</a> s Vaším uživatelským jménem a přidejte inforamce o tom, co se "
 "přihodilo."
 
-#: .\users\views.py:91
+#: .\users\views.py:97
 msgid "Account updated"
 msgstr "Profil upraven"
 
-#: .\users\views.py:138
+#: .\users\views.py:144
 msgid "Your password was successfully updated!"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: .\users\views.py:141
+#: .\users\views.py:147
 msgid "Please correct the error below."
 msgstr "Prosím opravte chybu uvedenou níže."
+
+#: .\users\views.py:176
+msgid "Welcome to NeverExpire"
+msgstr "Vítá Vás NeverExpire"
 
 #: .\main.ReminderChoice/field:1
 msgid "1 day"

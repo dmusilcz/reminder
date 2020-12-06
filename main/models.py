@@ -84,4 +84,5 @@ class ReminderThrough(models.Model):
 
 
 class Announcement(models.Model):
-    text = models.TextField(max_length=6000, verbose_name='Text')
+    text_cz = models.TextField(max_length=6000, verbose_name='Text CZ')
+    text_en = models.TextField(max_length=6000, verbose_name='Text EN')
