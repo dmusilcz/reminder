@@ -170,7 +170,7 @@ def send_welcome_email(user, fail_silently=False, password=None, connection=None
     text = render_to_string('main/welcome_email_plain.html', {'username': user.username})
     html = render_to_string('main/welcome_email.html', {'username': user.username})
 
-    connection = connection or get_connection(username=user, password=password, fail_silently=fail_silently)
+    connection = connection or get_connection(username=None, password=password, fail_silently=fail_silently)
     messages = []
 
     message = EmailMultiAlternatives(_('Welcome to NeverExpire'), text, settings.DEFAULT_FROM_EMAIL, [user.email,],
