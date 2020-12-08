@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'vinaigrette',
     'django_cron',
     'django_inlinecss',
-    # 'maintenancemode',
+    'maintenancemode',
 ]
 
 MIDDLEWARE = [
@@ -101,7 +101,7 @@ CRON_CLASSES = [
     "cron.cron.SendReminders",
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 MAINTENANCE_503_TEMPLATE = 'main/503.html'
 
 DATABASES = {

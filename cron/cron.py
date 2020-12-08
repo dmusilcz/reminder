@@ -1,21 +1,22 @@
 from django_cron import CronJobBase, Schedule
 from django.conf import settings
-from main.models import Category, Document, ReminderChoice, ReminderThrough
-from django.contrib.auth.models import User
-from django.utils.translation import get_language, gettext_lazy as _
+from main.models import ReminderThrough
 from django.utils import timezone
 from django.core.mail import send_mail, send_mass_mail, get_connection, EmailMultiAlternatives
-from datetime import datetime, timedelta, tzinfo
+from datetime import timedelta
 from collections import defaultdict
 from django.utils.translation import activate
 from django.template.loader import render_to_string
 
 
 class SendReminders(CronJobBase):
-    RUN_EVERY_MINS = 0.2 # every 2 hours
+    # RUN_EVERY_MINS = 0.2
+    RUN_AT_TIMES = ['5:00']
+    MIN_NUM_FAILURES = 2
 
-    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
-    code = 'send_reminders'    # a unique code
+    # schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    schedule = Schedule(run_at_times=RUN_AT_TIMES)
+    code = 'send_reminders'
 
     def do(self):
         try:
@@ -31,7 +32,6 @@ class SendReminders(CronJobBase):
                 users[doc_reminder[0].author].append((doc_reminder[0].name, doc_reminder[0].expiry_date, doc_reminder[1]))
                 doc_reminder[0].last_reminder_sent = timezone.localtime()
                 doc_reminder[0].save()
-            # print(users)
 
             email_records = list()
 
@@ -40,12 +40,9 @@ class SendReminders(CronJobBase):
                 email_records.append(email_record)
 
             email_records = tuple(email_records)
-            # print(email_records)
 
             emails_sent = self.send_mass_html_mail(email_records)
-            print(emails_sent)
-
-            # send_mass_mail(email_records, fail_silently=False)
+            print(f'Reminder emails sent today: {emails_sent}')
 
         except Exception as e:
             print(e)
