@@ -49,6 +49,7 @@ class SignUpForm(UserCreationForm):
         self.fields['username'].validators.append(ForbiddenUsernamesValidator)
         self.fields['username'].validators.append(UniqueUsernameIgnoreCaseValidator)
         self.fields['email'].validators.append(UniqueEmailValidator)
+        self.fields['email'].help_text = _('You will be receiving expiration reminders to this email address.')
 
 
 class UserInformationUpdateForm(forms.ModelForm):

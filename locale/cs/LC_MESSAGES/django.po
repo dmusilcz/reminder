@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-06 23:01+0100\n"
+"POT-Creation-Date: 2020-12-08 18:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -576,7 +576,7 @@ msgstr ""
 #: .\main\templates\main\reminder_email.html:28
 #: .\main\templates\main\reminder_email_plain.html:4
 msgid "Document name"
-msgstr "Název dokumentů"
+msgstr "Název dokumentu"
 
 #: .\main\templates\main\reminder_email.html:29
 #: .\main\templates\main\reminder_email_plain.html:4
@@ -655,8 +655,9 @@ msgstr ""
 "<p>Dobrý den, <b>%(username)s</b>, vítá Vás NeverExpire! Nyní si můžete "
 "uložit své dokumenty a zvolit si, kdy Vám máme připomenout jejich expiraci.</"
 "p><br>\n"
-"<p>Následujte prosím instrukce níže, ať Vám od nás neunikne žádná email připomínka v případě, že některé naše emaily budou zařazeny do SPAMu/Promoakcí/jiné složky mimo "
-"Vaši primární složku pro přijaté emaily.</p><br>\n"
+"<p>Následujte prosím instrukce níže, ať Vám od nás neunikne žádná email "
+"připomínka v případě, že některé naše emaily budou zařazeny do SPAMu/"
+"Promoakcí/jiné složky mimo Vaši primární složku pro přijaté emaily.</p><br>\n"
 "<p>Gmail:</p>\n"
 "<ol>\n"
 "<li>Pokud je přítomné, klikněte na tlačítko 'Nejde o spam'</li>\n"
@@ -814,7 +815,11 @@ msgstr "Uživatel s tímto uživatelským jménem již existuje"
 msgid "Keep me logged in"
 msgstr "Zapamatuj si mě"
 
-#: .\users\forms.py:71
+#: .\users\forms.py:52
+msgid "You will be receiving expiration reminders to this email address."
+msgstr "Emailové připomínky Vám budeme zasílat na tuto emailovou adresu."
+
+#: .\users\forms.py:72
 msgid "Language"
 msgstr "Jazyk"
 
