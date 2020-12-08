@@ -58,7 +58,7 @@
         <div class="user-item-card card">
           <div class="user-item-title"><h4 class="mb-0">{% trans "Next document expiring" %}</h4></div>
           <div class="user-item-content">
-            {% if next_reminder_sent_on %}
+            {% if next_doc_expiring %}
               <p class="mb-0">{{ next_doc_expiring.expiry_date }}</p>
               <p class="mb-0">{% trans "Document: " %}{{ next_doc_expiring.name }}</p>
             {% else %}
