@@ -34,13 +34,13 @@
         <div class="btn-group">
           {% get_current_language as LANGUAGE_CODE %}
           {% get_language_info for LANGUAGE_CODE as language %}
-          <button type="button" class="btn btn-light dropdown-toggle lang-button mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-americas mr-2"></i>{{ language.name_local }} ({{ LANGUAGE_CODE }})
+          <button type="button" class="btn btn-light dropdown-toggle lang-button mb-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe-americas mr-2"></i>{{ language.name_local }}
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu language-menu">
           {% get_available_languages as LANGUAGES %}
           {% for lang in LANGUAGES %}
-            <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% url "set_language_from_url" user_language=lang.0 %}" class="dropdown-item">{{ lang.1|capfirst }} ({{ lang.0 }})</a></li>
+            <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% url "set_language_from_url" user_language=lang.0 %}" class="dropdown-item">{{ lang.1|capfirst }}</a></li>
           {% endfor %}
           </ul>
         </div>
