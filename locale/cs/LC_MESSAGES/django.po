@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 21:47+0100\n"
+"POT-Creation-Date: 2020-12-14 21:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,6 +90,7 @@ msgid "Entered 'Expiry date from' is later than 'Expiry date to'"
 msgstr "'Datum expirace do' je dříve než 'Datum expirace od'"
 
 #: .\main\forms.py:84 .\users\forms.py:53
+#: .\users\templates\users\my_account.html:20
 msgid "Email"
 msgstr "E-mailová adresa"
 
@@ -899,10 +900,6 @@ msgstr "Nevyplněno"
 msgid "Last name"
 msgstr "Příjmení"
 
-#: .\users\templates\users\my_account.html:20
-msgid "Email address"
-msgstr "Emailová adresa"
-
 #: .\users\templates\users\my_account.html:22
 msgid "Preferred language"
 msgstr "Preferovaný jazyk"
@@ -1118,6 +1115,9 @@ msgstr "3 měsíce"
 #: .\main.ReminderChoice/field:7
 msgid "6 months"
 msgstr "6 měsíců"
+
+#~ msgid "Email address"
+#~ msgstr "Emailová adresa"
 
 #~ msgid "Czech"
 #~ msgstr "Čeština"

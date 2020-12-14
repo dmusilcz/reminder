@@ -17,7 +17,7 @@
             <p class="mb-0">{% if object.first_name %}{{ object.first_name }}{% else %}{% trans "Not saved" %}{% endif %}</p><hr>
             <h5>{% trans "Last name" %}</h5>
             <p class="mb-0">{% if object.last_name %}{{ object.last_name }}{% else %}{% trans "Not saved" %}{% endif %}</p><hr>
-            <h5>{% trans "Email address" %}</h5>
+            <h5>{% trans "Email" %}</h5>
             <p class="mb-0">{{ object.email }}</p><hr>
             <h5>{% trans "Preferred language" %}</h5>
             <div class="mb-0">{{ object.profile.get_language_display }}</div><hr>
