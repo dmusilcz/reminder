@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 18:34+0100\n"
+"POT-Creation-Date: 2020-12-14 21:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,9 +89,10 @@ msgstr "Email připomínky před expirací"
 msgid "Entered 'Expiry date from' is later than 'Expiry date to'"
 msgstr "'Datum expirace do' je dříve než 'Datum expirace od'"
 
-#: .\main\forms.py:84
+#: .\main\forms.py:84 .\users\forms.py:53
+#: .\users\templates\users\my_account.html:20
 msgid "Email"
-msgstr "Emailová adresa"
+msgstr "E-mailová adresa"
 
 #: .\main\forms.py:85
 msgid "Subject"
@@ -305,7 +306,7 @@ msgstr "Technická kontrola vozidla"
 msgid ""
 "Important: Please take a moment to go to your email settings and make sure "
 "our emails from 'noreply@neverexpire.net' are not received into your SPAM/"
-"Promotions/other non-inbox folders so you dont miss them."
+"Promotions/other non-inbox folders so you don't miss them."
 msgstr ""
 "Důležité: Doporučujeme zkontrolovat nastavení Vaší emailové schránky a "
 "ujistit se, že naše emaily (od noreply@neverexpire.net) Vám nechodí do SPAM/"
@@ -783,13 +784,9 @@ msgstr "Název kategorie (Z - A)"
 msgid "Your message was sent"
 msgstr "Zpráva odeslána"
 
-#: .\reminder\settings.py:153 .\reminder\settings_prod.py:141
-msgid "Czech"
-msgstr "Čeština"
-
 #: .\reminder\settings.py:154 .\reminder\settings_prod.py:142
 msgid "English"
-msgstr "Angličtina"
+msgstr "English"
 
 #: .\reminder\settings.py:184
 msgid "[NeverExpire] Expiration reminder"
@@ -815,11 +812,15 @@ msgstr "Uživatel s tímto uživatelským jménem již existuje"
 msgid "Keep me logged in"
 msgstr "Zapamatuj si mě"
 
-#: .\users\forms.py:52
+#: .\users\forms.py:51
+msgid "Username can consist of letters, numbers and characters @, ., +, -, _."
+msgstr ""
+
+#: .\users\forms.py:54
 msgid "You will be receiving expiration reminders to this email address."
 msgstr "Emailové připomínky Vám budeme zasílat na tuto emailovou adresu."
 
-#: .\users\forms.py:72
+#: .\users\forms.py:74
 msgid "Language"
 msgstr "Jazyk"
 
@@ -898,10 +899,6 @@ msgstr "Nevyplněno"
 #: .\users\templates\users\my_account.html:18
 msgid "Last name"
 msgstr "Příjmení"
-
-#: .\users\templates\users\my_account.html:20
-msgid "Email address"
-msgstr "Emailová adresa"
 
 #: .\users\templates\users\my_account.html:22
 msgid "Preferred language"
@@ -1118,3 +1115,9 @@ msgstr "3 měsíce"
 #: .\main.ReminderChoice/field:7
 msgid "6 months"
 msgstr "6 měsíců"
+
+#~ msgid "Email address"
+#~ msgstr "Emailová adresa"
+
+#~ msgid "Czech"
+#~ msgstr "Čeština"

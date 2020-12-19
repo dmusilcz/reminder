@@ -138,7 +138,7 @@ LOCALE_PATHS = (
 )
 
 LANGUAGES = [
-    ('cs', _('Czech')),
+    ('cs', 'Česky'),
     ('en', _('English')),
 ]
 
@@ -147,7 +147,7 @@ EXTRA_LANG_INFO = {
         'bidi': False, # right-to-left
         'code': 'cs',
         'name': 'Czech',
-        'name_local': u'Čeština', #unicode codepoints here
+        'name_local': u'Česky', #unicode codepoints here
     },
 }
 

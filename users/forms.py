@@ -48,7 +48,9 @@ class SignUpForm(UserCreationForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].validators.append(ForbiddenUsernamesValidator)
         self.fields['username'].validators.append(UniqueUsernameIgnoreCaseValidator)
+        self.fields['username'].help_text = _('Username can consist of letters, numbers and characters @, ., +, -, _.')
         self.fields['email'].validators.append(UniqueEmailValidator)
+        self.fields['email'].label = _('Email')
         self.fields['email'].help_text = _('You will be receiving expiration reminders to this email address.')
 
 
