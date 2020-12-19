@@ -291,7 +291,7 @@ def doc_update(request, pk):
                 except EmptyPage:
                     doc_list = paginator.page(paginator.num_pages)
 
-                messages.success(request, 'Document updated')
+                messages.success(request, _('Document updated'))
                 context = {'docs': doc_list,
                            'searched': searched,
                            'order': order,

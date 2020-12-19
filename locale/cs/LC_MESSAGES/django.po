@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 21:57+0100\n"
+"POT-Creation-Date: 2020-12-19 12:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -760,6 +760,10 @@ msgstr ""
 msgid "Document added"
 msgstr "Dokument přidán"
 
+#: .\main\views.py:294
+msgid "Document updated"
+msgstr "Dokument upraven"
+
 #: .\main\views.py:359
 msgid "Document deleted"
 msgstr "Dokument smazán"
@@ -814,7 +818,8 @@ msgstr "Zapamatuj si mě"
 
 #: .\users\forms.py:51
 msgid "Username can consist of letters, numbers and characters @, ., +, -, _."
-msgstr "Uživatelské jméno se může skládat z písmen, čísel a znaků @, ., +, -, _."
+msgstr ""
+"Uživatelské jméno se může skládat z písmen, čísel a znaků @, ., +, -, _."
 
 #: .\users\forms.py:54
 msgid "You will be receiving expiration reminders to this email address."
