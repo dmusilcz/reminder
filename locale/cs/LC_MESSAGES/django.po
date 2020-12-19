@@ -814,7 +814,7 @@ msgstr "Zapamatuj si mě"
 
 #: .\users\forms.py:51
 msgid "Username can consist of letters, numbers and characters @, ., +, -, _."
-msgstr ""
+msgstr "Uživatelské jméno se může skládat z písmen, čísel a znaků @, ., +, -, _."
 
 #: .\users\forms.py:54
 msgid "You will be receiving expiration reminders to this email address."
