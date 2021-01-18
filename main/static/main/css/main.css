@@ -40,7 +40,6 @@ body {
 }
 
 .footer-container {
-  /*font-family: 'Cardo', serif;*/
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -375,7 +374,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,text
 
 .user_navbar_container .navbar, .menu_navbar_container .navbar {
   z-index: 1000;
-  /*font-family: 'Cardo', serif;*/
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
   display: flex;/
