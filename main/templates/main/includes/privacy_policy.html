@@ -1,12 +1,12 @@
 {% load i18n %}
 <div class="modal-header d-flex">
-  <h4 class="modal-title">Privacy Policy</h4>
+  <h4 class="modal-title">{% trans "Privacy Policy" %}</h4>
   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body tap-body">
-  <p>Our Privacy Policy was last updated on 30 May 2020. It governs the privacy terms of our website, located at neverexpire.com, and the tools we provide you (the "Website" or the "Service"). Any capitalized terms not defined in our Privacy Policy, have the meaning as specified in our Terms of Use accessible at our Website.
+  {% blocktrans %}<p>Our Privacy Policy was last updated on 11 January 2021. It governs the privacy terms of our website, located at neverexpire.net, and the tools we provide you (the "Website" or the "Service"). Any capitalized terms not defined in our Privacy Policy, have the meaning as specified in our Terms of Use accessible at our Website.
 
   <h5>Your Privacy</h5>
   <p>Our Website follows all legal requirements to protect your privacy. Our Privacy Policy is a legal statement that explains how we may collect information from you and how treat it. You will see terms in our Privacy Policy that are capitalized. These terms have meanings as described in the Definitions section below.</p>
@@ -104,7 +104,7 @@
   <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 
   <h5>Contact Us</h5>
-  <p>If you have any questions about this Privacy Policy, please contact us by using the contact information we provided on our Contact page.</p>
+  <p>If you have any questions about this Privacy Policy, please contact us by using the contact information we provided on our Contact page.</p>{% endblocktrans %}
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-grey-outline" data-dismiss="modal">{% trans "Close" %}</button>

@@ -23,6 +23,7 @@ body {
 
 .logo {
   font-size: 1.6rem;
+  font-family: 'Cardo', serif;
 }
 
 .logo:hover {
@@ -39,7 +40,8 @@ body {
 }
 
 .footer-container {
-  font-family: 'Cardo', serif;
+  /*font-family: 'Cardo', serif;*/
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .footer-container h5{
@@ -78,6 +80,15 @@ body {
 .hero-text {
   font-size: 1.25rem;
   font-weight: 400;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+  margin-right: 5%;
+  margin-left: 5%;
+  }
 }
 
 .grid-user {
@@ -303,6 +314,17 @@ body {
   background-color: rgba(110, 2, 2, 0.79);
 }
 
+.btn-home {
+  color: white;
+  font-size: 1rem;
+  background-color: var(--menu-footer-bgcolor);
+}
+
+.btn-home:hover {
+  color: white;
+  background-color: rgba(3, 21, 117, 0.62);
+}
+
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
   background-color: var(--menu-footer-bgcolor);
 }
@@ -353,7 +375,8 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus,text
 
 .user_navbar_container .navbar, .menu_navbar_container .navbar {
   z-index: 1000;
-  font-family: 'Cardo', serif;
+  /*font-family: 'Cardo', serif;*/
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
   display: flex;/
 }
