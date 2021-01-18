@@ -236,7 +236,7 @@ msgstr "Přidat dokument"
 
 #: .\main\templates\main\home.html:8
 msgid "Control over expiration of your documents"
-msgstr "Přehled nad platností vašich dokumentů"
+msgstr "Dohled nad platností vašich dokumentů"
 
 #: .\main\templates\main\home.html:9
 msgid ""

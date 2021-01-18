@@ -14,6 +14,17 @@
   </script>
   <!-- Required meta tags -->
   <meta charset="utf-8">
+  <title>NeverExpire - Documents expiration reminder</title>
+  <meta name="Description" content="NeverExpire is a free service that lets you save any documents and sends you email reminders before they expire.">
+  <meta property="og:title" content="Control over expiration of your documents" />
+  <meta property="og:description" content="NeverExpire is a free service that lets you save any documents and sends you email reminders before they expire." />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NeverExpire" />
+  <meta property="og:url" content="https://neverexpire.net{{ request.path }}" />
+  <meta property="og:image" content="https://neverexpire.net{% static 'main/images/facebook_thumbnail.png' %}" />
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="shortcut icon" href="{% static 'main/images/favicon.png' %}"/>
   <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
@@ -24,7 +35,6 @@
   <script src="{% static 'main/js/jquery-3.5.1.min.js' %}"></script>
   <script src="{% static 'main/js/cookielaw.js' %}"></script>
   <script src="{% static 'main/js/popper.min.js' %}"></script>
-  <title>NeverExpire - Documents expiration reminder</title>
 </head>
 <body class="d-flex flex-column">
   <div class="user_navbar_container_wrapper{% if 'home' in request.resolver_match.url_name %}{% if not user.is_authenticated %} sticky-top{% endif %}{% endif %}">
