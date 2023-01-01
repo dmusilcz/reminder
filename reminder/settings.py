@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_cron',
     'django_inlinecss',
     'maintenancemode',
+    'antispam',
 ]
 
 MIDDLEWARE = [

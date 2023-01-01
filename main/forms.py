@@ -3,6 +3,7 @@ from users.widgets import FengyuanChenDatePickerInput
 from .models import Category, Document, ReminderChoice
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from antispam.honeypot.forms import HoneypotField
 
 
 class DocumentUpdateForm(forms.ModelForm):
@@ -84,7 +85,7 @@ class ContactForm(forms.Form):
     email = forms.EmailField(max_length=100, required=True, label=_("Email"))
     subject = forms.CharField(max_length=200, required=False, label=_("Subject"))
     message = forms.CharField(max_length=10000, required=True, label=_("Message"), widget=forms.Textarea())
-
+    name = HoneypotField()
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(ContactForm, self).__init__(*args, **kwargs)
